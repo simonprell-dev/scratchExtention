@@ -1,0 +1,442 @@
+{
+  "addEffects": {
+    "code": "when this sprite clicked\nrepeat (10)\nchange [color v] effect by (25)\nend",
+    "note": ""
+  },
+  "animateCharAddSound": {
+    "code": "when flag clicked\nstart sound (Chirp v)",
+    "note": ""
+  },
+  "animateCharChangeColor": {
+    "code": "when this sprite clicked\nchange [color v] effect by (25)\n\nwhen flag clicked\nclear graphic effects",
+    "note": ""
+  },
+  "animateCharJump": {
+    "code": "when [space v] key pressed\nrepeat (6)\nchange y by (10)\nend\nrepeat (6)\nchange y by (-10)\nend",
+    "note": ""
+  },
+  "animateCharMove": {
+    "code": "when [right arrow v] key pressed\nchange x by (10)\n\nwhen [left arrow v] key pressed\nchange x by (-10)",
+    "note": ""
+  },
+  "animateCharSaySomething": {
+    "code": "when flag clicked\nsay [Hello!] for (2) seconds",
+    "note": ""
+  },
+  "animateCharTalk": {
+    "code": "when flag clicked\nstart sound (Chirp v)\nswitch costume to (Penguin2-b v)\nwait (0.5) seconds\nswitch costume to (Penguin2-a v)",
+    "note": ""
+  },
+  "changeSize": {
+    "code": "when this sprite clicked\nset size to (100) %\nrepeat (10)\nchange size by (10)\nend",
+    "note": ""
+  },
+  "chaseGameAddVariable": {
+    "code": null,
+    "note": "Variables category palette; click 'Make a Variable' to create a new variable (GIF, first frame shows only the palette)."
+  },
+  "chaseGameChangeScore": {
+    "code": "when flag clicked\nforever\nif <touching (Star v)?> then\nchange [score v] by (1)\nplay sound (Wand v) until done\nend\nend",
+    "note": ""
+  },
+  "chaseGameMoveRandomly": {
+    "code": "when flag clicked\nforever\nglide (1) secs to (random position v)\nend",
+    "note": ""
+  },
+  "chaseGamePlaySound": {
+    "code": "when flag clicked\nforever\nif <touching (Star v)?> then\nplay sound (Wand v) until done\nend\nend",
+    "note": ""
+  },
+  "chaseGameRightLeft": {
+    "code": "when [right arrow v] key pressed\nchange x by (10)\n\nwhen [left arrow v] key pressed\nchange x by (-10)",
+    "note": ""
+  },
+  "chaseGameUpDown": {
+    "code": "when [up arrow v] key pressed\nchange y by (10)\n\nwhen [down arrow v] key pressed\nchange y by (-10)",
+    "note": ""
+  },
+  "cnBackdrop": {
+    "code": "when flag clicked\nwait until <(score) = (10)>\nnext backdrop",
+    "note": ""
+  },
+  "cnCollect": {
+    "code": "when flag clicked\nforever\nwait until <touching (Garnet v)?>\nstart sound (Collect v)\ngo to (random position v)\nend",
+    "note": ""
+  },
+  "cnGlide": {
+    "code": "when flag clicked\nsay [Let's collect gems!] for (2) seconds\nforever\nglide (0.3) secs to (mouse-pointer v)\nend",
+    "note": ""
+  },
+  "cnSay": {
+    "code": "when flag clicked\nsay [Let's collect gems!] for (2) seconds",
+    "note": ""
+  },
+  "cnScore": {
+    "code": "when flag clicked\nset [score v] to (0)\nforever\nwait until <touching (Garnet v)?>\nstart sound (Collect v)\ngo to (random position v)\nchange [score v] by (1)\nend",
+    "note": ""
+  },
+  "cnVariable": {
+    "code": null,
+    "note": "Variables category palette; click 'Make a Variable' to create a new variable (GIF, first frame shows only the palette)."
+  },
+  "codeCartoonAnimate": {
+    "code": "when this sprite clicked\nnext costume\nstart sound (Jessica-HaHa v)",
+    "note": ""
+  },
+  "codeCartoonChangeCostumes": {
+    "code": "when this sprite clicked\nrepeat (2)\nswitch costume to (Mortimer-b v)\nwait (0.2) seconds\nswitch costume to (Mortimer-a v)\nwait (0.2) seconds\nend",
+    "note": ""
+  },
+  "codeCartoonChangeScenes": {
+    "code": "when this sprite clicked\nstart sound (Magic Spell v)\nnext backdrop\nsay [Let's go!] for (2) seconds",
+    "note": ""
+  },
+  "codeCartoonGlideAround": {
+    "code": "when this sprite clicked\nstart sound (Birds-Flying v)\nglide (1) secs to (random position v)",
+    "note": ""
+  },
+  "codeCartoonGrowShrink": {
+    "code": "when this sprite clicked\nrepeat (10)\nchange size by (10)\nend\nplay sound (JP-Yeah v) until done\nrepeat (10)\nchange size by (-10)\nend",
+    "note": ""
+  },
+  "codeCartoonJump": {
+    "code": "when this sprite clicked\nchange y by (100)\nwait (0.2) seconds\nchange y by (-100)\nstart sound (Kelsey-Haha v)\nsay [This is fun!] for (2) seconds",
+    "note": ""
+  },
+  "codeCartoonSaySomething": {
+    "code": "when flag clicked\nsay [Hello friends!] for (2) seconds",
+    "note": ""
+  },
+  "codeCartoonUseMinusSign": {
+    "code": "change size by (-10)",
+    "note": "Type a minus sign to make the number negative."
+  },
+  "flyAddScore": {
+    "code": null,
+    "note": "GIF: Variables category; Make a Variable dialog, creating variable 'Score' (For all sprites). No script."
+  },
+  "flyFlyingObject": {
+    "code": "when flag clicked\nforever\ngo to (random position v)\nchange x by (250)\nrepeat (32)\nchange x by (-15)\nend\nend",
+    "note": ""
+  },
+  "flyKeepScore": {
+    "code": "when flag clicked\nset [score v] to (0)\nforever\nif <touching (Heart v)?> then\nchange [score v] by (1)\nwait (1) seconds\nend\nend",
+    "note": ""
+  },
+  "flyMoveArrows": {
+    "code": "when [right arrow v] key pressed\nchange x by (10)\n\nwhen [left arrow v] key pressed\nchange x by (-10)",
+    "note": ""
+  },
+  "flyMoveScenery": {
+    "code": "when flag clicked\nforever\nset x to (250)\nrepeat (100)\nchange x by (-5)\nend\nend",
+    "note": ""
+  },
+  "flySaySomething": {
+    "code": "when flag clicked\nsay [Time to fly!] for (2) seconds",
+    "note": ""
+  },
+  "flySwitchLooks": {
+    "code": "when flag clicked\nforever\nset x to (250)\nnext costume\nrepeat (100)\nchange x by (-5)\nend\nend",
+    "note": ""
+  },
+  "glideAroundBackAndForth": {
+    "code": "when flag clicked\nglide (1) secs to x: (-50) y: (100)\nglide (1) secs to x: (0) y: (0)",
+    "note": ""
+  },
+  "glideAroundPoint": {
+    "code": "when flag clicked\ngo to x: (-30) y: (20)\nglide (1) secs to x: (90) y: (50)",
+    "note": ""
+  },
+  "hideAndShow": {
+    "code": "when flag clicked\nhide\nwait (1) seconds\nshow",
+    "note": ""
+  },
+  "imagineChangeCostumes": {
+    "code": "when this sprite clicked\nswitch costume to (rooster-b v)\nwait (0.3) seconds\nswitch costume to (rooster-a v)\nwait (0.3) seconds",
+    "note": ""
+  },
+  "imagineChooseSound": {
+    "code": "when flag clicked\nplay sound (recording1 v) until done",
+    "note": "Sound dropdown open (currently 'pop'), choosing 'recording1'; Code tab being clicked."
+  },
+  "imagineClickGreenFlag": {
+    "code": "when flag clicked\nsay [Hello!] for (2) seconds\nsay [Imagine if...] for (2) seconds",
+    "note": "Green flag being clicked."
+  },
+  "imagineFlyAround": {
+    "code": "when [space v] key pressed\nstart sound (pop v)\nglide (1) secs to (random position v)",
+    "note": ""
+  },
+  "imagineGlideToPoint": {
+    "code": "when flag clicked\ngo to x: (0) y: (0)\nglide (1) secs to x: (120) y: (-40)",
+    "note": ""
+  },
+  "imagineGrowShrink": {
+    "code": "when this sprite clicked\nrepeat (2)\nset size to (125) %\nplay sound (Hi Na Tabla v) until done\nset size to (100) %\nend",
+    "note": ""
+  },
+  "imagineLeftRight": {
+    "code": "when [right arrow v] key pressed\nchange x by (10)\n\nwhen [left arrow v] key pressed\nchange x by (-10)",
+    "note": ""
+  },
+  "imagineRecordASound": {
+    "code": null,
+    "note": "GIF: Sounds tab, choose-a-sound menu, Record option. No code blocks."
+  },
+  "imagineSwitchBackdrops": {
+    "code": "when flag clicked\nswitch backdrop to (Savanna v)\nwait (2) seconds\nswitch backdrop to (Metro v)\nsay [Let's explore!] for (2) seconds",
+    "note": ""
+  },
+  "imagineTypeWhatYouWant": {
+    "code": "say [Hello!] for (2) seconds\nsay [Imagine if...] for (2) seconds",
+    "note": "Green flag being clicked (no hat block in script)."
+  },
+  "imagineUpDown": {
+    "code": "when [up arrow v] key pressed\nchange y by (10)\n\nwhen [down arrow v] key pressed\nchange y by (-10)",
+    "note": ""
+  },
+  "introGreenFlag": {
+    "code": "when flag clicked\nmove (10) steps\nsay [Hello!] for (2) seconds",
+    "note": "GIF: 'when flag clicked' is attached on top, then green flag clicked."
+  },
+  "introMove": {
+    "code": "move (10) steps",
+    "note": "GIF: block dragged into workspace and clicked."
+  },
+  "introSay": {
+    "code": "move (10) steps\nsay [Hello!] for (2) seconds",
+    "note": "GIF: say block attached below move block."
+  },
+  "moveArrowKeysLeftRight": {
+    "code": "when [right arrow v] key pressed\nchange x by (10)\n\nwhen [left arrow v] key pressed\nchange x by (-10)",
+    "note": ""
+  },
+  "moveArrowKeysUpDown": {
+    "code": "when [up arrow v] key pressed\nchange y by (10)\n\nwhen [down arrow v] key pressed\nchange y by (-10)",
+    "note": ""
+  },
+  "musicMakeBeat": {
+    "code": "when [space v] key pressed\nrepeat (3)\nstart sound (Drum Bass2 v)\nwait (0.2) seconds\nstart sound (High Tom v)\nwait (0.1) seconds\nend",
+    "note": ""
+  },
+  "musicMakeBeatbox": {
+    "code": "when [up arrow v] key pressed\nstart sound (pick random (1) to (8))\nnext costume",
+    "note": ""
+  },
+  "musicMakeSong": {
+    "code": "when this sprite clicked\nstart sound (C2 Sax v)\nwait (0.25) seconds\nstart sound (G Sax v)\nwait (0.25) seconds\nstart sound (C Sax v)",
+    "note": ""
+  },
+  "musicPlaySound": {
+    "code": "when this sprite clicked\nstart sound (C Sax v)",
+    "note": ""
+  },
+  "nameChangeColor": {
+    "code": "when this sprite clicked\nchange [color v] effect by (25)",
+    "note": ""
+  },
+  "nameGrow": {
+    "code": "when this sprite clicked\nrepeat (15)\nchange size by (10)\nend\nrepeat (15)\nchange size by (-10)\nend",
+    "note": ""
+  },
+  "namePlaySound": {
+    "code": "when this sprite clicked\nplay sound (Meow v) until done",
+    "note": ""
+  },
+  "nameSpin": {
+    "code": "when this sprite clicked\nrepeat (10)\nturn cw (15) degrees\nwait (1) seconds\nend",
+    "note": ""
+  },
+  "pongAddAScore": {
+    "code": null,
+    "note": "GIF frame shows only the Variables palette (Make a Variable button); no script in the workspace."
+  },
+  "pongAddMoreCodeToBall": {
+    "code": "when flag clicked\npoint in direction (45)\nforever\nmove (10) steps\nif on edge, bounce\nend\n\nwhen flag clicked\nforever\nif <touching (Paddle v)?> then\nturn cw (180) degrees\nmove (15) steps\nwait (0.5) seconds\nend\nend",
+    "note": "Left script is faded (existing); the right script is the new one."
+  },
+  "pongBounceAround": {
+    "code": "when flag clicked\npoint in direction (45)\nforever\nmove (15) steps\nif on edge, bounce\nend",
+    "note": ""
+  },
+  "pongChooseScoreFromMenu": {
+    "code": "change [Score v] by (1)",
+    "note": "Variable dropdown open on 'change [my variable] by 1'; 'Score' is being selected."
+  },
+  "pongGameOver": {
+    "code": "when flag clicked\nforever\nif <touching (Ball v)?> then\nstop [all v]\nend\nend",
+    "note": ""
+  },
+  "pongInsertChangeScoreBlock": {
+    "code": "when flag clicked\nforever\nif <touching (Paddle v)?> then\nchange [Score v] by (1)\nturn cw (180) degrees\nmove (15) steps\nwait (0.5) seconds\nend\nend",
+    "note": "The 'change Score by 1' block is highlighted as newly inserted; the rest is faded."
+  },
+  "pongMoveThePaddle": {
+    "code": "when flag clicked\nforever\nset x to (mouse x)\nend",
+    "note": ""
+  },
+  "pongResetScore": {
+    "code": "when flag clicked\nset [Score v] to (0)",
+    "note": ""
+  },
+  "popGameAddScore": {
+    "code": null,
+    "note": "GIF frame shows only the Variables palette (Make a Variable button); no script in the workspace."
+  },
+  "popGameChangeColor": {
+    "code": "when flag clicked\nforever\nchange [color v] effect by (25)\ngo to (random position v)\nwait (1) seconds\nend",
+    "note": ""
+  },
+  "popGameChangeScore": {
+    "code": "when this sprite clicked\nstart sound (pop v)\nchange [score v] by (1)",
+    "note": ""
+  },
+  "popGamePlaySound": {
+    "code": "when this sprite clicked\nstart sound (pop v)",
+    "note": ""
+  },
+  "popGameRandomPosition": {
+    "code": "when flag clicked\nforever\ngo to (random position v)\nwait (1) seconds\nend",
+    "note": ""
+  },
+  "popGameResetScore": {
+    "code": "when flag clicked\nset [score v] to (0)",
+    "note": ""
+  },
+  "recordASoundChooseSound": {
+    "code": "play sound (recording1 v) until done",
+    "note": "Code tab with Sound palette; sound dropdown open on the workspace block, 'recording1' being selected."
+  },
+  "recordASoundClickRecord": {
+    "code": null,
+    "note": "Sounds tab: hovering 'Record' in the choose-a-sound menu."
+  },
+  "recordASoundPlayYourSound": {
+    "code": "when flag clicked\nplay sound (recording1 v) until done",
+    "note": ""
+  },
+  "recordASoundPressRecordButton": {
+    "code": null,
+    "note": "Record Sound dialog; clicking the Record button."
+  },
+  "recordASoundSoundsTab": {
+    "code": null,
+    "note": "Clicking the Sounds tab."
+  },
+  "speechAddExtension": {
+    "code": null,
+    "note": "GIF: opening the extension library and choosing Text to Speech; no code"
+  },
+  "speechChangeColor": {
+    "code": "when this sprite clicked\nset voice to (squeak v)\nchange [color v] effect by (25)\nspeak [Whoa! Look at me!]",
+    "note": ""
+  },
+  "speechGrowShrink": {
+    "code": "when this sprite clicked\nset voice to (squeak v)\nchange size by (100)\nspeak [Time to fly!]\nchange size by (-100)",
+    "note": ""
+  },
+  "speechMoveAround": {
+    "code": "when this sprite clicked\nset voice to (squeak v)\nspeak [Let's go!]\nglide (1) secs to (random position v)",
+    "note": ""
+  },
+  "speechSaySomething": {
+    "code": "when this sprite clicked\nspeak [Let's go!]",
+    "note": ""
+  },
+  "speechSetVoice": {
+    "code": "when this sprite clicked\nset voice to (squeak v)\nspeak [Let's go!]",
+    "note": ""
+  },
+  "speechSong": {
+    "code": "when this sprite clicked\nstart sound (Hip Hop v)\nspeak [I am a robot]\nspeak [I like to dance a lot]\nspeak [Beep boop bop]",
+    "note": ""
+  },
+  "speechSpin": {
+    "code": "when flag clicked\nforever\nturn cw (15) degrees\nend\n\nwhen this sprite clicked\nspeak [I like to spin!]",
+    "note": ""
+  },
+  "spinPointInDirection": {
+    "code": "when flag clicked\npoint in direction (90)",
+    "note": ""
+  },
+  "spinTurn": {
+    "code": "when this sprite clicked\nrepeat (10)\nturn cw (15) degrees\nend",
+    "note": ""
+  },
+  "storyConversation": {
+    "code": "when flag clicked\nwait (2) seconds\nsay [I'm going on a quest!] for (2) seconds",
+    "note": ""
+  },
+  "storyFlip": {
+    "code": null,
+    "note": "GIF: Costumes tab, using Flip Horizontal in the paint editor; no code"
+  },
+  "storyHideCharacter": {
+    "code": "when backdrop switches to [Mountain v]\nhide",
+    "note": ""
+  },
+  "storySaySomething": {
+    "code": "when flag clicked\nsay [Welcome to Magic School!] for (2) seconds",
+    "note": ""
+  },
+  "storyShowCharacter": {
+    "code": "when flag clicked\nshow\nsay [Welcome to Magic School!] for (2) seconds",
+    "note": ""
+  },
+  "storySwitchBackdrop": {
+    "code": "when flag clicked\nswitch backdrop to (Witch House v)\nwait (4) seconds\nswitch backdrop to (Mountain v)",
+    "note": ""
+  },
+  "switchCostumes": {
+    "code": "when flag clicked\nrepeat (10)\nnext costume\nwait (0.3) seconds\nend",
+    "note": ""
+  },
+  "talesAddExtension": {
+    "code": null,
+    "note": "GIF: opening the extension library and choosing Text to Speech; no code"
+  },
+  "talesAnimateTalking": {
+    "code": "when backdrop switches to [Jurassic v]\nswitch costume to (dinosaur4-d v)\nspeak [There's no place like home!]\nswitch costume to (dinosaur4-a v)",
+    "note": ""
+  },
+  "talesAskAnswer": {
+    "code": "when flag clicked\nask [What's your name?] and wait\nspeak [Hi there]\nspeak (answer)",
+    "note": ""
+  },
+  "talesChooseSound": {
+    "code": null,
+    "note": "GIF: Sounds tab, hovering 'Choose a Sound' button; no code"
+  },
+  "talesDanceMoves": {
+    "code": "when backdrop switches to [Spotlight v]\nspeak [Check out these moves!]\nstart sound (Drum v)\nrepeat (20)\nnext costume\nwait (0.2) seconds\nend",
+    "note": ""
+  },
+  "talesMoveAround": {
+    "code": "when backdrop switches to [Underwater 1 v]\nset voice to (giant v)\nspeak [Let's explore!]\nglide (1) secs to (random position v)\nglide (1) secs to x: (-100) y: (-10)",
+    "note": ""
+  },
+  "talesSaySomething": {
+    "code": "when flag clicked\nset voice to (alto v)\nspeak [Hello!]",
+    "note": ""
+  },
+  "talesSwitchBackdrop": {
+    "code": "when this sprite clicked\nnext backdrop",
+    "note": ""
+  },
+  "videoAddExtension": {
+    "code": null,
+    "note": "GIF: opening the extension library and choosing Video Sensing; no code"
+  },
+  "videoAnimate": {
+    "code": "when video motion > (20)\nswitch costume to (dragon-c v)\nwait (0.5) seconds\nswitch costume to (dragon-a v)",
+    "note": ""
+  },
+  "videoPet": {
+    "code": "when video motion > (20)\nplay sound (Meow v) until done",
+    "note": ""
+  },
+  "videoPop": {
+    "code": "when video motion > (20)\nplay sound (pop v) until done\ngo to (random position v)\nchange [color v] effect by (25)",
+    "note": ""
+  }
+}
