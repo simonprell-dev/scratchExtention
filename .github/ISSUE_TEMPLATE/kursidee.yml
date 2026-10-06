@@ -1,0 +1,16 @@
+name: 💡 Idee für den Kurs
+description: Neues Kapitel, besserer Text, zusätzliche Aufgabe …
+labels: [idee]
+body:
+  - type: textarea
+    id: idee
+    attributes:
+      label: Deine Idee
+      description: Was soll neu oder anders werden? Für welche Stufe?
+    validations:
+      required: true
+  - type: textarea
+    id: warum
+    attributes:
+      label: Warum hilft das?
+      description: z. B. Erfahrung aus dem Unterricht oder einem Workshop

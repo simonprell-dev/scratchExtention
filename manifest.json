@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Scratch Tutorials auf Deutsch + BayernLab Kurs",
-  "version": "1.1.0",
-  "description": "Zeigt die Blöcke in den Scratch-Tutorials auf Deutsch und bietet einen geführten BayernLab-Scratch-Kurs.",
+  "version": "1.2.0",
+  "description": "Scratch-Tutorials mit deutschen Blöcken und ein geführter Scratch-Kurs (BayernLab) direkt im Editor.",
+  "homepage_url": "https://github.com/simonprell-dev/scratchExtention",
   "content_scripts": [
     {
-      "matches": ["https://scratch.mit.edu/*"],
+      "matches": [
+        "https://scratch.mit.edu/*"
+      ],
       "js": [
         "lib/scratchblocks.min.js",
         "lib/scratchblocks-de.js",
@@ -15,7 +18,10 @@
         "course/course-data.js",
         "course/course.js"
       ],
-      "css": ["content.css", "course/course.css"],
+      "css": [
+        "content.css",
+        "course/course.css"
+      ],
       "run_at": "document_idle",
       "world": "MAIN"
     }

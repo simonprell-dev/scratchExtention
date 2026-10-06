@@ -1,0 +1,32 @@
+name: Release
+
+# Ein Tag wie „v1.2.0“ erzeugt automatisch ein Release mit installierbarer ZIP-Datei.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Version im Manifest prüfen
+        run: |
+          v=$(node -p "require('./manifest.json').version")
+          test "v$v" = "$GITHUB_REF_NAME" || { echo "manifest.json hat Version $v, Tag ist $GITHUB_REF_NAME"; exit 1; }
+      - name: ZIP packen
+        run: |
+          mkdir -p dist/scratch-auf-deutsch
+          cp -r manifest.json content.js content.css course data lib LICENSE README.md dist/scratch-auf-deutsch/
+          cd dist && zip -r "scratch-auf-deutsch-$GITHUB_REF_NAME.zip" scratch-auf-deutsch
+      - name: Changelog-Abschnitt lesen
+        run: |
+          v="${GITHUB_REF_NAME#v}"
+          awk -v v="$v" '/^## \[/{p = index($0, "[" v "]") > 0; next} p' CHANGELOG.md > notes.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/scratch-auf-deutsch-${{ github.ref_name }}.zip
+          body_path: notes.md

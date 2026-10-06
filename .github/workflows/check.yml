@@ -1,0 +1,24 @@
+name: Prüfen
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: JavaScript-Syntax prüfen
+        run: for f in content.js lib/scratch-access.js course/course.js course/course-data.js data/steps-de.js; do node --check "$f"; done
+      - name: Kurs-Blöcke prüfen
+        run: npm run check
+      - name: Tutorial-Daten sind aktuell
+        run: npm run build && git diff --exit-code data/
+      - name: Manifest ist gültiges JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"

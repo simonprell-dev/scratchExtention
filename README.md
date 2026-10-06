@@ -1,18 +1,52 @@
+<div align="center">
+
 # Scratch auf Deutsch + BayernLab-Kurs
 
-Eine Browser-Erweiterung für **Brave, Chrome und Edge**, die den Scratch-Editor auf
-[scratch.mit.edu](https://scratch.mit.edu/projects/editor/) um zwei Dinge erweitert:
+**Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder – direkt im Scratch-Editor.**
 
-1. **Deutsche Scratch-Tutorials:** Die eingebauten Tutorials von Scratch zeigen ihre Blöcke
-   sonst immer auf Englisch, auch wenn der Editor auf Deutsch steht. Die Erweiterung ersetzt
-   diese Bilder durch dieselben Blöcke auf Deutsch.
-2. **BayernLab-Kurs:** Ein geführter Scratch-Kurs mit 8 Kapiteln, direkt im Editor. Er zeigt
-   mit animierten Hinweisen, wo geklickt und wohin gezogen wird, und hakt Aufgaben
-   automatisch ab, sobald die Blöcke richtig sitzen.
+Kostenlose Browser-Erweiterung für Brave, Chrome und Edge · Open Source · ohne Anmeldung
 
-Die Erweiterung braucht kein Konto, keinen Server und sammelt keine Daten.
+[![Version](https://img.shields.io/github/v/release/simonprell-dev/scratchExtention?label=Version&color=006EB7)](https://github.com/simonprell-dev/scratchExtention/releases/latest)
+[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-3CB4E1)](LICENSE)
+[![Prüfung](https://github.com/simonprell-dev/scratchExtention/actions/workflows/check.yml/badge.svg)](https://github.com/simonprell-dev/scratchExtention/actions/workflows/check.yml)
+![Browser](https://img.shields.io/badge/Browser-Brave%20%7C%20Chrome%20%7C%20Edge-003E7E)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-003E7E)
+![Sprache: Deutsch](https://img.shields.io/badge/Sprache-Deutsch-003E7E)
 
-![Stufenwahl des BayernLab-Kurses](docs/stufenwahl.png)
+[**⬇️ Herunterladen**](https://github.com/simonprell-dev/scratchExtention/releases/latest) ·
+[Installation](#installation) ·
+[Kursübersicht](#kursübersicht) ·
+[Für Lehrkräfte](#tipps-für-lehrkräfte) ·
+[Mitmachen](CONTRIBUTING.md)
+
+![Animierter Hinweis zeigt, wie ein Block in die Schleife gezogen wird](docs/demo.gif)
+
+</div>
+
+## Warum?
+
+Scratch ist ein wunderbarer Einstieg ins Programmieren – aber die eingebauten Tutorials
+zeigen ihre Blöcke **immer auf Englisch**, auch wenn der Editor auf Deutsch steht. Für
+Kinder, die gerade erst sicher lesen, ist das eine echte Hürde. Und wer einen Kurs gibt,
+braucht einen roten Faden vom ersten Block bis zum eigenen Spiel.
+
+Diese Erweiterung löst beides:
+
+| | |
+|---|---|
+| 🇩🇪 **Deutsche Tutorials** | 96 Tutorial-Bilder von Scratch zeigen deutsche Blöcke statt englischer |
+| 🧭 **Geführter Kurs** | 8 Kapitel, 68 Schritte – von „Dein erster Block“ bis zu Klonen und eigenen Blöcken |
+| 👆 **Zeige-Hinweise** | Animierte Hand und fliegende Blöcke zeigen, wo geklickt und wohin gezogen wird |
+| ✅ **Automatisches Abhaken** | Die Erweiterung erkennt selbst, ob die Blöcke richtig sitzen |
+| 🎮 **Spiele & Animationen** | Fang-Spiel, Pong, Hüpf-Spiel, Weltraum-Spiel, Tanz-Party, Trickfilm, Malstift-Kunst |
+| 🎨 **Kreativ-Aufgaben** | Jedes Kapitel lässt Raum für eigene Ideen |
+| 🐣🚀🏆 **Drei Einstiegsstufen** | Neuling, Schon mal ausprobiert, Ich kenne mich aus |
+| 💾 **Ein Projekt pro Kapitel** | Führt zwischen den Kapiteln durch Speichern und „Datei → Neu“ |
+| 🔒 **Datenschutzfreundlich** | Kein Konto, kein Server, keine Datenübertragung |
+
+**Für wen?** Kinder von etwa 8 bis 14 Jahren, Lehrkräfte im Informatik- und
+Medienunterricht, Ganztag und AGs, Workshops in Makerspaces und digitalen Lernorten wie
+dem BayernLab – und Eltern, die mit ihren Kindern programmieren.
 
 ---
 
@@ -25,40 +59,44 @@ Die Erweiterung braucht kein Konto, keinen Server und sammelt keine Daten.
 - [Tipps für Lehrkräfte](#tipps-für-lehrkräfte)
 - [Problemlösung](#problemlösung)
 - [Datenschutz](#datenschutz)
-- [Für Entwickler: Inhalte anpassen](#für-entwickler-inhalte-anpassen)
-- [Danksagung und Hinweise](#danksagung-und-hinweise)
+- [Mitmachen](#mitmachen)
+- [Lizenz und Danksagung](#lizenz-und-danksagung)
+- [English summary](#english-summary)
 
 ---
 
 ## Installation
 
-Die Erweiterung ist nicht im Chrome Web Store. Sie wird als **entpackte Erweiterung**
-geladen. Das dauert etwa zwei Minuten.
+Die Erweiterung wird als **entpackte Erweiterung** geladen. Das dauert etwa zwei Minuten.
 
 ### Voraussetzungen
 
 - **Brave**, **Google Chrome** oder **Microsoft Edge** in einer aktuellen Version
   (mindestens Chromium 111, also jede Version ab 2023)
-- Der Ordner dieser Erweiterung auf dem Computer, zum Beispiel als ZIP entpackt nach
-  `Dokumente\scratchExtention`
+
+### Schritt für Schritt (Brave)
+
+1. **Herunterladen:** Unter [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest) die Datei
+   `scratch-auf-deutsch-vX.Y.Z.zip` herunterladen.
+2. **Entpacken:** Rechtsklick auf die ZIP-Datei → **Alle extrahieren**. Den Ordner
+   `scratch-auf-deutsch` an einen festen Ort legen, z. B. nach `Dokumente`.
+3. Neuen Tab öffnen und `brave://extensions` in die Adresszeile eingeben.
+4. Oben rechts den Schalter **Entwicklermodus** einschalten.
+5. Auf **Entpackte Erweiterung laden** klicken und den Ordner `scratch-auf-deutsch`
+   auswählen (darin liegt die Datei `manifest.json`).
+6. In der Liste erscheint **Scratch Tutorials auf Deutsch + BayernLab Kurs**. Der Schalter
+   daneben muss eingeschaltet sein.
+7. [scratch.mit.edu/projects/editor](https://scratch.mit.edu/projects/editor/) öffnen
+   (oder die Seite neu laden, falls sie schon offen war).
+
+Oben in der lila Menüleiste erscheint jetzt der Button **BayernLab Kurs starten**. ✅
 
 > **Wichtig:** Der Ordner muss dauerhaft an seinem Platz bleiben. Der Browser lädt die
 > Erweiterung bei jedem Start aus diesem Ordner. Wird er gelöscht oder verschoben, ist die
 > Erweiterung weg.
 
-### Schritt für Schritt (Brave)
-
-1. Neuen Tab öffnen und `brave://extensions` in die Adresszeile eingeben.
-2. Oben rechts den Schalter **Entwicklermodus** einschalten.
-3. Auf **Entpackte Erweiterung laden** klicken.
-4. Den Ordner `scratchExtention` auswählen, also den Ordner, in dem die Datei
-   `manifest.json` liegt, und auf **Ordner auswählen** klicken.
-5. In der Liste erscheint **Scratch Tutorials auf Deutsch + BayernLab Kurs**.
-   Der Schalter daneben muss eingeschaltet sein.
-6. [scratch.mit.edu/projects/editor](https://scratch.mit.edu/projects/editor/) öffnen
-   (oder die Seite neu laden, falls sie schon offen war).
-
-Oben in der lila Menüleiste erscheint jetzt der Button **BayernLab Kurs starten**. ✅
+> **Noch kein Release vorhanden?** Oben auf der GitHub-Seite **Code → Download ZIP**
+> wählen, entpacken und den entpackten Ordner wie in Schritt 5 laden.
 
 ### Chrome und Edge
 
@@ -82,7 +120,8 @@ angezeigt wird: oben links auf das **Zahnrad-Symbol (Settings)** → **Language*
 
 Wenn es eine neue Version gibt:
 
-1. Die Dateien im Ordner durch die neuen ersetzen (Ordnername und Ort beibehalten).
+1. Die neue ZIP-Datei von [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest) herunterladen und den
+   Inhalt über den bisherigen Ordner kopieren (Ordnername und Ort beibehalten).
 2. `brave://extensions` öffnen und bei der Erweiterung auf den **Pfeil-Kreis (Neu laden)**
    klicken.
 3. Den Scratch-Editor neu laden.
@@ -138,7 +177,7 @@ Kapitel erreichbar.
 
 ### Hinweise im Editor
 
-Wie bei LEGO Education zeigen animierte Hinweise, was als Nächstes zu tun ist:
+Animierte Hinweise zeigen Schritt für Schritt, was als Nächstes zu tun ist:
 
 - **Gelber, pulsierender Rahmen + Hand 👆:** Hier klicken (z. B. Kategorie, grüne Flagge,
   Figur wählen).
@@ -265,7 +304,8 @@ Nur Tutorial-Schritte mit Blöcken werden ersetzt. Prüfen, ob oben rechts im Bi
 
 **Nach einem Scratch-Update funktioniert etwas nicht mehr.**
 Die Erweiterung nutzt interne Strukturen des Scratch-Editors. Größere Umbauten bei Scratch
-können eine Anpassung nötig machen. Siehe [Für Entwickler](#für-entwickler-inhalte-anpassen).
+können eine Anpassung nötig machen. Bitte ein [Issue](https://github.com/simonprell-dev/scratchExtention/issues/new/choose) erstellen
+und unter Releases nach einer neuen Version schauen.
 
 **Browser meldet „Erweiterungen im Entwicklermodus deaktivieren“.**
 Chrome und Edge zeigen diesen Hinweis manchmal beim Start. Einfach schließen
@@ -285,125 +325,47 @@ Chrome und Edge zeigen diesen Hinweis manchmal beim Start. Einfach schließen
 
 ---
 
-## Für Entwickler: Inhalte anpassen
+---
 
-### Projektstruktur
+## Mitmachen
 
-```
-scratchExtention/
-├── manifest.json            Erweiterungs-Manifest (Manifest V3)
-├── content.js / .css        Deutsche Tutorial-Bilder
-├── course/
-│   ├── course-data.js       ← Kursinhalte: Kapitel, Schritte, Aufgaben, Hinweise
-│   ├── course.js            Kurs-Engine: Button, Stufenwahl, Fenster, Hinweise, Prüfungen
-│   └── course.css           Gestaltung (BayernLab-Farben)
-├── data/steps-de.js         Erzeugt: deutsche Blöcke für die Scratch-Tutorials
-├── lib/
-│   ├── scratch-access.js    Zugriff auf Redux-Store, VM und Workspace von Scratch
-│   ├── scratchblocks.min.js Rendert Blöcke aus Text (scratchblocks 3.7.1, MIT)
-│   └── scratchblocks-de.js  Deutsche Übersetzung für scratchblocks
-├── tools/
-│   ├── source-en.json       Englische Vorlage der 110 Tutorial-Bilder
-│   ├── build-data.mjs       Erzeugt data/steps-de.js (inkl. Wörterbücher)
-│   └── check-course.mjs     Prüft alle Block-Skripte im Kurs
-└── docs/                    Screenshots für diese Anleitung
-```
+Ideen aus dem Unterricht, Fehlerberichte, bessere Texte oder ganze neue Kapitel sind
+herzlich willkommen!
 
-### So funktioniert es
+- 🐞 [Fehler melden](https://github.com/simonprell-dev/scratchExtention/issues/new?template=fehler.yml)
+- 💡 [Idee für den Kurs einreichen](https://github.com/simonprell-dev/scratchExtention/issues/new?template=kursidee.yml)
+- 🛠️ [Anleitung für Beiträge](CONTRIBUTING.md): Projektaufbau, Kursschritte schreiben,
+  neue Kapitel, Releases
+- 📝 [Änderungen pro Version](CHANGELOG.md)
 
-- Alle Skripte laufen als Content-Scripts in der Seite selbst (`"world": "MAIN"`). Nur so
-  kommen sie an die Interna von Scratch.
-- `lib/scratch-access.js` findet über die React-Struktur der Seite den **Redux-Store**
-  von Scratch. Darüber erreicht es die **Scratch-VM** und den **Blockly-Workspace**.
-- **Tutorials:** Der Store verrät, welcher Tutorial-Schritt offen ist, z. B.
-  `moveArrowKeysLeftRight`. Das Bild wird durch den passenden Eintrag aus
-  `data/steps-de.js` ersetzt.
-- **Kurs:** Alle 200 ms liest die Engine die Blöcke aller Figuren aus der VM und prüft die
-  Aufgaben des aktuellen Schritts. Hinweise werden an echte Elemente im Editor geheftet,
-  z. B. Kategorien, Blöcke in der Palette oder die grüne Flagge.
-
-### Werkzeuge einrichten
-
-Benötigt [Node.js](https://nodejs.org/) ab Version 18:
-
-```bash
-npm install        # installiert scratchblocks für die Werkzeuge
-npm run check      # prüft alle Block-Skripte in course/course-data.js
-npm run build      # erzeugt data/steps-de.js neu aus tools/source-en.json
-```
-
-Nach jeder Änderung die Erweiterung in `brave://extensions` neu laden und den Editor
-aktualisieren.
-
-### Einen Kursschritt schreiben
-
-Kapitel und Schritte stehen in `course/course-data.js`. Ein Schritt sieht so aus:
-
-```js
-{
-    kind: 'learn',                       // info | learn | creative | game | challenge
-    title: 'Der Fänger folgt der Maus',
-    text: '<p>Erklärung mit <b>HTML</b>.</p>',
-    // Ziel-Skript in englischer scratchblocks-Syntax – wird automatisch deutsch angezeigt.
-    // Menüwerte direkt deutsch schreiben.
-    blocks: 'when flag clicked\nforever\n  go to (Mauszeiger v)\nend',
-    tasks: [
-        {text: 'Schleife unter die Flagge', check: c => inScript(c, 'control_forever', 'event_whenflagclicked')},
-        {text: '„gehe zu Mauszeiger“ in die Schleife',
-            check: c => inside(c, 'motion_goto', 'control_forever', (t, b) => c.menu(t, b, 'TO') === '_mouse_')},
-        {text: 'Ich habe es jemandem gezeigt', manual: true}   // selbst abhaken
-    ],
-    hints: [   // es wird immer der erste noch nicht erledigte Hinweis gezeigt
-        {drag: 'control_forever', to: 'under:event_whenflagclicked', ghost: 'forever\nend',
-            text: 'Schleife darunter', done: c => inScript(c, 'control_forever', 'event_whenflagclicked')},
-        {target: 'ws:motion_goto', text: 'Wähle „Mauszeiger“', done: c => /* … */ true}
-    ]
-}
-```
-
-**Hinweis-Ziele** (`target`): `cat:<kategorie>`, `fly:<opcode>`, `ws:<opcode>`, `flag`,
-`stage`, `spriteAdd`, `backdropAdd`, `spriteList`, `stageSelector`, `extensionAdd`,
-`tab:code|costumes|sounds`, `flybtn:<Beschriftung>`, `palette`, `workspace`.
-
-**Zieh-Ziele** (`to`): `ws` (freie Fläche), `under:<opcode>`, `above:<opcode>`,
-`inside:<opcode>` (in einen C-Block), `cond:<opcode>` (in die Lücke eines Blocks),
-`ws:<opcode>` (auf einen Block).
-
-**Prüf-Hilfen** im Kontext `c`: `c.find(opcode)`, `c.inC(t, b, outerOpcode)`,
-`c.hatOf(t, b)`, `c.menu(t, b, input)`, `c.text(t, b, input)`, `c.field(b, name)`,
-`c.plugged(t, b, input)`, `c.vars()`, `c.sprites`, `c.flags`, `c.keys`, `c.moved()`,
-`c.backdropChanged()`, `c.tab(name)`, `c.tabSeen(name)`, `c.extension(id)`,
-`c.spritesWith(opcode)`, `c.editingHas(opcode)`, `c.categoryOpen(id)`.
-Dazu die Kurzformen `inScript`, `inside`, `keyScript`, `newSprites` und `userVar` oben in
-der Datei.
-
-Opcodes wie `motion_goto` oder `control_forever` stammen aus der Scratch-VM. Eine Liste
-gibt es im [scratch-vm-Quellcode](https://github.com/scratchfoundation/scratch-vm/tree/develop/src/blocks).
-
-### Ein neues Kapitel hinzufügen
-
-1. In `course/course-data.js` ein Objekt in `chapters` einfügen, mit eindeutiger `id`,
-   `title`, `level` (`neuling` | `probiert` | `profi`), `type`, `icon`, `autoHints` und
-   `steps`.
-2. Die Reihenfolge im Array ist die Reihenfolge im Kurs. Gespeichert wird über die `id`,
-   deshalb verschieben neue Kapitel den Fortschritt nicht.
-3. `npm run check` ausführen und das Kapitel im Editor durchspielen.
-
-### Tutorial-Übersetzungen ändern
-
-- Block-Code der Tutorial-Bilder (englisch): `tools/source-en.json`
-- Übersetzungen von Menüwerten, Figurennamen und Sprechtexten: Wörterbücher `MENU`,
-  `NAMES`, `TEXT` und `NOTES` in `tools/build-data.mjs`
-- Danach `npm run build`
+Gefällt dir das Projekt? Ein ⭐ auf GitHub hilft anderen Lehrkräften, es zu finden.
 
 ---
 
-## Danksagung und Hinweise
+## Lizenz und Danksagung
 
+- Diese Erweiterung ist **Open Source** unter der [MIT-Lizenz](LICENSE). Sie darf frei
+  genutzt, verändert und weitergegeben werden – auch in Schulen und Kursen.
 - Blöcke werden mit [scratchblocks](https://github.com/scratchblocks/scratchblocks) von
   Tim Radvan gezeichnet (MIT-Lizenz, siehe `lib/scratchblocks-LICENSE`).
 - Die Tutorial-Zuordnung basiert auf dem Quellcode von
   [scratch-gui](https://github.com/scratchfoundation/scratch-gui).
 - Scratch ist ein Projekt der Scratch Foundation in Zusammenarbeit mit der Lifelong
-  Kindergarten Group am MIT Media Lab. Diese Erweiterung ist ein unabhängiges Projekt des
-  BayernLab und steht in keiner Verbindung zur Scratch Foundation.
+  Kindergarten Group am MIT Media Lab. Diese Erweiterung ist ein unabhängiges Projekt und
+  steht in keiner Verbindung zur Scratch Foundation.
+
+---
+
+## English summary
+
+**Scratch auf Deutsch** is a free, open-source browser extension (Brave, Chrome, Edge –
+Manifest V3) for the [Scratch](https://scratch.mit.edu) online editor:
+
+- **German Scratch tutorials:** Scratch's built-in tutorials show English block images
+  even when the editor is set to German. The extension replaces 96 of them with the same
+  blocks rendered in German.
+- **Guided coding course for kids:** 8 chapters (games, animations, pen art, clones) with
+  three entry levels, animated drag-and-drop hints, automatic task checking via the Scratch
+  VM, and a save-and-start-fresh step between chapters.
+- No account, no server, no tracking. MIT licensed. Contributions welcome – see
+  [CONTRIBUTING.md](CONTRIBUTING.md).

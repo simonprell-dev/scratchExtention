@@ -1,6 +1,21 @@
 {
-  "name": "scratch-tutorials-de",
+  "name": "scratch-auf-deutsch",
+  "version": "1.2.0",
+  "description": "Browser-Erweiterung: Scratch-Tutorials auf Deutsch und geführter BayernLab-Scratch-Kurs für Kinder",
   "private": true,
+  "license": "MIT",
+  "keywords": [
+    "scratch",
+    "scratch-deutsch",
+    "scratch-tutorial",
+    "programmieren-lernen",
+    "kinder",
+    "schule",
+    "browser-extension",
+    "chrome-extension",
+    "brave",
+    "bayernlab"
+  ],
   "type": "module",
   "scripts": {
     "build": "node tools/build-data.mjs",
@@ -8,5 +23,11 @@
   },
   "devDependencies": {
     "scratchblocks": "3.7.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simonprell-dev/scratchExtention.git"
+  },
+  "homepage": "https://github.com/simonprell-dev/scratchExtention#readme",
+  "bugs": "https://github.com/simonprell-dev/scratchExtention/issues"
 }
