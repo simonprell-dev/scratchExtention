@@ -367,7 +367,7 @@
     // Texteingaben im Block und das Kursfenster.
     function avoidRects () {
         const rects = [];
-        document.querySelectorAll('.blocklyDropDownDiv, .blocklyWidgetDiv > *').forEach(e => {
+        document.querySelectorAll('.blocklyDropDownDiv, .blocklyWidgetDiv > *, ul[class*="menu_menu"]').forEach(e => {
             const style = getComputedStyle(e);
             if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return;
             const r = rectOf(e);
@@ -410,7 +410,7 @@
         return bubble;
     }
 
-    function drawPoint (rect, text, scroll) {
+    function drawPoint (rect, text, scroll, order) {
         overlay.appendChild(placeRing(rect, scroll ? 0 : 6));
         const above = rect.bottom + 110 > window.innerHeight;
         const cx = rect.left + Math.min(rect.width / 2, 60);
@@ -431,7 +431,7 @@
                 Math.max(rect.right, handRect.right) - Math.min(rect.left, handRect.left),
                 Math.max(rect.bottom, handRect.bottom) - Math.min(rect.top, handRect.top)) :
             rect;
-        placeBubble(text, anchor, above ? ['above', 'right', 'left', 'below'] : null);
+        placeBubble(text, anchor, order || (above ? ['above', 'right', 'left', 'below'] : null));
     }
 
     function drawDrag (fromRect, to, hint) {
@@ -486,6 +486,16 @@
     function updateOverlay (c) {
         ensureOverlay();
         const step = currentStep();
+        if (state.open && run.view === 'transition') {
+            const h = transitionHint();
+            if (!h || !h.rect) return clearOverlay();
+            const key = `t|${rk(h.rect)}|${h.text}|${avoidRects().map(rk).join(';')}`;
+            if (key === lastHintKey) return;
+            overlay.innerHTML = '';
+            drawPoint(h.rect, h.text, false, ['right', 'below', 'left', 'above']);
+            lastHintKey = key;
+            return;
+        }
         if (!state.open || run.view !== 'step') {
             clearOverlay();
             return;
@@ -594,12 +604,13 @@
         const header = el('div', 'bl-header');
         const titles = el('div', 'bl-header-titles');
         titles.appendChild(el('div', 'bl-header-brand', 'BayernLab Kurs'));
-        titles.appendChild(el('div', 'bl-header-sub',
+        titles.appendChild(el('div', 'bl-header-sub', state.transition ?
+            `Projekt sichern → Kapitel ${chapterIndex(state.transition.chapterId) + 1}` :
             `Kapitel ${state.chapter + 1}: ${chapter.title} · ${state.step + 1}/${totalSteps()}`));
         header.appendChild(titles);
         const actions = el('div', 'bl-header-actions');
         actions.appendChild(button('bl-icon-btn', '☰', 'Kapitelübersicht', () => {
-            run.view = run.view === 'menu' ? 'step' : 'menu';
+            run.view = run.view === 'menu' ? (state.transition ? 'transition' : 'step') : 'menu';
             state.collapsed = false;
             renderPanel();
         }));
@@ -631,7 +642,7 @@
 
         if (state.collapsed) {
             const mini = el('div', 'bl-mini');
-            mini.textContent = `${KIND[step.kind].icon} ${step.title}`;
+            mini.textContent = state.transition ? '💾 Projekt sichern und neu starten' : `${KIND[step.kind].icon} ${step.title}`;
             mini.addEventListener('click', () => {
                 state.collapsed = false;
                 saveState();
@@ -645,11 +656,14 @@
         const body = el('div', 'bl-body');
         if (run.view === 'menu') {
             renderMenu(body);
+        } else if (run.view === 'transition') {
+            renderTransition(body);
         } else {
             renderStep(body, step);
         }
         panel.appendChild(body);
         if (run.view === 'step') panel.appendChild(renderFooter(step));
+        if (run.view === 'transition') panel.appendChild(renderTransitionFooter());
         clampPanel();
         lastHintKey = '';
         lastResultsKey = '';
@@ -724,11 +738,7 @@
             chapter.steps.forEach((s, si) => {
                 const done = state.done[stepId(ci, si)];
                 const item = button(`bl-menu-step ${ci === state.chapter && si === state.step ? 'bl-current' : ''}`,
-                    `<span>${done ? '✅' : KIND[s.kind].icon}</span> ${s.title}`, '', () => {
-                        state.chapter = ci;
-                        state.step = si;
-                        enterStep();
-                    });
+                    `<span>${done ? '✅' : KIND[s.kind].icon}</span> ${s.title}`, '', () => openChapter(ci, si));
                 section.appendChild(item);
             });
             body.appendChild(section);
@@ -821,14 +831,139 @@
             renderPanel();
         }));
         if (nextChapter) {
-            row.appendChild(button('bl-btn bl-btn-primary', 'Los geht\'s →', '', () => {
-                state.chapter++;
-                state.step = 0;
-                enterStep();
+            row.appendChild(button('bl-btn bl-btn-primary', 'Weiter →', 'Projekt sichern und nächstes Kapitel starten', () => {
+                openChapter(state.chapter + 1, 0);
             }));
         }
         panel.appendChild(row);
         confetti();
+    }
+
+    // ---------- Projekt sichern & neues Projekt zwischen Kapiteln ----------
+
+    const SAVE_LABELS = /^(Auf deinem Computer speichern|Jetzt speichern|Als Kopie speichern|Save to your computer|Save now|Save as a copy)$/;
+
+    // Speichern erkennen: Klicks auf die Speichern-Einträge von Scratch mitlesen.
+    document.addEventListener('click', e => {
+        if (!state.transition) return;
+        const item = e.target.closest && e.target.closest('li, button, [class*="save-now"]');
+        if (item && SAVE_LABELS.test(item.textContent.trim())) {
+            state.transition.saved = true;
+            saveState();
+        }
+    }, true);
+
+    // Leeres Projekt wie nach „Datei → Neu“: höchstens eine Figur, keine Blöcke, ein Bühnenbild.
+    function isFreshProject () {
+        const vm = S.getVM();
+        if (!vm) return false;
+        const targets = vm.runtime.targets.filter(t => t.isOriginal);
+        const stage = targets.find(t => t.isStage);
+        return targets.filter(t => !t.isStage).length <= 1 &&
+            targets.every(t => Object.keys(t.blocks._blocks).length === 0) &&
+            (!stage || stage.getCostumes().length <= 1);
+    }
+
+    // Angemeldete Nutzer haben „Jetzt speichern“ in der Menüleiste.
+    function loggedIn () {
+        return [...document.querySelectorAll('[class*="menu-bar_menu-bar"] *')]
+            .some(e => e.children.length === 0 && e.textContent.trim() === 'Jetzt speichern');
+    }
+
+    // Zu einem Kapitel wechseln – bei vorhandener Arbeit erst sichern und neu anlegen.
+    function openChapter (ci, si) {
+        if (ci === state.chapter || isFreshProject()) {
+            state.transition = null;
+            state.chapter = ci;
+            state.step = si;
+            enterStep();
+            return;
+        }
+        state.transition = {chapterId: chapters[ci].id, step: si, saved: false, fresh: false};
+        run.view = 'transition';
+        saveState();
+        renderPanel();
+    }
+
+    function finishTransition () {
+        const t = state.transition;
+        state.transition = null;
+        state.chapter = chapterIndex(t.chapterId);
+        state.step = t.step;
+        enterStep();
+    }
+
+    function transitionResults () {
+        const t = state.transition;
+        if (!t.fresh && isFreshProject()) {
+            t.fresh = true;
+            saveState();
+        }
+        return [t.saved, t.fresh];
+    }
+
+    function renderTransition (body) {
+        const target = chapters[chapterIndex(state.transition.chapterId)];
+        const saveWay = loggedIn() ? 'Datei → Jetzt speichern' : 'Datei → Auf deinem Computer speichern';
+        body.appendChild(el('div', 'bl-kind bl-kind-save', '💾 Projekt sichern'));
+        body.appendChild(el('h3', 'bl-title', 'Speichern und neu starten'));
+        body.appendChild(el('div', 'bl-text',
+            `<p>Bevor es mit <b>${target.icon} ${target.title}</b> weitergeht: Speichere dein Projekt, damit nichts verloren geht. ` +
+            'Danach startest du mit einem <b>neuen, leeren Projekt</b>.</p>'));
+        const list = el('ul', 'bl-tasks');
+        [`Projekt speichern (${saveWay})`, 'Neues Projekt anlegen (Datei → Neu)'].forEach((text, i) => {
+            const li = el('li', 'bl-task');
+            li.dataset.index = i;
+            li.appendChild(el('span', 'bl-check'));
+            li.appendChild(el('span', 'bl-task-text', text));
+            list.appendChild(li);
+        });
+        body.appendChild(list);
+        body.appendChild(el('div', 'bl-tip', loggedIn() ?
+            '💡 Gib dem Projekt vorher oben in der Menüleiste einen Namen, z. B. „Kapitel 2 – Tanz-Party“.' :
+            '💡 Nenne die Datei z. B. „Kapitel 2 – Tanz-Party.sb3“. Mit <b>Datei → Load from your computer</b> kannst du später weiterbauen.'));
+    }
+
+    function renderTransitionFooter () {
+        const footer = el('div', 'bl-footer');
+        footer.appendChild(button('bl-btn bl-btn-secondary', 'Überspringen', 'Ohne Speichern weiter', finishTransition));
+        footer.appendChild(button('bl-btn bl-btn-primary bl-next', 'Los geht\'s →', '', finishTransition));
+        return footer;
+    }
+
+    function updateTransitionTasks () {
+        const results = transitionResults();
+        const complete = results.every(Boolean);
+        const key = `transition|${results.join()}|${state.collapsed}`;
+        if (key === lastResultsKey || !panel) return;
+        lastResultsKey = key;
+        panel.querySelectorAll('.bl-task').forEach(li => {
+            li.classList.toggle('bl-task-done', !!results[li.dataset.index]);
+        });
+        const next = panel.querySelector('.bl-next');
+        if (next) {
+            next.classList.toggle('bl-pulse', complete);
+            next.classList.toggle('bl-muted', !complete);
+        }
+        clampPanel();
+    }
+
+    function transitionHint () {
+        const [saved, fresh] = transitionResults();
+        if (saved && fresh) return null;
+        const fileButton = [...document.querySelectorAll('[class*="menu-bar_menu-bar-item"]')]
+            .find(b => b.textContent.trim().startsWith('Datei'));
+        const menuItem = text => [...document.querySelectorAll('li[class*="menu_menu-item"]')]
+            .find(li => li.textContent.trim() === text);
+        if (!saved) {
+            const label = loggedIn() ? 'Jetzt speichern' : 'Auf deinem Computer speichern';
+            const item = menuItem(label);
+            if (item) return {rect: rectOf(item), text: 'Speichern'};
+            return {rect: rectOf(fileButton), text: 'Klicke auf „Datei“ zum Speichern'};
+        }
+        const item = menuItem('Neu');
+        if (item) return {rect: rectOf(item), text: 'Neues Projekt'};
+        return {rect: rectOf(fileButton), text: 'Klicke auf „Datei“ und dann auf „Neu“'};
     }
 
     // ---------- Konfetti ----------
@@ -907,9 +1042,7 @@
                 state.open = true;
                 state.collapsed = false;
                 state.level = level.id;
-                state.chapter = chapterIndex(level.chapter);
-                state.step = 0;
-                enterStep();
+                openChapter(chapterIndex(level.chapter), 0);
             });
             card.appendChild(el('div', 'bl-level-icon', level.icon));
             card.appendChild(el('div', 'bl-level-title', level.title));
@@ -931,7 +1064,11 @@
                     backdrop.remove();
                     state.open = true;
                     state.collapsed = false;
-                    enterStep();
+                    if (state.transition) {
+                        renderPanel();
+                    } else {
+                        enterStep();
+                    }
                 }));
         }
 
@@ -986,7 +1123,16 @@
             return;
         }
         if (!panel || !document.body.contains(panel)) renderPanel();
-        if (!run.base) enterStep();
+        if (state.transition && run.view === 'step') {
+            run.view = 'transition';
+            renderPanel();
+        }
+        if (!state.transition && !run.base) enterStep();
+        if (run.view === 'transition') {
+            updateTransitionTasks();
+            updateOverlay(null);
+            return;
+        }
         if (run.view !== 'step') {
             clearOverlay();
             return;

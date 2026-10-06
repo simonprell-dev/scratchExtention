@@ -253,6 +253,7 @@
 .bl-kind-creative { background: var(--bl-creative); }
 .bl-kind-game { background: var(--bl-game); }
 .bl-kind-challenge { background: var(--bl-challenge); }
+.bl-kind-save { background: var(--bl-dark); }
 .bl-title {
     margin: 8px 0 6px;
     color: var(--bl-dark);
@@ -584,4 +585,14 @@
     color: var(--bl-text);
     font-size: 0.8rem;
     line-height: 1.5;
+}
+
+.bl-tip {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--bl-soft);
+    color: var(--bl-dark);
+    font-size: 0.8rem;
+    line-height: 1.4;
 }

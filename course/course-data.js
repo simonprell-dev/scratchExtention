@@ -345,7 +345,7 @@
                     kind: 'info',
                     title: 'Das baust du jetzt',
                     text: '<p>Ein <b>Fänger</b> folgt deiner Maus. Damit fängst du ein Objekt, das danach woanders auftaucht. Jeder Fang gibt einen Punkt – aber pass auf den Gegner auf!</p>' +
-                        '<p>Tipp: Starte mit <b>Datei → Neu</b> ein frisches Projekt. Die Katze ist dein Fänger.</p>'
+                        '<p>Die Katze ist dein Fänger.</p>'
                 },
                 {
                     kind: 'learn',
@@ -611,8 +611,7 @@
                 {
                     kind: 'info',
                     title: 'Jump and Run',
-                    text: '<p>Hindernisse rollen von rechts heran – deine Figur muss <b>darüber springen</b>. Jeder geschaffte Sprung gibt einen Punkt.</p>' +
-                        '<p>Tipp: Starte mit <b>Datei → Neu</b>.</p>'
+                    text: '<p>Hindernisse rollen von rechts heran – deine Figur muss <b>darüber springen</b>. Jeder geschaffte Sprung gibt einen Punkt.</p>'
                 },
                 {
                     kind: 'creative',
@@ -737,7 +736,7 @@
                     kind: 'info',
                     title: 'Das Spiel Pong',
                     text: '<p>Pong ist eines der ersten Videospiele überhaupt: Ein Ball fliegt herum, du hältst ihn mit einem Schläger im Spiel. Fällt er unten durch, ist das Spiel vorbei.</p>' +
-                        '<p>Tipp: Starte mit <b>Datei → Neu</b>. Wenn du nicht weiterkommst, hilft dir <b>Zeig mir wie</b>.</p>'
+                        '<p>Wenn du nicht weiterkommst, hilft dir <b>Zeig mir wie</b>.</p>'
                 },
                 {
                     kind: 'creative',
@@ -865,7 +864,7 @@
                     kind: 'info',
                     title: 'Code wird Kunst',
                     text: '<p>Mit der Erweiterung <b>Malstift</b> hinterlässt deine Figur eine Spur auf der Bühne. Mit Schleifen entstehen daraus Muster, die man von Hand kaum zeichnen könnte.</p>' +
-                        '<p>Tipp: Starte mit <b>Datei → Neu</b>. Die Katze kannst du mit <b>verstecke dich</b> unsichtbar machen.</p>'
+                        '<p>Tipp: Die Katze kannst du mit <b>verstecke dich</b> unsichtbar machen.</p>'
                 },
                 {
                     kind: 'learn',
@@ -981,7 +980,7 @@
                     kind: 'info',
                     title: 'Was sind Klone?',
                     text: '<p>Ein <b>Klon</b> ist eine Kopie einer Figur, die das Programm selbst erzeugt. So kannst du hunderte Asteroiden fliegen lassen, ohne hundert Figuren zu bauen.</p>' +
-                        '<p>Das Spiel: Deine Rakete weicht Asteroiden aus. Tipp: Starte mit <b>Datei → Neu</b>.</p>'
+                        '<p>Das Spiel: Deine Rakete weicht Asteroiden aus.</p>'
                 },
                 {
                     kind: 'creative',
