@@ -32,7 +32,7 @@
         } catch (e) { /* egal */ }
     }
 
-    const findStore = window.BayernLabScratch.findStore;
+    const findStore = window.EinfuehrungskursScratch.findStore;
 
     function currentStep () {
         if (!store) return null;

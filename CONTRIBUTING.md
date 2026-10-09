@@ -32,7 +32,7 @@ scratchExtention/
 ├── course/
 │   ├── course-data.js       ← Kursinhalte: Kapitel, Schritte, Aufgaben, Hinweise
 │   ├── course.js            Kurs-Engine: Button, Stufenwahl, Fenster, Hinweise, Prüfungen
-│   └── course.css           Gestaltung (BayernLab-Farben)
+│   └── course.css           Gestaltung (Scratch-Farben)
 ├── data/steps-de.js         Erzeugt: deutsche Blöcke für die Scratch-Tutorials
 ├── lib/
 │   ├── scratch-access.js    Zugriff auf Redux-Store, VM und Workspace von Scratch
@@ -44,6 +44,7 @@ scratchExtention/
 │   └── check-course.mjs     Prüft alle Block-Skripte im Kurs
 ├── docs/                    Screenshots, Demo-GIF, Vorschaubild für GitHub
 ├── .github/                 Issue-Vorlagen, Prüfung und Release-Workflow
+├── .claude/skills/          Claude-Skill „kurs-kapitel“ zum Schreiben neuer Kapitel
 ├── CHANGELOG.md             Änderungen pro Version
 └── LICENSE                  MIT-Lizenz
 ```
@@ -127,6 +128,11 @@ gibt es im [scratch-vm-Quellcode](https://github.com/scratchfoundation/scratch-v
 2. Die Reihenfolge im Array ist die Reihenfolge im Kurs. Gespeichert wird über die `id`,
    deshalb verschieben neue Kapitel den Fortschritt nicht.
 3. `npm run check` ausführen und das Kapitel im Editor durchspielen.
+
+**Mit Claude:** Der Skill [`kurs-kapitel`](.claude/skills/kurs-kapitel/README.md) kennt
+Datenformat, Hinweis-Ziele und Prüf-Hilfen und schreibt ein Kapitel samt Prüfung. In
+Claude Code ist er im Projekt automatisch verfügbar. Installation für andere Umgebungen und
+Beispiele stehen in seiner README. Das Durchspielen im Editor bleibt Handarbeit.
 
 ### Tutorial-Übersetzungen ändern
 

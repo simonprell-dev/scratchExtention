@@ -1,5 +1,5 @@
 /*
- * BayernLab-Kurs: Menü-Button, Stufenwahl, Kursfenster und Zeige-Hinweise.
+ * Einführungskurs: Menü-Button, Stufenwahl, Kursfenster und Zeige-Hinweise.
  *
  * Prüft den Fortschritt direkt in der Scratch-VM (welche Blöcke wo liegen)
  * und zeigt im Stil von LEGO Education an, wo geklickt und wohin gezogen wird.
@@ -7,9 +7,10 @@
 (function () {
     'use strict';
 
-    const S = window.BayernLabScratch;
-    const {chapters, levels} = window.BayernLabCourse;
-    const STATE_KEY = 'bayernlab-course:v2';
+    const S = window.EinfuehrungskursScratch;
+    const {chapters, levels} = window.EinfuehrungskursCourse;
+    const STATE_KEY = 'einfuehrungskurs:v2';
+    const OLD_STATE_KEY = 'bayernlab-course:v2'; // Name bis 1.2.0, wird einmalig übernommen
     const TICK_MS = 200;
 
     const CATEGORY = {
@@ -32,6 +33,11 @@
     function loadState () {
         let loaded = defaultState();
         try {
+            const old = localStorage.getItem(OLD_STATE_KEY);
+            if (old !== null) {
+                if (localStorage.getItem(STATE_KEY) === null) localStorage.setItem(STATE_KEY, old);
+                localStorage.removeItem(OLD_STATE_KEY);
+            }
             loaded = Object.assign(loaded, JSON.parse(localStorage.getItem(STATE_KEY) || '{}'));
         } catch (e) { /* Standardwerte */ }
         loaded.chapter = chapterIndex(loaded.chapterId);
@@ -61,18 +67,21 @@
 
     function snapshot () {
         const vm = S.getVM();
-        if (!vm) return {spriteCount: 0, backdropCount: 0, backdrop: 0, pos: {}};
+        if (!vm) return {spriteCount: 0, backdropCount: 0, backdrop: 0, pos: {}, sounds: {}};
         const sprites = vm.runtime.targets.filter(t => t.isOriginal && !t.isStage);
         const stage = vm.runtime.getTargetForStage();
         const pos = {};
+        const sounds = {};
         sprites.forEach(t => {
             pos[t.id] = [t.x, t.y];
+            sounds[t.id] = t.getSounds().length;
         });
         return {
             spriteCount: sprites.length,
             backdropCount: stage ? stage.getCostumes().length : 0,
             backdrop: stage ? stage.currentCostume : 0,
-            pos
+            pos,
+            sounds
         };
     }
 
@@ -183,6 +192,24 @@
                 c.tab(name);
                 return run.tabsSeen.has(name);
             },
+            // Ist gerade eine Bibliothek (Figuren, Klänge, Hintergründe …) offen?
+            libraryOpen () {
+                return !!libraryOverlay();
+            },
+            // Was steht im Suchfeld der Bibliothek?
+            searchText () {
+                const input = libraryOverlay() && libraryOverlay().querySelector('input[class*="filter_filter-input"]');
+                return input ? input.value : '';
+            },
+            // Ist die Kategorie (z. B. „Tanz“) in der Bibliothek ausgewählt?
+            tagActive (text) {
+                const tag = libraryTag(text);
+                return !!tag && /active/.test(tag.className);
+            },
+            // Hat eine Figur in diesem Schritt einen neuen Klang bekommen?
+            newSound () {
+                return sprites.some(t => t.getSounds().length > (run.base.sounds[t.id] || 0));
+            },
             extension (id) {
                 return !!vm && vm.extensionManager.isExtensionLoaded(id);
             },
@@ -258,6 +285,28 @@
         return (ws && ws.scale) || 0.675;
     }
 
+    function libraryOverlay () {
+        const overlayEl = document.querySelector('.ReactModal__Overlay');
+        return overlayEl && overlayEl.querySelector('[class*="library-item_library-item_"]') ? overlayEl : null;
+    }
+
+    // Erster sichtbarer Bibliothekseintrag, dessen Name mit prefix beginnt.
+    function libraryItem (prefix) {
+        const lib = libraryOverlay();
+        if (!lib) return null;
+        const view = rectOf(lib);
+        return [...lib.querySelectorAll('[class*="library-item_library-item_"]')].find(e => {
+            if (!e.textContent.trim().toLowerCase().startsWith(prefix.toLowerCase())) return false;
+            const r = rectOf(e);
+            return r && view && r.top >= view.top && r.bottom <= view.bottom;
+        });
+    }
+
+    function libraryTag (text) {
+        const lib = libraryOverlay();
+        return lib && [...lib.querySelectorAll('[class*="tag-button_tag-button"]')].find(e => e.textContent.trim() === text);
+    }
+
     // Liefert {rect} oder {redirect: {...}} wenn erst etwas anderes passieren muss.
     function resolveTarget (target) {
         const [kind, arg] = target.split(/:(.*)/);
@@ -284,6 +333,18 @@
         case 'stage':
             return {rect: rectOf(document.querySelector('[class*="stage_stage-wrapper"] canvas')) ||
                 rectOf(document.querySelector('[class*="stage_stage-wrapper"]'))};
+        case 'soundAdd':
+            return {rect: rectOf(document.querySelector('[aria-label="Klang wählen"]'))};
+        case 'costumeAdd':
+            return {rect: rectOf(document.querySelector('[aria-label="Kostüm wählen"]'))};
+        case 'libSearch': {
+            const lib = libraryOverlay();
+            return {rect: rectOf(lib && lib.querySelector('input[class*="filter_filter-input"]'))};
+        }
+        case 'libTag':
+            return {rect: rectOf(libraryTag(arg))};
+        case 'libItem':
+            return {rect: rectOf(libraryItem(arg))};
         case 'spriteAdd':
             return {rect: rectOf(document.querySelector('[class*="sprite-selector_add-button"]'))};
         case 'backdropAdd':
@@ -342,7 +403,7 @@
     function ensureOverlay () {
         if (overlay && document.body.contains(overlay)) return overlay;
         overlay = document.createElement('div');
-        overlay.className = 'bl-overlay';
+        overlay.className = 'ek-overlay';
         document.body.appendChild(overlay);
         return overlay;
     }
@@ -355,7 +416,7 @@
 
     function placeRing (rect, pad) {
         const ring = document.createElement('div');
-        ring.className = 'bl-ring';
+        ring.className = 'ek-ring';
         Object.assign(ring.style, {
             left: `${rect.left - pad}px`, top: `${rect.top - pad}px`,
             width: `${rect.width + 2 * pad}px`, height: `${rect.height + 2 * pad}px`
@@ -373,7 +434,7 @@
             const r = rectOf(e);
             if (r) rects.push(r);
         });
-        const p = panel && state.open && rectOf(panel);
+        const p = panel && state.open && !document.querySelector('.ReactModal__Overlay') && rectOf(panel);
         if (p) rects.push(p);
         return rects;
     }
@@ -388,16 +449,18 @@
     // die erste Position, die nichts Wichtiges verdeckt.
     function placeBubble (text, anchor, order) {
         const bubble = document.createElement('div');
-        bubble.className = 'bl-bubble';
+        bubble.className = 'ek-bubble';
         bubble.textContent = text;
         overlay.appendChild(bubble);
         const w = bubble.offsetWidth;
         const h = bubble.offsetHeight;
         const cx = anchor.left + anchor.width / 2;
         const cy = anchor.top + anchor.height / 2;
+        // Unter/über dem Ziel: seitlich ins Fenster schieben statt auszuweichen.
+        const centered = Math.max(8, Math.min(window.innerWidth - w - 8, cx - w / 2));
         const spots = {
-            below: new DOMRect(cx - w / 2, anchor.bottom + 8, w, h),
-            above: new DOMRect(cx - w / 2, anchor.top - h - 8, w, h),
+            below: new DOMRect(centered, anchor.bottom + 8, w, h),
+            above: new DOMRect(centered, anchor.top - h - 8, w, h),
             right: new DOMRect(anchor.right + 12, cy - h / 2, w, h),
             left: new DOMRect(anchor.left - w - 12, cy - h / 2, w, h)
         };
@@ -420,7 +483,7 @@
         const showHand = !avoidRects().some(a => overlaps(handRect, a, 0));
         if (showHand) {
             const hand = document.createElement('div');
-            hand.className = `bl-hand ${above ? 'bl-hand-down' : ''} ${scroll ? 'bl-hand-scroll' : ''}`;
+            hand.className = `ek-hand ${above ? 'ek-hand-down' : ''} ${scroll ? 'ek-hand-scroll' : ''}`;
             hand.textContent = scroll || above ? '👇' : '👆';
             hand.style.left = `${handRect.left}px`;
             hand.style.top = `${handRect.top}px`;
@@ -437,13 +500,13 @@
     function drawDrag (fromRect, to, hint) {
         overlay.appendChild(placeRing(fromRect, 5));
         const target = document.createElement('div');
-        target.className = 'bl-drop';
+        target.className = 'ek-drop';
         target.style.left = `${to.x - 14}px`;
         target.style.top = `${to.y - 14}px`;
         overlay.appendChild(target);
 
         const mover = document.createElement('div');
-        mover.className = 'bl-mover';
+        mover.className = 'ek-mover';
         const sx = fromRect.left;
         const sy = fromRect.top;
         mover.style.setProperty('--sx', `${sx}px`);
@@ -453,12 +516,12 @@
         if (hint.ghost) {
             try {
                 const ghost = S.renderBlocksDe(hint.ghost, zoom());
-                ghost.classList.add('bl-ghost');
+                ghost.classList.add('ek-ghost');
                 mover.appendChild(ghost);
             } catch (e) { /* ohne Geister-Block */ }
         }
         const hand = document.createElement('div');
-        hand.className = 'bl-mover-hand';
+        hand.className = 'ek-mover-hand';
         hand.textContent = '✊';
         mover.appendChild(hand);
         overlay.appendChild(mover);
@@ -470,13 +533,13 @@
             const {rect} = resolveTarget(label.target);
             if (!rect) return;
             const box = document.createElement('div');
-            box.className = 'bl-label-box';
+            box.className = 'ek-label-box';
             Object.assign(box.style, {
                 left: `${rect.left + 4}px`, top: `${rect.top + 4}px`,
                 width: `${rect.width - 8}px`, height: `${rect.height - 8}px`
             });
             const tag = document.createElement('div');
-            tag.className = 'bl-label-tag';
+            tag.className = 'ek-label-tag';
             tag.textContent = label.text;
             box.appendChild(tag);
             overlay.appendChild(box);
@@ -485,6 +548,8 @@
 
     function updateOverlay (c) {
         ensureOverlay();
+        // Scratch-Dialoge liegen bei z-index 510 – darüber zeichnen, solange einer offen ist.
+        overlay.classList.toggle('ek-overlay-top', !!document.querySelector('.ReactModal__Overlay'));
         const step = currentStep();
         if (state.open && run.view === 'transition') {
             const h = transitionHint();
@@ -578,7 +643,7 @@
 
     function ensurePanel () {
         if (panel && document.body.contains(panel)) return panel;
-        panel = el('div', 'bl-panel');
+        panel = el('div', 'ek-panel');
         document.body.appendChild(panel);
         return panel;
     }
@@ -594,33 +659,33 @@
             clearOverlay();
             return;
         }
-        panel.classList.toggle('bl-collapsed', state.collapsed);
+        panel.classList.toggle('ek-collapsed', state.collapsed);
         panel.innerHTML = '';
 
         const chapter = currentChapter();
         const step = currentStep();
 
         // Kopfzeile
-        const header = el('div', 'bl-header');
-        const titles = el('div', 'bl-header-titles');
-        titles.appendChild(el('div', 'bl-header-brand', 'BayernLab Kurs'));
-        titles.appendChild(el('div', 'bl-header-sub', state.transition ?
+        const header = el('div', 'ek-header');
+        const titles = el('div', 'ek-header-titles');
+        titles.appendChild(el('div', 'ek-header-brand', 'Einführungskurs'));
+        titles.appendChild(el('div', 'ek-header-sub', state.transition ?
             `Projekt sichern → Kapitel ${chapterIndex(state.transition.chapterId) + 1}` :
             `Kapitel ${state.chapter + 1}: ${chapter.title} · ${state.step + 1}/${totalSteps()}`));
         header.appendChild(titles);
-        const actions = el('div', 'bl-header-actions');
-        actions.appendChild(button('bl-icon-btn', '☰', 'Kapitelübersicht', () => {
+        const actions = el('div', 'ek-header-actions');
+        actions.appendChild(button('ek-icon-btn', '☰', 'Kapitelübersicht', () => {
             run.view = run.view === 'menu' ? (state.transition ? 'transition' : 'step') : 'menu';
             state.collapsed = false;
             renderPanel();
         }));
-        actions.appendChild(button('bl-icon-btn', state.collapsed ? '▴' : '▾',
+        actions.appendChild(button('ek-icon-btn', state.collapsed ? '▴' : '▾',
             state.collapsed ? 'Ausklappen' : 'Einklappen', () => {
                 state.collapsed = !state.collapsed;
                 saveState();
                 renderPanel();
             }));
-        actions.appendChild(button('bl-icon-btn', '✕', 'Kurs schließen (Fortschritt bleibt gespeichert)', () => {
+        actions.appendChild(button('ek-icon-btn', '✕', 'Kurs schließen (Fortschritt bleibt gespeichert)', () => {
             state.open = false;
             saveState();
             renderPanel();
@@ -630,18 +695,18 @@
         panel.appendChild(header);
 
         // Fortschrittsbalken
-        const progress = el('div', 'bl-progress');
+        const progress = el('div', 'ek-progress');
         chapter.steps.forEach((s, i) => {
-            const pip = el('span', 'bl-pip');
-            if (state.done[stepId(state.chapter, i)]) pip.classList.add('bl-pip-done');
-            if (i === state.step) pip.classList.add('bl-pip-active');
+            const pip = el('span', 'ek-pip');
+            if (state.done[stepId(state.chapter, i)]) pip.classList.add('ek-pip-done');
+            if (i === state.step) pip.classList.add('ek-pip-active');
             pip.title = s.title;
             progress.appendChild(pip);
         });
         panel.appendChild(progress);
 
         if (state.collapsed) {
-            const mini = el('div', 'bl-mini');
+            const mini = el('div', 'ek-mini');
             mini.textContent = state.transition ? '💾 Projekt sichern und neu starten' : `${KIND[step.kind].icon} ${step.title}`;
             mini.addEventListener('click', () => {
                 state.collapsed = false;
@@ -653,7 +718,7 @@
             return;
         }
 
-        const body = el('div', 'bl-body');
+        const body = el('div', 'ek-body');
         if (run.view === 'menu') {
             renderMenu(body);
         } else if (run.view === 'transition') {
@@ -671,31 +736,31 @@
 
     function renderStep (body, step) {
         const kind = KIND[step.kind];
-        body.appendChild(el('div', `bl-kind bl-kind-${step.kind}`, `${kind.icon} ${kind.label}`));
-        body.appendChild(el('h3', 'bl-title', step.title));
-        body.appendChild(el('div', 'bl-text', step.text));
+        body.appendChild(el('div', `ek-kind ek-kind-${step.kind}`, `${kind.icon} ${kind.label}`));
+        body.appendChild(el('h3', 'ek-title', step.title));
+        body.appendChild(el('div', 'ek-text', step.text));
 
         if (step.blocks) {
-            const wrap = el('div', 'bl-blocks');
-            wrap.appendChild(el('div', 'bl-blocks-label', 'So soll es aussehen:'));
+            const wrap = el('div', 'ek-blocks');
+            wrap.appendChild(el('div', 'ek-blocks-label', 'So soll es aussehen:'));
             try {
                 wrap.appendChild(S.renderBlocksDe(step.blocks, 0.6));
             } catch (e) {
-                console.warn('[BayernLab] Blöcke konnten nicht gerendert werden', e);
+                console.warn('[Einführungskurs] Blöcke konnten nicht gerendert werden', e);
             }
             body.appendChild(wrap);
         }
 
         if (step.tasks && step.tasks.length) {
-            const list = el('ul', 'bl-tasks');
+            const list = el('ul', 'ek-tasks');
             step.tasks.forEach((task, i) => {
-                const li = el('li', 'bl-task');
+                const li = el('li', 'ek-task');
                 li.dataset.index = i;
-                const box = el('span', 'bl-check');
+                const box = el('span', 'ek-check');
                 li.appendChild(box);
-                li.appendChild(el('span', 'bl-task-text', task.text));
+                li.appendChild(el('span', 'ek-task-text', task.text));
                 if (task.manual) {
-                    li.classList.add('bl-task-manual');
+                    li.classList.add('ek-task-manual');
                     li.title = 'Zum Abhaken klicken';
                     li.addEventListener('click', () => {
                         const key = `${stepId(state.chapter, state.step)}.${i}`;
@@ -708,64 +773,64 @@
             body.appendChild(list);
         }
 
-        body.appendChild(el('div', 'bl-success'));
+        body.appendChild(el('div', 'ek-success'));
     }
 
     function renderFooter (step) {
-        const footer = el('div', 'bl-footer');
-        footer.appendChild(button('bl-btn bl-btn-secondary', '←', 'Zurück', () => go(-1)));
+        const footer = el('div', 'ek-footer');
+        footer.appendChild(button('ek-btn ek-btn-secondary', '←', 'Zurück', () => go(-1)));
         if (step.hints && step.hints.length) {
-            const hintBtn = button(`bl-btn bl-btn-hint ${run.hintsOn ? 'bl-on' : ''}`,
+            const hintBtn = button(`ek-btn ek-btn-hint ${run.hintsOn ? 'ek-on' : ''}`,
                 run.hintsOn ? '👆 Hinweise aus' : '👆 Zeig mir wie', 'Zeigt, wo du klicken musst', () => {
                     run.hintsOn = !run.hintsOn;
                     renderPanel();
                 });
             footer.appendChild(hintBtn);
         } else {
-            footer.appendChild(el('span', 'bl-spacer'));
+            footer.appendChild(el('span', 'ek-spacer'));
         }
-        const next = button('bl-btn bl-btn-primary bl-next', 'Weiter →', '', () => go(1));
+        const next = button('ek-btn ek-btn-primary ek-next', 'Weiter →', '', () => go(1));
         footer.appendChild(next);
         return footer;
     }
 
     function renderMenu (body) {
-        body.appendChild(el('h3', 'bl-title', 'Kapitel'));
+        body.appendChild(el('h3', 'ek-title', 'Kapitel'));
         chapters.forEach((chapter, ci) => {
-            const section = el('div', 'bl-menu-chapter');
-            section.appendChild(el('div', 'bl-menu-chapter-title',
-                `${ci + 1}. ${chapter.icon || ''} ${chapter.title} <span class="bl-menu-level">${chapter.type}</span>`));
+            const section = el('div', 'ek-menu-chapter');
+            section.appendChild(el('div', 'ek-menu-chapter-title',
+                `${ci + 1}. ${chapter.icon || ''} ${chapter.title} <span class="ek-menu-level">${chapter.type}</span>`));
             chapter.steps.forEach((s, si) => {
                 const done = state.done[stepId(ci, si)];
-                const item = button(`bl-menu-step ${ci === state.chapter && si === state.step ? 'bl-current' : ''}`,
+                const item = button(`ek-menu-step ${ci === state.chapter && si === state.step ? 'ek-current' : ''}`,
                     `<span>${done ? '✅' : KIND[s.kind].icon}</span> ${s.title}`, '', () => openChapter(ci, si));
                 section.appendChild(item);
             });
             body.appendChild(section);
         });
-        body.appendChild(button('bl-btn bl-btn-secondary bl-menu-level-btn', 'Stufe neu wählen', '', () => {
+        body.appendChild(button('ek-btn ek-btn-secondary ek-menu-level-btn', 'Stufe neu wählen', '', () => {
             showLevelDialog();
         }));
         requestAnimationFrame(() => {
-            const current = body.querySelector('.bl-current');
+            const current = body.querySelector('.ek-current');
             if (current) current.scrollIntoView({block: 'center'});
         });
     }
 
     function updatePanelTasks (results, complete) {
         if (!panel || state.collapsed || run.view !== 'step') return;
-        panel.querySelectorAll('.bl-task').forEach(li => {
-            li.classList.toggle('bl-task-done', !!results[li.dataset.index]);
+        panel.querySelectorAll('.ek-task').forEach(li => {
+            li.classList.toggle('ek-task-done', !!results[li.dataset.index]);
         });
         const step = currentStep();
-        const next = panel.querySelector('.bl-next');
-        const success = panel.querySelector('.bl-success');
+        const next = panel.querySelector('.ek-next');
+        const success = panel.querySelector('.ek-success');
         const hasTasks = step.tasks && step.tasks.length;
         if (next) {
             const last = isLastStep();
             next.textContent = last ? 'Kapitel fertig ✓' : 'Weiter →';
-            next.classList.toggle('bl-pulse', !!(complete && hasTasks));
-            next.classList.toggle('bl-muted', !!(hasTasks && !complete));
+            next.classList.toggle('ek-pulse', !!(complete && hasTasks));
+            next.classList.toggle('ek-muted', !!(hasTasks && !complete));
             next.title = hasTasks && !complete ? 'Du kannst auch überspringen' : '';
         }
         if (success) {
@@ -813,25 +878,25 @@
     function showChapterDone () {
         const nextChapter = chapters[state.chapter + 1];
         saveState();
-        const body = panel.querySelector('.bl-body');
-        const footer = panel.querySelector('.bl-footer');
+        const body = panel.querySelector('.ek-body');
+        const footer = panel.querySelector('.ek-footer');
         if (footer) footer.remove();
         run.view = 'done';
         clearOverlay();
         body.innerHTML = '';
-        body.appendChild(el('div', 'bl-trophy', '🏆'));
-        body.appendChild(el('h3', 'bl-title bl-center', `Kapitel „${currentChapter().title}“ geschafft!`));
-        body.appendChild(el('div', 'bl-text bl-center',
+        body.appendChild(el('div', 'ek-trophy', '🏆'));
+        body.appendChild(el('h3', 'ek-title ek-center', `Kapitel „${currentChapter().title}“ geschafft!`));
+        body.appendChild(el('div', 'ek-text ek-center',
             nextChapter ?
                 `<p>Stark! Bereit für das nächste Abenteuer: <b>${nextChapter.title}</b>?</p>` :
-                '<p>Du hast den ganzen BayernLab-Kurs geschafft. Jetzt bist du ein echter Scratch-Profi!</p>'));
-        const row = el('div', 'bl-footer');
-        row.appendChild(button('bl-btn bl-btn-secondary', 'Zur Übersicht', '', () => {
+                '<p>Du hast den ganzen Einführungskurs geschafft. Jetzt bist du ein echter Scratch-Profi!</p>'));
+        const row = el('div', 'ek-footer');
+        row.appendChild(button('ek-btn ek-btn-secondary', 'Zur Übersicht', '', () => {
             run.view = 'menu';
             renderPanel();
         }));
         if (nextChapter) {
-            row.appendChild(button('bl-btn bl-btn-primary', 'Weiter →', 'Projekt sichern und nächstes Kapitel starten', () => {
+            row.appendChild(button('ek-btn ek-btn-primary', 'Weiter →', 'Projekt sichern und nächstes Kapitel starten', () => {
                 openChapter(state.chapter + 1, 0);
             }));
         }
@@ -905,29 +970,29 @@
     function renderTransition (body) {
         const target = chapters[chapterIndex(state.transition.chapterId)];
         const saveWay = loggedIn() ? 'Datei → Jetzt speichern' : 'Datei → Auf deinem Computer speichern';
-        body.appendChild(el('div', 'bl-kind bl-kind-save', '💾 Projekt sichern'));
-        body.appendChild(el('h3', 'bl-title', 'Speichern und neu starten'));
-        body.appendChild(el('div', 'bl-text',
+        body.appendChild(el('div', 'ek-kind ek-kind-save', '💾 Projekt sichern'));
+        body.appendChild(el('h3', 'ek-title', 'Speichern und neu starten'));
+        body.appendChild(el('div', 'ek-text',
             `<p>Bevor es mit <b>${target.icon} ${target.title}</b> weitergeht: Speichere dein Projekt, damit nichts verloren geht. ` +
             'Danach startest du mit einem <b>neuen, leeren Projekt</b>.</p>'));
-        const list = el('ul', 'bl-tasks');
+        const list = el('ul', 'ek-tasks');
         [`Projekt speichern (${saveWay})`, 'Neues Projekt anlegen (Datei → Neu)'].forEach((text, i) => {
-            const li = el('li', 'bl-task');
+            const li = el('li', 'ek-task');
             li.dataset.index = i;
-            li.appendChild(el('span', 'bl-check'));
-            li.appendChild(el('span', 'bl-task-text', text));
+            li.appendChild(el('span', 'ek-check'));
+            li.appendChild(el('span', 'ek-task-text', text));
             list.appendChild(li);
         });
         body.appendChild(list);
-        body.appendChild(el('div', 'bl-tip', loggedIn() ?
+        body.appendChild(el('div', 'ek-tip', loggedIn() ?
             '💡 Gib dem Projekt vorher oben in der Menüleiste einen Namen, z. B. „Kapitel 2 – Tanz-Party“.' :
             '💡 Nenne die Datei z. B. „Kapitel 2 – Tanz-Party.sb3“. Mit <b>Datei → Load from your computer</b> kannst du später weiterbauen.'));
     }
 
     function renderTransitionFooter () {
-        const footer = el('div', 'bl-footer');
-        footer.appendChild(button('bl-btn bl-btn-secondary', 'Überspringen', 'Ohne Speichern weiter', finishTransition));
-        footer.appendChild(button('bl-btn bl-btn-primary bl-next', 'Los geht\'s →', '', finishTransition));
+        const footer = el('div', 'ek-footer');
+        footer.appendChild(button('ek-btn ek-btn-secondary', 'Überspringen', 'Ohne Speichern weiter', finishTransition));
+        footer.appendChild(button('ek-btn ek-btn-primary ek-next', 'Los geht\'s →', '', finishTransition));
         return footer;
     }
 
@@ -937,13 +1002,13 @@
         const key = `transition|${results.join()}|${state.collapsed}`;
         if (key === lastResultsKey || !panel) return;
         lastResultsKey = key;
-        panel.querySelectorAll('.bl-task').forEach(li => {
-            li.classList.toggle('bl-task-done', !!results[li.dataset.index]);
+        panel.querySelectorAll('.ek-task').forEach(li => {
+            li.classList.toggle('ek-task-done', !!results[li.dataset.index]);
         });
-        const next = panel.querySelector('.bl-next');
+        const next = panel.querySelector('.ek-next');
         if (next) {
-            next.classList.toggle('bl-pulse', complete);
-            next.classList.toggle('bl-muted', !complete);
+            next.classList.toggle('ek-pulse', complete);
+            next.classList.toggle('ek-muted', !complete);
         }
         clampPanel();
     }
@@ -972,7 +1037,7 @@
         const rect = panel.getBoundingClientRect();
         const colors = ['#003E7E', '#006EB7', '#3CB4E1', '#FFBF00', '#FF8C1A', '#59C059', '#9966FF'];
         for (let i = 0; i < 40; i++) {
-            const piece = el('div', 'bl-confetti');
+            const piece = el('div', 'ek-confetti');
             piece.style.left = `${rect.left + rect.width / 2}px`;
             piece.style.top = `${rect.top + 40}px`;
             piece.style.background = colors[i % colors.length];
@@ -1025,18 +1090,18 @@
     // ---------- Stufenwahl ----------
 
     function showLevelDialog () {
-        const old = document.querySelector('.bl-modal-backdrop');
+        const old = document.querySelector('.ek-modal-backdrop');
         if (old) old.remove();
-        const backdrop = el('div', 'bl-modal-backdrop');
-        const modal = el('div', 'bl-modal');
-        modal.appendChild(button('bl-modal-close', '✕', 'Schließen', () => backdrop.remove()));
-        modal.appendChild(el('div', 'bl-modal-brand', 'BayernLab'));
-        modal.appendChild(el('h2', 'bl-modal-title', 'Scratch-Kurs starten'));
-        modal.appendChild(el('p', 'bl-modal-text', 'Wie gut kennst du dich mit Scratch schon aus? Je nach Stufe startest du an einer anderen Stelle im Kurs.'));
+        const backdrop = el('div', 'ek-modal-backdrop');
+        const modal = el('div', 'ek-modal');
+        modal.appendChild(button('ek-modal-close', '✕', 'Schließen', () => backdrop.remove()));
+        modal.appendChild(el('div', 'ek-modal-brand', 'Einführungskurs'));
+        modal.appendChild(el('h2', 'ek-modal-title', 'Scratch-Kurs starten'));
+        modal.appendChild(el('p', 'ek-modal-text', 'Wie gut kennst du dich mit Scratch schon aus? Je nach Stufe startest du an einer anderen Stelle im Kurs.'));
 
-        const grid = el('div', 'bl-level-grid');
+        const grid = el('div', 'ek-level-grid');
         levels.forEach(level => {
-            const card = button('bl-level-card', '', '', () => {
+            const card = button('ek-level-card', '', '', () => {
                 backdrop.remove();
                 state.started = true;
                 state.open = true;
@@ -1044,14 +1109,14 @@
                 state.level = level.id;
                 openChapter(chapterIndex(level.chapter), 0);
             });
-            card.appendChild(el('div', 'bl-level-icon', level.icon));
-            card.appendChild(el('div', 'bl-level-title', level.title));
-            card.appendChild(el('div', 'bl-level-text', level.text));
+            card.appendChild(el('div', 'ek-level-icon', level.icon));
+            card.appendChild(el('div', 'ek-level-title', level.title));
+            card.appendChild(el('div', 'ek-level-text', level.text));
             const own = chapters.filter(ch => ch.level === level.id);
-            const list = el('ul', 'bl-level-chapters');
+            const list = el('ul', 'ek-level-chapters');
             own.forEach(ch => list.appendChild(el('li', '', `${ch.icon} ${ch.title}`)));
             card.appendChild(list);
-            card.appendChild(el('div', 'bl-level-start',
+            card.appendChild(el('div', 'ek-level-start',
                 `Start: Kapitel ${chapterIndex(level.chapter) + 1}`));
             grid.appendChild(card);
         });
@@ -1059,7 +1124,7 @@
 
         if (state.started) {
             const step = currentStep();
-            modal.appendChild(button('bl-btn bl-btn-primary bl-resume',
+            modal.appendChild(button('ek-btn ek-btn-primary ek-resume',
                 `Weitermachen: Kapitel ${state.chapter + 1}, „${step.title}“`, '', () => {
                     backdrop.remove();
                     state.open = true;
@@ -1082,15 +1147,15 @@
     // ---------- Menü-Button ----------
 
     function ensureMenuButton () {
-        if (document.querySelector('.bl-menu-button')) return;
+        if (document.querySelector('.ek-menu-button')) return;
         const groups = document.querySelectorAll('[class*="menu-bar_file-group"]');
         const group = groups[groups.length - 1];
         if (!group) return;
         const reference = group.querySelector('[class*="menu-bar_menu-bar-item"]');
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `${reference ? reference.className.replace('tutorials-button', '') : ''} bl-menu-button`;
-        btn.innerHTML = '<span class="bl-menu-logo">BL</span><span>BayernLab Kurs starten</span>';
+        btn.className = `${reference ? reference.className.replace('tutorials-button', '') : ''} ek-menu-button`;
+        btn.innerHTML = '<span class="ek-menu-logo">🎓</span><span>Einführungskurs starten</span>';
         btn.addEventListener('click', e => {
             e.stopPropagation();
             showLevelDialog();
@@ -1159,8 +1224,8 @@
 
     function renderProgressPips () {
         if (!panel) return;
-        panel.querySelectorAll('.bl-pip').forEach((pip, i) => {
-            pip.classList.toggle('bl-pip-done', !!state.done[stepId(state.chapter, i)]);
+        panel.querySelectorAll('.ek-pip').forEach((pip, i) => {
+            pip.classList.toggle('ek-pip-done', !!state.done[stepId(state.chapter, i)]);
         });
     }
 

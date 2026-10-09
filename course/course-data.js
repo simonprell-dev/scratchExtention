@@ -1,5 +1,5 @@
 /*
- * Inhalte des BayernLab-Scratch-Kurses.
+ * Inhalte des Scratch-Einführungskurses.
  *
  * Aufbau eines Schritts:
  *   kind   'info' | 'learn' | 'creative' | 'game' | 'challenge'
@@ -42,6 +42,29 @@
 
     const newSprites = c => c.sprites.length - c.base.spriteCount;
     const userVar = c => c.vars().find(v => !/^(my variable|meine Variable)$/i.test(v.name));
+    const musicInLoop = c => inside(c, 'sound_playuntildone', 'control_forever') || inside(c, 'sound_play', 'control_forever');
+    const TAB_NAMES = {sounds: 'Klänge', costumes: 'Kostüme', code: 'Skripte'};
+
+    // Zeige-Hinweise durch eine Scratch-Bibliothek: (Tab →) Knopf → Suche oder Kategorie → Eintrag.
+    // done(c) beendet die ganze Kette, z. B. sobald die neue Figur oder der Klang da ist.
+    function libraryHints ({tab, button, buttonText, search, tag, item, itemText, done}) {
+        const hints = [];
+        if (tab) {
+            hints.push({target: `tab:${tab}`, text: `Öffne oben den Tab „${TAB_NAMES[tab]}“`,
+                done: c => done(c) || c.tab(tab) || c.libraryOpen()});
+        }
+        hints.push({target: button, text: buttonText, done: c => done(c) || c.libraryOpen()});
+        if (search) {
+            hints.push({target: 'libSearch', text: `Tippe „${search}“ in die Suche`,
+                done: c => done(c) || !c.libraryOpen() || c.searchText().toLowerCase().includes(search)});
+        } else if (tag) {
+            hints.push({target: `libTag:${tag}`, text: `Klicke auf „${tag}“`,
+                done: c => done(c) || !c.libraryOpen() || c.tagActive(tag)});
+        }
+        hints.push({target: `libItem:${item || ''}`, text: itemText || 'Klicke auf deine Auswahl',
+            done: c => done(c) || !c.libraryOpen()});
+        return hints;
+    }
 
     const chapters = [
         {
@@ -54,7 +77,7 @@
             steps: [
                 {
                     kind: 'info',
-                    title: 'Willkommen beim BayernLab-Kurs!',
+                    title: 'Willkommen beim Einführungskurs!',
                     text: '<p>Hier lernst du Schritt für Schritt, wie du mit Scratch eigene Spiele und Geschichten programmierst.</p>' +
                         '<p>Schau dir die vier Bereiche an, die gerade markiert sind. Dann klicke auf <b>Weiter</b>.</p>',
                     labels: [
@@ -117,8 +140,8 @@
                         {text: 'Einen Hintergrund aussuchen', check: c => c.backdropChanged()}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur', done: c => newSprites(c) > 0},
-                        {target: 'backdropAdd', text: 'Neuer Hintergrund', done: c => c.backdropChanged()}
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Tiere', itemText: 'Such dir eine Figur aus', done: c => newSprites(c) > 0}),
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', itemText: 'Such dir einen Hintergrund aus', done: c => c.backdropChanged()})
                     ]
                 },
                 {
@@ -217,8 +240,8 @@
                         {text: 'Einen Hintergrund aussuchen', check: c => c.backdropChanged()}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur – Kategorie „Tanz“', done: c => newSprites(c) > 0},
-                        {target: 'backdropAdd', text: 'Neuer Hintergrund', done: c => c.backdropChanged()}
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Tanz', itemText: 'Wähle eine Tanz-Figur', done: c => newSprites(c) > 0}),
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', tag: 'Musik', itemText: 'z. B. „Spotlight“ oder „Concert“', done: c => c.backdropChanged()})
                     ]
                 },
                 {
@@ -259,17 +282,19 @@
                 {
                     kind: 'learn',
                     title: 'Tanzen ohne Ende – mit Musik',
-                    text: '<p>Tausche <b>wiederhole 10 mal</b> gegen <b>wiederhole fortlaufend</b>. Dann brauchst du noch Musik: Im Tab <b>Klänge</b> findest du unter <b>Schleifen</b> Tanzmusik.</p>',
+                    text: '<p>Tausche <b>wiederhole 10 mal</b> gegen <b>wiederhole fortlaufend</b>. Dann brauchst du noch Musik: Öffne den Tab <b>Klänge</b>, klicke unten links auf <b>Klang wählen</b> und suche nach <b>dance</b>.</p>',
                     blocks: 'when flag clicked\nforever\n  next costume\n  wait (0.3) seconds\nend\n\nwhen flag clicked\nforever\n  play sound (Dance Around v) until done\nend',
                     tasks: [
                         {text: 'Kostüme wechseln in „wiederhole fortlaufend“', check: c => inside(c, 'looks_nextcostume', 'control_forever')},
-                        {text: 'Musik in einer eigenen Schleife', check: c => inside(c, 'sound_playuntildone', 'control_forever') || inside(c, 'sound_play', 'control_forever')}
+                        {text: 'Tanzmusik aus der Klang-Bibliothek holen', check: c => c.newSound() || musicInLoop(c)},
+                        {text: 'Musik in einer eigenen Schleife', check: c => musicInLoop(c)}
                     ],
                     hints: [
                         {drag: 'control_forever', to: 'ws', ghost: 'forever\nend', text: 'Endlos-Schleife', done: c => c.find('control_forever').length > 0},
                         {drag: 'looks_nextcostume', to: 'inside:control_forever', ghost: 'next costume', text: 'Kostüm wechseln', done: c => inside(c, 'looks_nextcostume', 'control_forever')},
-                        {target: 'tab:sounds', text: 'Musik aussuchen (Kategorie „Schleifen“)', done: c => c.tab('sounds') || c.find('sound_playuntildone').length > 0},
-                        {drag: 'sound_playuntildone', to: 'ws', ghost: 'play sound (Miau v) until done', text: 'Musik abspielen', done: c => inside(c, 'sound_playuntildone', 'control_forever') || inside(c, 'sound_play', 'control_forever')}
+                        ...libraryHints({tab: 'sounds', button: 'soundAdd', buttonText: 'Klicke hier: Klang wählen', search: 'dance', item: 'Dance', itemText: 'Klicke auf einen Tanz-Klang (Maus drüber = anhören)', done: c => c.newSound() || musicInLoop(c)}),
+                        {target: 'tab:code', text: 'Zurück zu „Skripte“', done: c => c.tab('code') || musicInLoop(c)},
+                        {drag: 'sound_playuntildone', to: 'ws', ghost: 'play sound (Dance Around v) until done', text: 'Musik abspielen – in eine eigene Schleife', done: c => musicInLoop(c)}
                     ]
                 },
                 {
@@ -294,7 +319,7 @@
                         {text: 'Zwei „gleite“-Blöcke in „wiederhole fortlaufend“', check: c => c.find('motion_glidesecstoxy').filter(({t, b}) => c.inC(t, b, 'control_forever')).length >= 2}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur', done: c => newSprites(c) > 0},
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Tanz', itemText: 'Wähle einen Tanzpartner', done: c => newSprites(c) > 0}),
                         {drag: 'event_whenflagclicked', to: 'ws', ghost: 'when flag clicked', text: 'Start-Block', done: c => c.editingHas('event_whenflagclicked')},
                         {drag: 'control_forever', to: 'under:event_whenflagclicked', ghost: 'forever\nend', text: 'Schleife', done: c => c.editingHas('control_forever')},
                         {drag: 'motion_glidesecstoxy', to: 'inside:control_forever', ghost: 'glide (1) secs to x: (0) y: (0)', text: 'Gleiten – zweimal!', done: c => c.find('motion_glidesecstoxy').filter(({t, b}) => c.inC(t, b, 'control_forever')).length >= 2}
@@ -373,7 +398,7 @@
                         {text: 'Neue Figur zum Fangen hinzufügen', check: c => newSprites(c) > 0}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur', done: c => newSprites(c) > 0}
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'apple', item: 'Apple', itemText: 'Klicke auf den Apfel – oder such dir etwas anderes aus', done: c => newSprites(c) > 0})
                     ]
                 },
                 {
@@ -422,6 +447,8 @@
                         {text: 'Klang im falls abspielen', check: c => inside(c, 'sound_play', 'control_if') || inside(c, 'sound_playuntildone', 'control_if')}
                     ],
                     hints: [
+                        ...libraryHints({tab: 'sounds', button: 'soundAdd', buttonText: 'Klicke hier: Klang wählen', tag: 'Effekte', itemText: 'Klicke auf einen Klang (Maus drüber = anhören)', done: c => c.newSound() || inside(c, 'sound_play', 'control_if') || inside(c, 'sound_playuntildone', 'control_if')}),
+                        {target: 'tab:code', text: 'Zurück zu „Skripte“', done: c => c.tab('code') || inside(c, 'sound_play', 'control_if')},
                         {drag: 'sound_play', to: 'inside:control_if', ghost: 'start sound (Plopp v)', text: 'Klang beim Fangen', done: c => inside(c, 'sound_play', 'control_if') || inside(c, 'sound_playuntildone', 'control_if')}
                     ]
                 },
@@ -454,7 +481,7 @@
                         {text: 'Etwas passiert bei Berührung', manual: true}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur', done: c => newSprites(c) > 0},
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Fantasie', itemText: 'Such dir einen Gegner aus', done: c => newSprites(c) > 0}),
                         {drag: 'motion_glideto', to: 'inside:control_forever', ghost: 'glide (1) secs to (Zufallsposition v)', text: 'Gleiten in der Schleife', done: c => inside(c, 'motion_glideto', 'control_forever')}
                     ]
                 },
@@ -494,8 +521,9 @@
                         {text: 'Zwei Figuren für die Geschichte', check: c => newSprites(c) >= 2 || c.sprites.length >= 2}
                     ],
                     hints: [
-                        {target: 'backdropAdd', text: 'Hintergrund wählen', done: c => c.backdropChanged()},
-                        {target: 'spriteAdd', text: 'Figuren wählen', done: c => newSprites(c) >= 2 || c.sprites.length >= 2}
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', tag: 'Fantasie', itemText: 'Such dir die erste Szene aus', done: c => c.backdropChanged()}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Fantasie', itemText: 'Erste Figur', done: c => newSprites(c) >= 1 || c.sprites.length >= 2}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Fantasie', itemText: 'Zweite Figur', done: c => newSprites(c) >= 2 || c.sprites.length >= 2})
                     ]
                 },
                 {
@@ -546,7 +574,7 @@
                         {text: 'Nach dem Dialog: wechsle zu Szene 2', check: c => c.find('looks_switchbackdropto').length >= 2}
                     ],
                     hints: [
-                        {target: 'backdropAdd', text: 'Zweites Bühnenbild', done: c => !!c.stage && c.stage.getCostumes().length >= 2},
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', itemText: 'Bühnenbild für Szene 2', done: c => !!c.stage && c.stage.getCostumes().length >= 2}),
                         {drag: 'looks_switchbackdropto', to: 'under:event_whenflagclicked', ghost: 'switch backdrop to (backdrop1 v)', text: 'Start mit Szene 1', done: c => inScript(c, 'looks_switchbackdropto', 'event_whenflagclicked')},
                         {drag: 'looks_switchbackdropto', to: 'under:event_whenbroadcastreceived', ghost: 'switch backdrop to (backdrop1 v)', text: 'Dann Szene 2', done: c => c.find('looks_switchbackdropto').length >= 2}
                     ]
@@ -563,7 +591,7 @@
                         {text: '… und gleite herein', check: c => inScript(c, 'motion_glidesecstoxy', 'event_whenbackdropswitchesto') || inScript(c, 'motion_glideto', 'event_whenbackdropswitchesto')}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur', done: c => newSprites(c) > 0},
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', tag: 'Personen', itemText: 'Wer tritt auf?', done: c => newSprites(c) > 0}),
                         {drag: 'looks_hide', to: 'under:event_whenflagclicked', ghost: 'hide', text: 'Erst unsichtbar', done: c => inScript(c, 'looks_hide', 'event_whenflagclicked')},
                         {drag: 'event_whenbackdropswitchesto', to: 'ws', ghost: 'when backdrop switches to [backdrop1 v]', text: 'Wenn Szene 2 kommt …', done: c => c.find('event_whenbackdropswitchesto').length > 0},
                         {drag: 'looks_show', to: 'under:event_whenbackdropswitchesto', ghost: 'show', text: '… zeig dich', done: c => inScript(c, 'looks_show', 'event_whenbackdropswitchesto')},
@@ -622,7 +650,7 @@
                         {text: 'Spielfigur festgelegt', manual: true}
                     ],
                     hints: [
-                        {target: 'backdropAdd', text: 'Hintergrund', done: c => c.backdropChanged()}
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', search: 'blue sky', item: 'Blue Sky', itemText: 'Klicke auf „Blue Sky“', done: c => c.backdropChanged()})
                     ]
                 },
                 {
@@ -657,7 +685,7 @@
                         {text: 'In der Schleife: nach links gleiten', check: c => inside(c, 'motion_glidesecstoxy', 'control_forever')}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Neue Figur', done: c => newSprites(c) > 0},
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocks', item: 'Rocks', itemText: 'Klicke auf „Rocks“', done: c => newSprites(c) > 0}),
                         {drag: 'event_whenflagclicked', to: 'ws', ghost: 'when flag clicked', text: 'Start-Block', done: c => c.editingHas('event_whenflagclicked')},
                         {drag: 'control_forever', to: 'under:event_whenflagclicked', ghost: 'forever\nend', text: 'Schleife', done: c => c.editingHas('control_forever')},
                         {drag: 'motion_gotoxy', to: 'inside:control_forever', ghost: 'go to x: (240) y: (-100)', text: 'Rechts starten', done: c => inside(c, 'motion_gotoxy', 'control_forever')},
@@ -746,7 +774,8 @@
                         {text: 'Ball und Schläger hinzufügen', check: c => newSprites(c) >= 2}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Figur wählen oder malen', done: c => newSprites(c) >= 2}
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'ball', item: 'Ball', itemText: 'Klicke auf „Ball“', done: c => newSprites(c) >= 1}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'paddle', item: 'Paddle', itemText: 'Klicke auf „Paddle“', done: c => newSprites(c) >= 2})
                     ]
                 },
                 {
@@ -991,8 +1020,8 @@
                         {text: 'Weltraum-Hintergrund', check: c => c.backdropChanged()}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Rakete', done: c => newSprites(c) > 0},
-                        {target: 'backdropAdd', text: 'Weltraum', done: c => c.backdropChanged()}
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocket', item: 'Rocketship', itemText: 'Klicke auf „Rocketship“', done: c => newSprites(c) > 0}),
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', tag: 'Weltraum', itemText: 'z. B. „Stars“ oder „Galaxy“', done: c => c.backdropChanged()})
                     ]
                 },
                 {
@@ -1021,7 +1050,7 @@
                         {text: 'erzeuge Klon in einer Schleife', check: c => inside(c, 'control_create_clone_of', 'control_forever')}
                     ],
                     hints: [
-                        {target: 'spriteAdd', text: 'Asteroid', done: c => newSprites(c) > 0},
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocks', item: 'Rocks', itemText: 'Klicke auf „Rocks“', done: c => newSprites(c) > 0}),
                         {drag: 'control_create_clone_of', to: 'inside:control_forever', ghost: 'create clone of (mir selbst v)', text: 'Klonen', done: c => inside(c, 'control_create_clone_of', 'control_forever')}
                     ]
                 },
@@ -1102,5 +1131,5 @@
         {id: 'profi', icon: '🏆', title: 'Ich kenne mich aus', text: 'Schleifen, Variablen und Bedingungen sind kein Problem.', chapter: 'pong'}
     ];
 
-    window.BayernLabCourse = {chapters, levels};
+    window.EinfuehrungskursCourse = {chapters, levels};
 })();

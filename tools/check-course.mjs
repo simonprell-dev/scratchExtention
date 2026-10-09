@@ -28,7 +28,7 @@ const check = (where, code) => {
     doc.translate(allLanguages.de);
     return doc.stringify();
 };
-window.BayernLabCourse.chapters.forEach((ch, ci) => ch.steps.forEach((s, si) => {
+window.EinfuehrungskursCourse.chapters.forEach((ch, ci) => ch.steps.forEach((s, si) => {
     const where = `${ci + 1}.${si + 1} ${s.title}`;
     if (s.blocks) {
         const de = check(where, s.blocks);

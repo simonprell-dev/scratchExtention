@@ -1,17 +1,17 @@
 <div align="center">
 
-# Scratch auf Deutsch + BayernLab-Kurs
+# Scratch auf Deutsch + Einführungskurs
 
 **Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder – direkt im Scratch-Editor.**
 
 Kostenlose Browser-Erweiterung für Brave, Chrome und Edge · Open Source · ohne Anmeldung
 
-[![Version](https://img.shields.io/github/v/release/simonprell-dev/scratchExtention?label=Version&color=006EB7)](https://github.com/simonprell-dev/scratchExtention/releases/latest)
-[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-3CB4E1)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/simonprell-dev/scratchExtention?label=Version&color=855CD6)](https://github.com/simonprell-dev/scratchExtention/releases/latest)
+[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-4C97FF)](LICENSE)
 [![Prüfung](https://github.com/simonprell-dev/scratchExtention/actions/workflows/check.yml/badge.svg)](https://github.com/simonprell-dev/scratchExtention/actions/workflows/check.yml)
-![Browser](https://img.shields.io/badge/Browser-Brave%20%7C%20Chrome%20%7C%20Edge-003E7E)
-![Manifest V3](https://img.shields.io/badge/Manifest-V3-003E7E)
-![Sprache: Deutsch](https://img.shields.io/badge/Sprache-Deutsch-003E7E)
+![Browser](https://img.shields.io/badge/Browser-Brave%20%7C%20Chrome%20%7C%20Edge-FFAB19)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-FFAB19)
+![Sprache: Deutsch](https://img.shields.io/badge/Sprache-Deutsch-FFAB19)
 
 [**⬇️ Herunterladen**](https://github.com/simonprell-dev/scratchExtention/releases/latest) ·
 [Installation](#installation) ·
@@ -84,12 +84,12 @@ Die Erweiterung wird als **entpackte Erweiterung** geladen. Das dauert etwa zwei
 4. Oben rechts den Schalter **Entwicklermodus** einschalten.
 5. Auf **Entpackte Erweiterung laden** klicken und den Ordner `scratch-auf-deutsch`
    auswählen (darin liegt die Datei `manifest.json`).
-6. In der Liste erscheint **Scratch Tutorials auf Deutsch + BayernLab Kurs**. Der Schalter
+6. In der Liste erscheint **Scratch Tutorials auf Deutsch + Einführungskurs**. Der Schalter
    daneben muss eingeschaltet sein.
 7. [scratch.mit.edu/projects/editor](https://scratch.mit.edu/projects/editor/) öffnen
    (oder die Seite neu laden, falls sie schon offen war).
 
-Oben in der lila Menüleiste erscheint jetzt der Button **BayernLab Kurs starten**. ✅
+Oben in der lila Menüleiste erscheint jetzt der Button **Einführungskurs starten**. ✅
 
 > **Wichtig:** Der Ordner muss dauerhaft an seinem Platz bleiben. Der Browser lädt die
 > Erweiterung bei jedem Start aus diesem Ordner. Wird er gelöscht oder verschoben, ist die
@@ -143,9 +143,9 @@ auswählen. Wo die Tutorial-Karte englische Blöcke zeigen würde, erscheinen je
   sondern nur Bedienschritte (z. B. „Erweiterung hinzufügen“) und bleiben unverändert.
 - Die **Videos** in den Tutorials sind weiterhin englisch.
 
-### BayernLab-Kurs starten
+### Einführungskurs starten
 
-1. In der Menüleiste auf **BayernLab Kurs starten** klicken.
+1. In der Menüleiste auf **Einführungskurs starten** klicken.
 2. Die passende **Stufe** wählen:
 
    | Stufe | Für wen? | Start |
@@ -185,6 +185,9 @@ Animierte Hinweise zeigen Schritt für Schritt, was als Nächstes zu tun ist:
   ziehen. Der Block wird dabei auf Deutsch angezeigt.
 - **„Klicke zuerst hier“:** Der benötigte Block liegt in einer anderen Kategorie.
 - **„Scrolle nach unten“:** Der Block ist in der Palette weiter unten.
+- **Durch die Bibliotheken:** Bei neuen Figuren, Hintergründen und Klängen führen die
+  Hinweise Schritt für Schritt: Tab öffnen → „… wählen“ → Suchbegriff eintippen oder
+  Kategorie anklicken → Eintrag auswählen → zurück zu „Skripte“.
 
 ![Zieh-Hinweis: Block in die Schleife ziehen](docs/zieh-hinweis.png)
 
@@ -271,7 +274,7 @@ eigenen machen. Danach gibt es eine 🏆-Seite mit Übergang ins nächste Kapite
 
 ## Problemlösung
 
-**Der Button „BayernLab Kurs starten“ fehlt.**
+**Der Button „Einführungskurs starten“ fehlt.**
 - Ist die Erweiterung in `brave://extensions` eingeschaltet?
 - Die Erweiterung läuft nur auf `https://scratch.mit.edu`, nicht in der Scratch-Desktop-App
   und nicht auf anderen Scratch-Seiten wie TurboWarp.
@@ -296,7 +299,7 @@ mit Strg + S oder anders gespeichert, einfach **Los geht's →** oder **Überspr
 klicken.
 
 **Das Kursfenster verdeckt etwas.**
-Fenster an der blauen Kopfzeile wegziehen oder mit ▾ einklappen.
+Fenster an der lila Kopfzeile wegziehen oder mit ▾ einklappen.
 
 **Die deutschen Tutorial-Bilder erscheinen nicht.**
 Nur Tutorial-Schritte mit Blöcken werden ersetzt. Prüfen, ob oben rechts im Bild
@@ -336,6 +339,8 @@ herzlich willkommen!
 - 💡 [Idee für den Kurs einreichen](https://github.com/simonprell-dev/scratchExtention/issues/new?template=kursidee.yml)
 - 🛠️ [Anleitung für Beiträge](CONTRIBUTING.md): Projektaufbau, Kursschritte schreiben,
   neue Kapitel, Releases
+- 🤖 [Claude-Skill „kurs-kapitel“](.claude/skills/kurs-kapitel/README.md): schreibt neue
+  Kapitel mit Texten, Prüfungen und Zeige-Hinweisen. Mit Installationsanleitung.
 - 📝 [Änderungen pro Version](CHANGELOG.md)
 
 Gefällt dir das Projekt? Ein ⭐ auf GitHub hilft anderen Lehrkräften, es zu finden.

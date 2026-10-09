@@ -10,10 +10,21 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
   Zeige-Hinweisen und automatischem Abhaken.
 - Fünf neue Kapitel: **Tanz-Party** (Animation), **Trickfilm** (Animation), **Hüpf-Spiel**,
   **Kunst mit dem Malstift**, **Weltraum-Abenteuer mit Klonen**. Insgesamt 8 Kapitel mit 68 Schritten.
+- Geführte Hinweise durch die Scratch-Bibliotheken (Figuren, Hintergründe, Klänge):
+  Knopf „… wählen“, Suche bzw. Kategorie und Eintrag werden gezeigt, die Hinweise liegen
+  dabei über dem Bibliotheksfenster.
 - Stufenwahl zeigt die Kapitel jeder Stufe, Kapitelübersicht mit Typ-Abzeichen.
 - Open-Source-Lizenz (MIT), GitHub-Vorlagen, automatische Prüfung und Release-ZIP.
+- Claude-Skill **kurs-kapitel** unter `.claude/skills/` zum Schreiben neuer Kapitel, mit
+  Installationsanleitung.
 
 ### Geändert
+- Der Kurs heißt jetzt **Einführungskurs** (vorher „BayernLab-Kurs“), Button
+  „Einführungskurs starten“. Neue Farben angelehnt an den Scratch-Editor (Lila, Orange,
+  Blockfarben).
+- Interne Namen umbenannt (CSS-Präfix `ek-`, `window.EinfuehrungskursScratch`,
+  `window.EinfuehrungskursCourse`). Der gespeicherte Fortschritt wird einmalig vom alten
+  Speicherschlüssel `bayernlab-course:v2` nach `einfuehrungskurs:v2` übernommen.
 - Fortschritt wird über Kapitel-IDs gespeichert, damit neue Kapitel ihn nicht verschieben.
   (Einmaliger Neustart des Fortschritts beim Update von 1.1.)
 - Hinweise weichen offenen Menüs, Texteingaben und dem Kursfenster aus.
