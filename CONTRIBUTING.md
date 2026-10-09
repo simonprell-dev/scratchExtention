@@ -28,6 +28,9 @@ Beitrag hilft Kindern beim Programmierenlernen.
 ```
 scratchExtention/
 ├── manifest.json            Erweiterungs-Manifest (Manifest V3)
+├── background.js            Symbol: Klick öffnet Scratch, Rechtsklick-Menü (an/aus, zurücksetzen)
+├── reset-pending.js         Holt ein Zurücksetzen nach, das ohne offenen Scratch-Tab angefordert wurde
+├── icons/                   Symbol der Erweiterung (16, 32, 48, 128 px)
 ├── content.js / .css        Deutsche Tutorial-Bilder
 ├── course/
 │   ├── course-data.js       ← Kursinhalte: Kapitel, Schritte, Aufgaben, Hinweise
@@ -51,8 +54,11 @@ scratchExtention/
 
 ### So funktioniert es
 
-- Alle Skripte laufen als Content-Scripts in der Seite selbst (`"world": "MAIN"`). Nur so
-  kommen sie an die Interna von Scratch.
+- Alle Skripte laufen als Content-Scripts in der Seite selbst (`world: 'MAIN'`). Nur so
+  kommen sie an die Interna von Scratch. Sie stehen nicht im Manifest, sondern werden in
+  `background.js` registriert, damit man die Erweiterung über das Symbol ausschalten kann.
+  **Neue Skripte deshalb in `PAGE_SCRIPTS` in `background.js` eintragen** (und in
+  `.github/workflows/release.yml`, falls sie in einem neuen Ordner liegen).
 - `lib/scratch-access.js` findet über die React-Struktur der Seite den **Redux-Store**
   von Scratch. Darüber erreicht es die **Scratch-VM** und den **Blockly-Workspace**.
 - **Tutorials:** Der Store verrät, welcher Tutorial-Schritt offen ist, z. B.

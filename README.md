@@ -91,6 +91,10 @@ Die Erweiterung wird als **entpackte Erweiterung** geladen. Das dauert etwa zwei
 
 Oben in der lila Menüleiste erscheint jetzt der Button **Einführungskurs starten**. ✅
 
+**Tipp:** Das Symbol der Erweiterung (drei bunte Scratch-Blöcke) an die Browserleiste
+anheften: Puzzle-Symbol 🧩 oben rechts → Stecknadel 📌 neben der Erweiterung. Dann öffnet
+ein Klick darauf direkt den Scratch-Editor.
+
 > **Wichtig:** Der Ordner muss dauerhaft an seinem Platz bleiben. Der Browser lädt die
 > Erweiterung bei jedem Start aus diesem Ordner. Wird er gelöscht oder verschoben, ist die
 > Erweiterung weg.
@@ -129,6 +133,15 @@ Wenn es eine neue Version gibt:
 ---
 
 ## Benutzung
+
+### Das Symbol in der Browserleiste
+
+| Aktion | Was passiert |
+|---|---|
+| **Klick** | Öffnet den Scratch-Editor. Ist er schon offen, wird dieser Tab nach vorn geholt. |
+| **Rechtsklick → Erweiterung eingeschaltet** | Schaltet die Erweiterung aus oder wieder ein. Ausgeschaltet zeigt das Symbol **AUS**. Wirkt nach dem Neuladen der Scratch-Seite (F5). |
+| **Rechtsklick → Lernfortschritt zurücksetzen …** | Löscht alle abgehakten Schritte und die gewählte Stufe (nach Rückfrage). Scratch-Projekte bleiben erhalten. |
+| **Rechtsklick → Hilfe und Anleitung** | Öffnet diese Anleitung. |
 
 ### Deutsche Tutorials
 
@@ -259,8 +272,9 @@ eigenen machen. Danach gibt es eine 🏆-Seite mit Übergang ins nächste Kapite
   eigener Ordner pro Kind, z. B. auf dem USB-Stick oder im Schulnetz. Mit Konto speichert
   Scratch online im Profil.
 - **Fortschritt pro Browser:** Der Kursfortschritt wird im Browser gespeichert, nicht im
-  Scratch-Projekt. An geteilten Schul-PCs übernimmt das nächste Kind den Stand. Mit
-  ☰ → **Stufe neu wählen** beginnt man von vorn. Am besten hat jedes Kind ein eigenes
+  Scratch-Projekt. An geteilten Schul-PCs übernimmt das nächste Kind den Stand. Zum
+  Wechsel: Rechtsklick auf das Symbol der Erweiterung → **Lernfortschritt zurücksetzen**,
+  oder im Kurs ☰ → **Stufe neu wählen**. Am besten hat jedes Kind ein eigenes
   Browser-Profil.
 - **Selbst abhaken:** Manche Aufgaben kann die Erweiterung nicht prüfen, z. B. „rote Linie
   gemalt“ oder „Spiel jemandem vorgeführt“. Diese hakt das Kind per Klick ab. Ein guter
@@ -276,6 +290,8 @@ eigenen machen. Danach gibt es eine 🏆-Seite mit Übergang ins nächste Kapite
 
 **Der Button „Einführungskurs starten“ fehlt.**
 - Ist die Erweiterung in `brave://extensions` eingeschaltet?
+- Steht auf dem Symbol der Erweiterung **AUS**? Dann per Rechtsklick → **Erweiterung
+  eingeschaltet** wieder einschalten und die Seite neu laden.
 - Die Erweiterung läuft nur auf `https://scratch.mit.edu`, nicht in der Scratch-Desktop-App
   und nicht auf anderen Scratch-Seiten wie TurboWarp.
 - Den Editor einmal neu laden (F5).
@@ -323,10 +339,11 @@ Chrome und Edge zeigen diesen Hinweis manchmal beim Start. Einfach schließen
   Dateien, auch die Block-Grafiken, sind im Ordner enthalten.
 - Gespeichert werden nur der Kursfortschritt und die Einstellung „Original/Deutsch“ im
   lokalen Speicher des Browsers (`localStorage` von scratch.mit.edu).
-- Zum Zurücksetzen: in den Browser-Einstellungen die Website-Daten von scratch.mit.edu
-  löschen, oder im Kurs ☰ → **Stufe neu wählen**.
-
----
+- Die Einstellung „ein/aus“ liegt im Speicher der Erweiterung (`chrome.storage`).
+- Zum Zurücksetzen: Rechtsklick auf das Symbol der Erweiterung → **Lernfortschritt
+  zurücksetzen**, oder im Kurs ☰ → **Stufe neu wählen**.
+- Berechtigungen: Zugriff auf `scratch.mit.edu` (Kurs und Tutorials), Kontextmenü am Symbol,
+  Skripte ein- und ausschalten (`scripting`) und Einstellungen speichern (`storage`).
 
 ---
 

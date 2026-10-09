@@ -20,7 +20,7 @@ jobs:
       - name: ZIP packen
         run: |
           mkdir -p dist/scratch-auf-deutsch
-          cp -r manifest.json content.js content.css course data lib LICENSE README.md dist/scratch-auf-deutsch/
+          cp -r manifest.json background.js reset-pending.js icons content.js content.css course data lib LICENSE README.md dist/scratch-auf-deutsch/
           cd dist && zip -r "scratch-auf-deutsch-$GITHUB_REF_NAME.zip" scratch-auf-deutsch
       - name: Changelog-Abschnitt lesen
         run: |

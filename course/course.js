@@ -1234,5 +1234,21 @@
         lastHintKey = '';
     });
 
+    // Rechtsklick aufs Erweiterungs-Symbol → „Lernfortschritt zurücksetzen“ (background.js)
+    window.addEventListener('einfuehrungskurs-reset', () => {
+        try {
+            localStorage.removeItem(STATE_KEY);
+        } catch (e) { /* egal */ }
+        Object.keys(state).forEach(key => delete state[key]);
+        Object.assign(state, loadState());
+        run.base = null;
+        run.view = 'step';
+        lastResultsKey = '';
+        lastHintKey = '';
+        const dialog = document.querySelector('.ek-modal-backdrop');
+        if (dialog) dialog.remove();
+        renderPanel();
+    });
+
     setInterval(tick, TICK_MS);
 })();

@@ -15,7 +15,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: JavaScript-Syntax prüfen
-        run: for f in content.js lib/scratch-access.js course/course.js course/course-data.js data/steps-de.js; do node --check "$f"; done
+        run: for f in background.js reset-pending.js content.js lib/scratch-access.js course/course.js course/course-data.js data/steps-de.js; do node --check "$f"; done
       - name: Kurs-Blöcke prüfen
         run: npm run check
       - name: Tutorial-Daten sind aktuell

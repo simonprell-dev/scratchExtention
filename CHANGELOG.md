@@ -15,6 +15,8 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
   dabei über dem Bibliotheksfenster.
 - Stufenwahl zeigt die Kapitel jeder Stufe, Kapitelübersicht mit Typ-Abzeichen.
 - Open-Source-Lizenz (MIT), GitHub-Vorlagen, automatische Prüfung und Release-ZIP.
+- **Symbol in der Browserleiste:** Klick öffnet den Scratch-Editor, Rechtsklick schaltet
+  die Erweiterung ein/aus und setzt den Lernfortschritt zurück.
 - Claude-Skill **kurs-kapitel** unter `.claude/skills/` zum Schreiben neuer Kapitel, mit
   Installationsanleitung.
 

@@ -4,26 +4,28 @@
   "version": "1.2.0",
   "description": "Scratch-Tutorials mit deutschen Blöcken und ein geführter Scratch-Einführungskurs direkt im Editor.",
   "homepage_url": "https://github.com/simonprell-dev/scratchExtention",
-  "content_scripts": [
-    {
-      "matches": [
-        "https://scratch.mit.edu/*"
-      ],
-      "js": [
-        "lib/scratchblocks.min.js",
-        "lib/scratchblocks-de.js",
-        "lib/scratch-access.js",
-        "data/steps-de.js",
-        "content.js",
-        "course/course-data.js",
-        "course/course.js"
-      ],
-      "css": [
-        "content.css",
-        "course/course.css"
-      ],
-      "run_at": "document_idle",
-      "world": "MAIN"
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Scratch auf Deutsch + Einführungskurs",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
     }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "contextMenus",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://scratch.mit.edu/*"
   ]
 }
