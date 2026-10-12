@@ -1,5 +1,5 @@
 {
-  "name": "scratch-auf-deutsch",
+  "name": "einfuehrungskurs-scratch",
   "version": "1.2.0",
   "description": "Browser-Erweiterung: Scratch-Tutorials auf Deutsch und geführter Scratch-Einführungskurs für Kinder",
   "private": true,
@@ -28,6 +28,6 @@
     "type": "git",
     "url": "https://github.com/simonprell-dev/scratchExtention.git"
   },
-  "homepage": "https://github.com/simonprell-dev/scratchExtention#readme",
+  "homepage": "https://simonprell-dev.github.io/scratchExtention/",
   "bugs": "https://github.com/simonprell-dev/scratchExtention/issues"
 }

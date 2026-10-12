@@ -19,14 +19,14 @@ jobs:
           test "v$v" = "$GITHUB_REF_NAME" || { echo "manifest.json hat Version $v, Tag ist $GITHUB_REF_NAME"; exit 1; }
       - name: ZIP packen
         run: |
-          mkdir -p dist/scratch-auf-deutsch
-          cp -r manifest.json background.js reset-pending.js icons content.js content.css course data lib LICENSE README.md dist/scratch-auf-deutsch/
-          cd dist && zip -r "scratch-auf-deutsch-$GITHUB_REF_NAME.zip" scratch-auf-deutsch
+          mkdir -p dist/einfuehrungskurs-scratch
+          cp -r manifest.json background.js reset-pending.js icons content.js content.css course data lib LICENSE README.md dist/einfuehrungskurs-scratch/
+          cd dist && zip -r "einfuehrungskurs-scratch-$GITHUB_REF_NAME.zip" einfuehrungskurs-scratch
       - name: Changelog-Abschnitt lesen
         run: |
           v="${GITHUB_REF_NAME#v}"
           awk -v v="$v" '/^## \[/{p = index($0, "[" v "]") > 0; next} p' CHANGELOG.md > notes.md
       - uses: softprops/action-gh-release@v2
         with:
-          files: dist/scratch-auf-deutsch-${{ github.ref_name }}.zip
+          files: dist/einfuehrungskurs-scratch-${{ github.ref_name }}.zip
           body_path: notes.md

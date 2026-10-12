@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einführungskurs für Scratch – Tutorials auf Deutsch</title>
+<meta name="description" content="Kostenlose Browser-Erweiterung: deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder von 8 bis 14 – direkt im Scratch-Editor. Für Schule, AG und Zuhause.">
+<meta property="og:title" content="Einführungskurs für Scratch – Tutorials auf Deutsch">
+<meta property="og:description" content="Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder – direkt im Scratch-Editor.">
+<meta property="og:image" content="https://simonprell-dev.github.io/scratchExtention/social-preview.png">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#855CD6">
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+:root {
+    --purple: #855CD6;
+    --purple-dark: #5A3BB0;
+    --orange: #FF8C1A;
+    --blue: #4C97FF;
+    --green: #0FBD8C;
+    --yellow: #FFBF00;
+    --pink: #FF6680;
+    --text: #3D4152;
+    --muted: #6B7086;
+    --bg: #ffffff;
+    --soft: #F3EEFD;
+    --card: #ffffff;
+    --line: #E4DCF7;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ECEAF4;
+        --muted: #B3AFC6;
+        --bg: #17131F;
+        --soft: #221B30;
+        --card: #261F35;
+        --line: #3A3050;
+    }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+a { color: var(--purple); }
+img { max-width: 100%; display: block; }
+.wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
+
+/* Kopf */
+.top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--purple); color: #fff;
+}
+.top .wrap { display: flex; align-items: center; gap: 12px; min-height: 56px; }
+.brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 700; text-decoration: none; }
+.brand img { width: 32px; height: 32px; }
+.top nav { margin-left: auto; display: flex; gap: 4px; flex-wrap: wrap; }
+.top nav a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: 15px; }
+.top nav a:hover { background: rgba(255, 255, 255, 0.15); }
+@media (max-width: 760px) { .top nav { display: none; } }
+
+/* Hero */
+.hero {
+    background: linear-gradient(120deg, var(--purple-dark), var(--purple));
+    color: #fff;
+    padding: 64px 0 72px;
+}
+.hero .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 48px; align-items: center; }
+@media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } }
+.eyebrow { color: #FFD29A; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px; }
+.hero h1 { margin: 8px 0 16px; font-size: clamp(36px, 5vw, 56px); line-height: 1.1; }
+.hero p { margin: 0 0 28px; font-size: 19px; color: #EDE6FF; }
+.buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 999px;
+    font-weight: 700; text-decoration: none;
+}
+.btn-main { background: var(--orange); color: #fff; }
+.btn-main:hover { background: #E67500; }
+.btn-ghost { background: rgba(255, 255, 255, 0.15); color: #fff; }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.25); }
+.hero small { display: block; margin-top: 14px; color: #D9CCFF; font-size: 14px; }
+.hero-shot { border-radius: 14px; box-shadow: 0 24px 60px rgba(20, 10, 50, 0.45); }
+
+/* Abschnitte */
+section { padding: 72px 0; }
+section.soft { background: var(--soft); }
+h2 { margin: 0 0 8px; font-size: clamp(28px, 3.5vw, 38px); line-height: 1.2; }
+.lead { margin: 0 0 36px; color: var(--muted); font-size: 18px; max-width: 760px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 22px;
+}
+.card .ico { font-size: 30px; line-height: 1; }
+.card h3 { margin: 10px 0 6px; font-size: 19px; }
+.card p { margin: 0; color: var(--muted); font-size: 16px; }
+
+/* Screenshots */
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+.shots figure { margin: 0; }
+.shots img { border-radius: 12px; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(60, 30, 110, 0.15); }
+.shots figcaption { margin-top: 10px; font-weight: 600; }
+
+/* Kapitel */
+.chapters { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.chapter { display: flex; gap: 14px; align-items: flex-start; }
+.chapter .num {
+    flex: none; width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+    background: var(--soft);
+}
+.chapter h3 { margin: 0 0 4px; font-size: 18px; }
+.chapter p { margin: 0; color: var(--muted); font-size: 15px; }
+.tag {
+    display: inline-block; margin-bottom: 6px; padding: 1px 10px; border-radius: 999px;
+    color: #fff; font-size: 13px; font-weight: 700;
+}
+.lvl-1 { background: var(--green); }
+.lvl-2 { background: var(--blue); }
+.lvl-3 { background: var(--orange); }
+
+/* Installation */
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.steps li {
+    counter-increment: s; position: relative; padding: 14px 18px 14px 64px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+}
+.steps li::before {
+    content: counter(s); position: absolute; left: 16px; top: 12px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--purple); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+code { background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; font-size: 0.92em; }
+.note { margin-top: 20px; padding: 14px 18px; border-left: 4px solid var(--yellow); background: var(--card); border-radius: 8px; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+@media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+.list { margin: 0; padding-left: 20px; }
+.list li { margin-bottom: 10px; }
+
+footer { background: var(--purple-dark); color: #E6DDFF; padding: 40px 0; font-size: 15px; }
+footer a { color: #fff; }
+footer p { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+    <div class="wrap">
+        <a class="brand" href="#"><img src="icon.png" alt="">Einführungskurs für Scratch</a>
+        <nav>
+            <a href="#funktionen">Funktionen</a>
+            <a href="#kapitel">Kapitel</a>
+            <a href="#installation">Installation</a>
+            <a href="#lehrkraefte">Für Lehrkräfte</a>
+            <a href="#datenschutz">Datenschutz</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+<div class="hero">
+    <div class="wrap">
+        <div>
+            <div class="eyebrow">Kostenlose Browser-Erweiterung</div>
+            <h1>Einführungskurs für Scratch</h1>
+            <p>Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder von 8 bis 14 – direkt im Scratch-Editor. Für Schule, AG und Zuhause.</p>
+            <div class="buttons">
+                <a class="btn btn-main" href="#installation">⬇️ Installieren</a>
+                <a class="btn btn-ghost" href="https://github.com/simonprell-dev/scratchExtention">Auf GitHub ansehen</a>
+            </div>
+            <small>Für Brave, Chrome und Edge · Open Source (MIT) · ohne Anmeldung</small>
+        </div>
+        <img class="hero-shot" src="zieh-hinweis.png" width="1280" height="800"
+             alt="Scratch-Editor mit dem Kursfenster. Ein animierter Hinweis zeigt, wie der Block „gehe zu“ in die Schleife gezogen wird.">
+    </div>
+</div>
+
+<section id="funktionen">
+    <div class="wrap">
+        <h2>Warum diese Erweiterung?</h2>
+        <p class="lead">Die eingebauten Scratch-Tutorials zeigen ihre Blöcke immer auf Englisch – auch wenn der Editor auf Deutsch steht. Für Kinder, die gerade erst sicher lesen, ist das eine echte Hürde. Und wer einen Kurs gibt, braucht einen roten Faden vom ersten Block bis zum eigenen Spiel.</p>
+        <div class="grid">
+            <div class="card"><div class="ico">📖</div><h3>Deutsche Tutorials</h3><p>96 Tutorial-Bilder von Scratch zeigen deutsche statt englischer Blöcke. Mit einem Klick zurück zum Original.</p></div>
+            <div class="card"><div class="ico">🧭</div><h3>Geführter Kurs</h3><p>8 Kapitel, 68 Schritte – vom ersten Block bis zu Klonen und eigenen Blöcken.</p></div>
+            <div class="card"><div class="ico">👆</div><h3>Zeige-Hinweise</h3><p>Eine animierte Hand und fliegende Blöcke zeigen, wo geklickt und wohin gezogen wird.</p></div>
+            <div class="card"><div class="ico">✅</div><h3>Automatisch abgehakt</h3><p>Die Erweiterung erkennt selbst, ob die Blöcke richtig sitzen – und feiert mit Konfetti.</p></div>
+            <div class="card"><div class="ico">🐣🚀🏆</div><h3>Drei Einstiegsstufen</h3><p>Neuling, Schon mal ausprobiert, Ich kenne mich aus. Alle Kapitel bleiben jederzeit erreichbar.</p></div>
+            <div class="card"><div class="ico">🔒</div><h3>Datenschutzfreundlich</h3><p>Kein Konto, kein Server, keine Datenübertragung. Der Fortschritt bleibt im Browser.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="soft">
+    <div class="wrap">
+        <h2>So sieht es aus</h2>
+        <p class="lead">Der Kurs läuft in einem kleinen Fenster direkt im Scratch-Editor. Die Kinder bauen ihre Projekte selbst – der Kurs zeigt den Weg.</p>
+        <div class="shots">
+            <figure><img src="stufenwahl.png" width="1280" height="800" loading="lazy" alt="Auswahl der Stufe: Neuling, Schon mal ausprobiert, Ich kenne mich aus"><figcaption>Passende Stufe wählen</figcaption></figure>
+            <figure><img src="aufgabe-geschafft.png" width="1280" height="800" loading="lazy" alt="Kursfenster mit abgehakten Aufgaben und der Meldung „Super gemacht!“"><figcaption>Aufgaben werden automatisch abgehakt</figcaption></figure>
+            <figure><img src="rundgang.png" width="1280" height="800" loading="lazy" alt="Rundgang: Blöcke, Programmierbereich, Bühne und Figuren sind beschriftet"><figcaption>Rundgang durch den Editor</figcaption></figure>
+            <figure><img src="tutorial-deutsch.png" width="1280" height="800" loading="lazy" alt="Scratch-Tutorial „Animiere eine Figur“ mit deutschen Blöcken"><figcaption>Scratch-Tutorials mit deutschen Blöcken</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<section id="kapitel">
+    <div class="wrap">
+        <h2>Die 8 Kapitel</h2>
+        <p class="lead">Jedes Kapitel führt zu einem eigenen, fertigen Projekt und endet mit einer Kreativ-Aufgabe, in der die Kinder es zu ihrem eigenen machen.</p>
+        <div class="chapters">
+            <div class="card chapter"><div class="num">🐣</div><div><span class="tag lvl-1">Neuling</span><h3>1 · Erste Schritte</h3><p>Oberfläche, Blöcke ziehen, grüne Flagge, Sprechen, Figuren und Hintergründe, Pfeiltasten, Zwischenspiel „Klick-Jagd“</p></div></div>
+            <div class="card chapter"><div class="num">💃</div><div><span class="tag lvl-1">Neuling</span><h3>2 · Tanz-Party</h3><p>Kostüme und Daumenkino-Prinzip, Wiederholen, Warten, Musik in Schleifen, Grafikeffekte</p></div></div>
+            <div class="card chapter"><div class="num">🎯</div><div><span class="tag lvl-2">Schon mal ausprobiert</span><h3>3 · Fang-Spiel mit der Maus</h3><p>Endlosschleife, falls/dann, Berührung, Variablen, Stoppuhr, Gegner</p></div></div>
+            <div class="card chapter"><div class="num">🎬</div><div><span class="tag lvl-2">Schon mal ausprobiert</span><h3>4 · Trickfilm</h3><p>Dialoge, Nachrichten senden und empfangen, Szenenwechsel, interaktive Geschichte</p></div></div>
+            <div class="card chapter"><div class="num">🦘</div><div><span class="tag lvl-2">Schon mal ausprobiert</span><h3>5 · Hüpf-Spiel</h3><p>Springen mit Schleifen, Hindernisse, Kollision, Punkte, Challenge: echte Schwerkraft</p></div></div>
+            <div class="card chapter"><div class="num">🏓</div><div><span class="tag lvl-3">Ich kenne mich aus</span><h3>6 · Pong</h3><p>Richtung und Abprallen, Steuern mit der Maus, Game Over per Farbe, Tempo-Variable</p></div></div>
+            <div class="card chapter"><div class="num">🖌️</div><div><span class="tag lvl-3">Ich kenne mich aus</span><h3>7 · Kunst mit dem Malstift</h3><p>Erweiterung Malstift, Geometrie, verschachtelte Schleifen, eigene Blöcke</p></div></div>
+            <div class="card chapter"><div class="num">🚀</div><div><span class="tag lvl-3">Ich kenne mich aus</span><h3>8 · Weltraum-Abenteuer mit Klonen</h3><p>Tastenabfrage, Klone, Zufallszahlen, wiederhole bis, Laser-Challenge</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section id="installation" class="soft">
+    <div class="wrap">
+        <h2>Installation</h2>
+        <p class="lead">Die Erweiterung läuft in Brave, Google Chrome und Microsoft Edge. Die Installation dauert etwa zwei Minuten.</p>
+        <ol class="steps">
+            <li>Unter <a href="https://github.com/simonprell-dev/scratchExtention/releases/latest">Releases</a> die Datei <code>einfuehrungskurs-scratch-vX.Y.Z.zip</code> herunterladen und entpacken. Den Ordner an einen festen Ort legen, z. B. nach <code>Dokumente</code>.</li>
+            <li><code>brave://extensions</code>, <code>chrome://extensions</code> oder <code>edge://extensions</code> in die Adresszeile eingeben und den <b>Entwicklermodus</b> einschalten.</li>
+            <li>Auf <b>Entpackte Erweiterung laden</b> klicken und den entpackten Ordner auswählen.</li>
+            <li>Das Symbol der Erweiterung über das Puzzle-Symbol 🧩 anheften und darauf klicken – der Scratch-Editor öffnet sich.</li>
+            <li>Oben in der Menüleiste auf <b>Einführungskurs starten</b> klicken und eine Stufe wählen. Los geht's!</li>
+        </ol>
+        <p class="note"><b>Wichtig:</b> Der entpackte Ordner muss an seinem Platz bleiben – der Browser lädt die Erweiterung bei jedem Start von dort. Scratch sollte auf Deutsch stehen (Zahnrad-Symbol → Language → Deutsch).</p>
+    </div>
+</section>
+
+<section id="lehrkraefte">
+    <div class="wrap">
+        <h2>Für Lehrkräfte</h2>
+        <p class="lead">Für den Informatik- und Medienunterricht, Ganztag, AGs und Workshops in Makerspaces und Bibliotheken.</p>
+        <div class="two">
+            <ul class="list">
+                <li><b>Ein Projekt pro Kapitel:</b> Zwischen den Kapiteln führt der Kurs durch „Speichern“ und „Datei → Neu“. So prüft er nur das aktuelle Projekt.</li>
+                <li><b>Speichern ohne Konto:</b> Die <code>.sb3</code>-Datei landet im Download-Ordner. Gut ist ein eigener Ordner pro Kind, z. B. auf dem USB-Stick oder im Schulnetz.</li>
+                <li><b>Geteilte Schul-PCs:</b> Der Fortschritt liegt im Browser. Zum Wechsel: Rechtsklick auf das Symbol der Erweiterung → <b>Lernfortschritt zurücksetzen</b>.</li>
+            </ul>
+            <ul class="list">
+                <li><b>Selbst abhaken:</b> Manche Aufgaben („Spiel jemandem vorgeführt“) hakt das Kind per Klick ab – ein guter Moment für einen kurzen Blick der Lehrkraft.</li>
+                <li><b>Ohne Hinweise üben:</b> 👆 <b>Hinweise aus</b> schaltet die Animationen ab, für Kinder, die es allein schaffen wollen.</li>
+                <li><b>Ein- und ausschalten:</b> Rechtsklick auf das Symbol → <b>Erweiterung eingeschaltet</b>. Ausgeschaltet steht <b>AUS</b> auf dem Symbol.</li>
+            </ul>
+        </div>
+        <p class="note">Ausführliche Anleitung, Problemlösung und Kursideen: <a href="https://github.com/simonprell-dev/scratchExtention#readme">Anleitung auf GitHub</a> · <a href="https://github.com/simonprell-dev/scratchExtention/issues/new/choose">Fehler melden oder Idee einreichen</a></p>
+    </div>
+</section>
+
+<section id="datenschutz" class="soft">
+    <div class="wrap">
+        <h2>Datenschutz</h2>
+        <p class="lead">Kurz gesagt: Die Erweiterung sammelt keine Daten und sendet nichts irgendwohin.</p>
+        <div class="two">
+            <ul class="list">
+                <li>Die Erweiterung läuft <b>nur</b> auf <code>https://scratch.mit.edu</code>.</li>
+                <li>Es werden <b>keine personenbezogenen Daten</b> erhoben, gespeichert oder übertragen. Es gibt keinen Server, kein Konto, keine Statistik und keine Werbung.</li>
+                <li>Alle Dateien, auch die Block-Grafiken, sind in der Erweiterung enthalten. Es wird nichts aus dem Internet nachgeladen.</li>
+            </ul>
+            <ul class="list">
+                <li>Lokal im Browser gespeichert werden nur: der Kursfortschritt und die Einstellung „Original/Deutsch“ (im <code>localStorage</code> von scratch.mit.edu) sowie, ob die Erweiterung ein- oder ausgeschaltet ist (im Speicher der Erweiterung).</li>
+                <li>Diese Daten verlassen den Computer nicht. Löschen: Rechtsklick auf das Symbol → <b>Lernfortschritt zurücksetzen</b>, oder die Erweiterung entfernen.</li>
+                <li>Diese Seite wird von GitHub Pages ausgeliefert. Sie setzt keine Cookies und lädt keine externen Schriften oder Skripte. GitHub kann beim Aufruf technische Zugriffsdaten wie die IP-Adresse protokollieren, siehe <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <p><b>Einführungskurs für Scratch</b> · Open Source unter der <a href="https://github.com/simonprell-dev/scratchExtention/blob/main/LICENSE">MIT-Lizenz</a> · <a href="https://github.com/simonprell-dev/scratchExtention">GitHub</a></p>
+        <p>Scratch ist ein Projekt der Scratch Foundation in Zusammenarbeit mit der Lifelong Kindergarten Group am MIT Media Lab. Diese Erweiterung ist ein unabhängiges Projekt und steht in keiner Verbindung zur Scratch Foundation.</p>
+    </div>
+</footer>
+
+</body>
+</html>

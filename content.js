@@ -1,5 +1,5 @@
 /*
- * Scratch Tutorials auf Deutsch
+ * Einführungskurs für Scratch: Tutorials auf Deutsch
  *
  * Scratch liefert für die Tutorial-Karten keine deutschen Bilder – die
  * Schritt-Bilder zeigen immer englische Blöcke. Dieses Skript läuft in der

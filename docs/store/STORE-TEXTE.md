@@ -5,10 +5,10 @@ im Scratch-Editor aufgenommen.
 
 ## Store-Eintrag
 
-**Name** (aus `manifest.json`): Scratch Tutorials auf Deutsch + Einführungskurs
+**Name** (aus `manifest.json`): Einführungskurs für Scratch – Tutorials auf Deutsch
 
 **Zusammenfassung** (aus `manifest.json`, max. 132 Zeichen):
-Scratch-Tutorials mit deutschen Blöcken und ein geführter Scratch-Einführungskurs direkt im Editor.
+Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder – direkt im Scratch-Editor. Für Schule, AG und Zuhause.
 
 **Beschreibung:**
 
@@ -47,7 +47,10 @@ DATENSCHUTZ
 • Läuft nur auf scratch.mit.edu
 
 OPEN SOURCE
-Kostenlos und quelloffen (MIT-Lizenz). Fehler melden, Ideen einbringen oder neue Kapitel beisteuern:
+Kostenlos und quelloffen (MIT-Lizenz). Anleitung und Tipps für Lehrkräfte:
+https://simonprell-dev.github.io/scratchExtention/
+
+Fehler melden, Ideen einbringen oder neue Kapitel beisteuern:
 https://github.com/simonprell-dev/scratchExtention
 
 Hinweis: Dies ist ein unabhängiges Projekt und kein offizielles Produkt des Scratch-Teams. Scratch ist ein Projekt der Scratch Foundation in Zusammenarbeit mit der Lifelong Kindergarten Group am MIT Media Lab.
@@ -78,8 +81,8 @@ Bildunterschriften der Screenshots:
 
 | Feld | Wert |
 |---|---|
-| Offizielle URL | Keine |
-| URL der Startseite | https://github.com/simonprell-dev/scratchExtention |
+| Offizielle URL | Keine (oder die Projektseite, nachdem sie in der Google Search Console bestätigt wurde) |
+| URL der Startseite | https://simonprell-dev.github.io/scratchExtention/ |
 | Support-URL | https://github.com/simonprell-dev/scratchExtention/issues |
 | Nicht jugendfreie Inhalte | aus |
 
@@ -107,4 +110,4 @@ Nutzerdaten. Alle drei Bestätigungen (kein Verkauf, keine zweckfremde Nutzung, 
 Bonitätsprüfung) anhaken.
 
 **Datenschutzerklärung (URL):**
-https://github.com/simonprell-dev/scratchExtention#datenschutz
+https://simonprell-dev.github.io/scratchExtention/#datenschutz

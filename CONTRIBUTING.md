@@ -158,7 +158,7 @@ Beispiele stehen in seiner README. Das Durchspielen im Editor bleibt Handarbeit.
    git push origin main --tags
    ```
 
-4. GitHub Actions baut automatisch die ZIP-Datei `scratch-auf-deutsch-v1.3.0.zip` und
+4. GitHub Actions baut automatisch die ZIP-Datei `einfuehrungskurs-scratch-v1.3.0.zip` und
    veröffentlicht sie unter [Releases](https://github.com/simonprell-dev/scratchExtention/releases)
    mit dem Changelog-Abschnitt als Beschreibung.
 

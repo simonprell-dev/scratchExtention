@@ -17,6 +17,7 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 - Open-Source-Lizenz (MIT), GitHub-Vorlagen, automatische Prüfung und Release-ZIP.
 - **Symbol in der Browserleiste:** Klick öffnet den Scratch-Editor, Rechtsklick schaltet
   die Erweiterung ein/aus und setzt den Lernfortschritt zurück.
+- **Projektseite** auf GitHub Pages (`docs/index.html`) mit Funktionen, Kapiteln, Installation, Tipps für Lehrkräfte und Datenschutz.
 - Texte und Grafiken für den Chrome Web Store unter `docs/store/`, neue Screenshots im README.
 - Claude-Skill **kurs-kapitel** unter `.claude/skills/` zum Schreiben neuer Kapitel, mit
   Installationsanleitung.
@@ -25,6 +26,7 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 - Beim Zieh-Hinweis war der fliegende Block unsichtbar, nur die Hand war zu sehen.
 
 ### Geändert
+- Neuer Name: **Einführungskurs für Scratch – Tutorials auf Deutsch**. Das Release-ZIP heißt jetzt `einfuehrungskurs-scratch-vX.Y.Z.zip`.
 - Der Kurs heißt jetzt **Einführungskurs** (vorher „BayernLab-Kurs“), Button
   „Einführungskurs starten“. Neue Farben angelehnt an den Scratch-Editor (Lila, Orange,
   Blockfarben).

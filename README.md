@@ -1,8 +1,10 @@
 <div align="center">
 
-# Scratch auf Deutsch + Einführungskurs
+# Einführungskurs für Scratch
 
 **Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder – direkt im Scratch-Editor.**
+
+🌐 [Projektseite](https://simonprell-dev.github.io/scratchExtention/)
 
 Kostenlose Browser-Erweiterung für Brave, Chrome und Edge · Open Source · ohne Anmeldung
 
@@ -77,14 +79,14 @@ Die Erweiterung wird als **entpackte Erweiterung** geladen. Das dauert etwa zwei
 ### Schritt für Schritt (Brave)
 
 1. **Herunterladen:** Unter [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest) die Datei
-   `scratch-auf-deutsch-vX.Y.Z.zip` herunterladen.
+   `einfuehrungskurs-scratch-vX.Y.Z.zip` herunterladen.
 2. **Entpacken:** Rechtsklick auf die ZIP-Datei → **Alle extrahieren**. Den Ordner
-   `scratch-auf-deutsch` an einen festen Ort legen, z. B. nach `Dokumente`.
+   `einfuehrungskurs-scratch` an einen festen Ort legen, z. B. nach `Dokumente`.
 3. Neuen Tab öffnen und `brave://extensions` in die Adresszeile eingeben.
 4. Oben rechts den Schalter **Entwicklermodus** einschalten.
-5. Auf **Entpackte Erweiterung laden** klicken und den Ordner `scratch-auf-deutsch`
+5. Auf **Entpackte Erweiterung laden** klicken und den Ordner `einfuehrungskurs-scratch`
    auswählen (darin liegt die Datei `manifest.json`).
-6. In der Liste erscheint **Scratch Tutorials auf Deutsch + Einführungskurs**. Der Schalter
+6. In der Liste erscheint **Einführungskurs für Scratch – Tutorials auf Deutsch**. Der Schalter
    daneben muss eingeschaltet sein.
 7. [scratch.mit.edu/projects/editor](https://scratch.mit.edu/projects/editor/) öffnen
    (oder die Seite neu laden, falls sie schon offen war).
@@ -380,7 +382,7 @@ Gefällt dir das Projekt? Ein ⭐ auf GitHub hilft anderen Lehrkräften, es zu f
 
 ## English summary
 
-**Scratch auf Deutsch** is a free, open-source browser extension (Brave, Chrome, Edge –
+**Einführungskurs für Scratch** is a free, open-source browser extension (Brave, Chrome, Edge –
 Manifest V3) for the [Scratch](https://scratch.mit.edu) online editor:
 
 - **German Scratch tutorials:** Scratch's built-in tutorials show English block images

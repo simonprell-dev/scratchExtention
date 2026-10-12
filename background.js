@@ -55,8 +55,8 @@ async function applyEnabled (enabled) {
     await chrome.action.setBadgeText({text: enabled ? '' : 'AUS'});
     await chrome.action.setBadgeBackgroundColor({color: '#7D8299'});
     await chrome.action.setTitle({title: enabled ?
-        'Scratch auf Deutsch + Einführungskurs\nKlick: Scratch öffnen · Rechtsklick: Einstellungen' :
-        'Scratch auf Deutsch + Einführungskurs (ausgeschaltet)\nRechtsklick zum Einschalten'});
+        'Einführungskurs für Scratch\nKlick: Scratch öffnen · Rechtsklick: Einstellungen' :
+        'Einführungskurs für Scratch (ausgeschaltet)\nRechtsklick zum Einschalten'});
 }
 
 // ---------- Kontextmenü ----------
