@@ -517,6 +517,8 @@
             try {
                 const ghost = S.renderBlocksDe(hint.ghost, zoom());
                 ghost.classList.add('ek-ghost');
+                // Im fixierten Mover gibt es keine Breite, an der sich das SVG ausrichten könnte.
+                ghost.style.width = ghost.style.maxWidth;
                 mover.appendChild(ghost);
             } catch (e) { /* ohne Geister-Block */ }
         }

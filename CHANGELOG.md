@@ -17,8 +17,12 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 - Open-Source-Lizenz (MIT), GitHub-Vorlagen, automatische Prüfung und Release-ZIP.
 - **Symbol in der Browserleiste:** Klick öffnet den Scratch-Editor, Rechtsklick schaltet
   die Erweiterung ein/aus und setzt den Lernfortschritt zurück.
+- Texte und Grafiken für den Chrome Web Store unter `docs/store/`, neue Screenshots im README.
 - Claude-Skill **kurs-kapitel** unter `.claude/skills/` zum Schreiben neuer Kapitel, mit
   Installationsanleitung.
+
+### Behoben
+- Beim Zieh-Hinweis war der fliegende Block unsichtbar, nur die Hand war zu sehen.
 
 ### Geändert
 - Der Kurs heißt jetzt **Einführungskurs** (vorher „BayernLab-Kurs“), Button
