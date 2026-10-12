@@ -3,7 +3,7 @@
 Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 [Semantic Versioning](https://semver.org/lang/de/).
 
-## [1.2.0] – 2026-10-06
+## [1.2.0] – 2026-10-12
 
 ### Neu
 - Schritt **„Projekt sichern“** zwischen den Kapiteln: Speichern und „Datei → Neu“ mit
@@ -18,6 +18,7 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 - **Symbol in der Browserleiste:** Klick öffnet den Scratch-Editor, Rechtsklick schaltet
   die Erweiterung ein/aus und setzt den Lernfortschritt zurück.
 - **Projektseite** auf GitHub Pages (`docs/index.html`) mit Funktionen, Kapiteln, Installation, Tipps für Lehrkräfte und Datenschutz.
+- Releases enthalten zusätzlich eine ZIP-Datei für den Chrome Web Store.
 - Texte und Grafiken für den Chrome Web Store unter `docs/store/`, neue Screenshots im README.
 - Claude-Skill **kurs-kapitel** unter `.claude/skills/` zum Schreiben neuer Kapitel, mit
   Installationsanleitung.

@@ -1,6 +1,8 @@
 name: Release
 
-# Ein Tag wie „v1.2.0“ erzeugt automatisch ein Release mit installierbarer ZIP-Datei.
+# Ein Tag wie „v1.2.0“ erzeugt automatisch ein Release mit zwei ZIP-Dateien:
+#   einfuehrungskurs-scratch-vX.Y.Z.zip        zum Installieren von Hand (mit Ordner und README)
+#   einfuehrungskurs-scratch-vX.Y.Z-store.zip  zum Hochladen im Chrome Web Store (manifest.json im Wurzelverzeichnis)
 on:
   push:
     tags: ['v*']
@@ -22,11 +24,17 @@ jobs:
           mkdir -p dist/einfuehrungskurs-scratch
           cp -r manifest.json background.js reset-pending.js icons content.js content.css course data lib LICENSE README.md dist/einfuehrungskurs-scratch/
           cd dist && zip -r "einfuehrungskurs-scratch-$GITHUB_REF_NAME.zip" einfuehrungskurs-scratch
+      - name: Store-ZIP packen
+        run: |
+          cd dist/einfuehrungskurs-scratch
+          zip -r "../einfuehrungskurs-scratch-$GITHUB_REF_NAME-store.zip" . -x README.md
       - name: Changelog-Abschnitt lesen
         run: |
           v="${GITHUB_REF_NAME#v}"
           awk -v v="$v" '/^## \[/{p = index($0, "[" v "]") > 0; next} p' CHANGELOG.md > notes.md
       - uses: softprops/action-gh-release@v2
         with:
-          files: dist/einfuehrungskurs-scratch-${{ github.ref_name }}.zip
+          files: |
+            dist/einfuehrungskurs-scratch-${{ github.ref_name }}.zip
+            dist/einfuehrungskurs-scratch-${{ github.ref_name }}-store.zip
           body_path: notes.md

@@ -158,9 +158,12 @@ Beispiele stehen in seiner README. Das Durchspielen im Editor bleibt Handarbeit.
    git push origin main --tags
    ```
 
-4. GitHub Actions baut automatisch die ZIP-Datei `einfuehrungskurs-scratch-v1.3.0.zip` und
-   veröffentlicht sie unter [Releases](https://github.com/simonprell-dev/scratchExtention/releases)
-   mit dem Changelog-Abschnitt als Beschreibung.
+4. GitHub Actions baut automatisch zwei ZIP-Dateien und veröffentlicht sie unter
+   [Releases](https://github.com/simonprell-dev/scratchExtention/releases) mit dem
+   Changelog-Abschnitt als Beschreibung:
+   - `einfuehrungskurs-scratch-v1.3.0.zip` zum Installieren von Hand
+   - `einfuehrungskurs-scratch-v1.3.0-store.zip` zum Hochladen im Chrome Web Store
+     (unter **Paket → Neues Paket hochladen**)
 
 ## Lizenz
 
