@@ -12,48 +12,39 @@ Deutsche Scratch-Tutorials und ein geführter Programmierkurs für Kinder – di
 
 **Beschreibung:**
 
+Der Store lehnt Aufzählungen von Spiel- oder Kapitelnamen als „Keyword-Spam“ ab
+(Version 1.2.0, Referenz „Yellow Argon“). Deshalb beschreibt der Text den Kurs in
+ganzen Sätzen und nennt keine einzelnen Kapitel.
+
 ```
 Programmieren lernen mit Scratch – auf Deutsch und Schritt für Schritt.
 
 Die eingebauten Scratch-Tutorials zeigen ihre Blöcke immer auf Englisch, auch wenn der Editor auf Deutsch steht. Für Kinder, die gerade erst sicher lesen, ist das eine echte Hürde. Diese Erweiterung zeigt die Tutorials mit deutschen Blöcken und bringt einen geführten Einführungskurs direkt in den Scratch-Editor.
 
-DEUTSCHE TUTORIALS
-• 96 Tutorial-Bilder von Scratch zeigen deutsche statt englischer Blöcke
-• Mit einem Klick zurück zum Original
+Deutsche Tutorials
+Die Bilder in den eingebauten Scratch-Tutorials zeigen deutsche statt englischer Blöcke. Mit einem Klick lässt sich das Original wieder anzeigen.
 
-GEFÜHRTER EINFÜHRUNGSKURS
-• 8 Kapitel mit 68 Schritten – vom ersten Block bis zu Klonen und eigenen Blöcken
-• Spiele und Animationen: Fang-Spiel, Pong, Hüpf-Spiel, Weltraum-Spiel, Tanz-Party, Trickfilm, Kunst mit dem Malstift
-• Drei Einstiegsstufen: Neuling, Schon mal ausprobiert, Ich kenne mich aus
-• Animierte Zeige-Hinweise: Eine Hand und ein fliegender Block zeigen, wo geklickt und wohin gezogen wird
-• Automatisches Abhaken: Die Erweiterung erkennt selbst, ob die Blöcke richtig sitzen
-• Kreativ-Aufgaben und Challenges in jedem Kapitel
-• Zwischen den Kapiteln hilft der Kurs beim Speichern und Neustarten des Projekts
+Geführter Einführungskurs
+Der Kurs besteht aus acht Kapiteln. In jedem Kapitel entsteht ein eigenes kleines Spiel, eine Animation oder ein Kunstprojekt – vom allerersten Block bis zu Variablen, eigenen Blöcken und Klonen. Zum Start wählt das Kind eine von drei Stufen, je nachdem, wie gut es Scratch schon kennt.
 
-SO GEHT'S
-1. Erweiterung installieren
-2. Auf das Symbol der Erweiterung klicken – der Scratch-Editor öffnet sich
-3. Oben in der Menüleiste auf „Einführungskurs starten“ klicken und eine Stufe wählen
+Eine animierte Hand zeigt, wo geklickt und wohin ein Block gezogen wird. Die Erweiterung erkennt selbst, ob die Blöcke richtig sitzen, und hakt die Aufgabe ab. Jedes Kapitel endet mit einer Aufgabe, in der die Kinder ihr Projekt nach eigenen Ideen weiterbauen.
 
-Rechtsklick auf das Symbol: Erweiterung ein- oder ausschalten, Lernfortschritt zurücksetzen (praktisch an geteilten Schul-PCs), Hilfe öffnen.
+So geht's
+1. Auf das Symbol der Erweiterung klicken – der Scratch-Editor öffnet sich.
+2. Oben in der Menüleiste auf „Einführungskurs starten“ klicken und eine Stufe wählen.
 
-FÜR WEN?
-Kinder von etwa 8 bis 14 Jahren, Lehrkräfte im Informatik- und Medienunterricht, Ganztag und AGs, Workshops in Makerspaces und Bibliotheken – und Eltern, die mit ihren Kindern programmieren.
+Mit einem Rechtsklick auf das Symbol lässt sich die Erweiterung ein- und ausschalten und der Lernfortschritt zurücksetzen, zum Beispiel an geteilten Schul-PCs.
 
-DATENSCHUTZ
-• Kein Konto, keine Anmeldung, kein Server
-• Es werden keine Daten gesammelt oder übertragen
-• Der Kursfortschritt bleibt lokal im Browser
-• Läuft nur auf scratch.mit.edu
+Für wen?
+Für Kinder von etwa 8 bis 14 Jahren, für Lehrkräfte, die Scratch im Unterricht oder in einer AG einsetzen, und für Eltern, die mit ihren Kindern programmieren möchten.
 
-OPEN SOURCE
-Kostenlos und quelloffen (MIT-Lizenz). Anleitung und Tipps für Lehrkräfte:
-https://simonprell-dev.github.io/scratchExtention/
+Datenschutz
+Die Erweiterung braucht kein Konto und keinen Server. Sie sammelt keine Daten und überträgt nichts. Der Kursfortschritt bleibt im Browser. Sie läuft nur auf scratch.mit.edu.
 
-Fehler melden, Ideen einbringen oder neue Kapitel beisteuern:
-https://github.com/simonprell-dev/scratchExtention
+Open Source
+Die Erweiterung ist kostenlos und quelloffen (MIT-Lizenz). Anleitung und Tipps für Lehrkräfte: https://simonprell-dev.github.io/scratchExtention/
 
-Hinweis: Dies ist ein unabhängiges Projekt und kein offizielles Produkt des Scratch-Teams. Scratch ist ein Projekt der Scratch Foundation in Zusammenarbeit mit der Lifelong Kindergarten Group am MIT Media Lab.
+Dies ist ein unabhängiges Projekt und kein offizielles Produkt des Scratch-Teams. Scratch ist ein Projekt der Scratch Foundation in Zusammenarbeit mit der Lifelong Kindergarten Group am MIT Media Lab.
 ```
 
 **Kategorie:** Bildung (falls nicht vorhanden: die nächstliegende Lern-/Bildungskategorie)
