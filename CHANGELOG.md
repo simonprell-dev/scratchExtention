@@ -3,6 +3,13 @@
 Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 [Semantic Versioning](https://semver.org/lang/de/).
 
+## [Unveröffentlicht]
+
+### Neu
+- Die Erweiterung ist im [Chrome Web Store](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef) veröffentlicht. README und
+  Projektseite verlinken jetzt dorthin; die Installation von Hand bleibt als Alternative
+  für Schulrechner ohne Store-Zugang beschrieben.
+
 ## [1.2.0] – 2026-10-12
 
 ### Neu

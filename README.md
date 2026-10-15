@@ -8,14 +8,15 @@
 
 Kostenlose Browser-Erweiterung für Brave, Chrome und Edge · Open Source · ohne Anmeldung
 
-[![Version](https://img.shields.io/github/v/release/simonprell-dev/scratchExtention?label=Version&color=855CD6)](https://github.com/simonprell-dev/scratchExtention/releases/latest)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/cdbeogkjkkjocdlahkdbfiddpbiccnef?label=Chrome%20Web%20Store&color=855CD6)](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef)
+[![Nutzer](https://img.shields.io/chrome-web-store/users/cdbeogkjkkjocdlahkdbfiddpbiccnef?label=Nutzer&color=855CD6)](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef)
 [![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-4C97FF)](LICENSE)
 [![Prüfung](https://github.com/simonprell-dev/scratchExtention/actions/workflows/check.yml/badge.svg)](https://github.com/simonprell-dev/scratchExtention/actions/workflows/check.yml)
 ![Browser](https://img.shields.io/badge/Browser-Brave%20%7C%20Chrome%20%7C%20Edge-FFAB19)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-FFAB19)
 ![Sprache: Deutsch](https://img.shields.io/badge/Sprache-Deutsch-FFAB19)
 
-[**⬇️ Herunterladen**](https://github.com/simonprell-dev/scratchExtention/releases/latest) ·
+[**⬇️ Im Chrome Web Store installieren**](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef) ·
 [Installation](#installation) ·
 [Kursübersicht](#kursübersicht) ·
 [Für Lehrkräfte](#tipps-für-lehrkräfte) ·
@@ -69,50 +70,21 @@ dem BayernLab – und Eltern, die mit ihren Kindern programmieren.
 
 ## Installation
 
-Die Erweiterung wird als **entpackte Erweiterung** geladen. Das dauert etwa zwei Minuten.
+Die Erweiterung gibt es kostenlos im **[Chrome Web Store](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef)**. Sie läuft in
+**Google Chrome**, **Brave** und **Microsoft Edge**.
 
-### Voraussetzungen
-
-- **Brave**, **Google Chrome** oder **Microsoft Edge** in einer aktuellen Version
-  (mindestens Chromium 111, also jede Version ab 2023)
-
-### Schritt für Schritt (Brave)
-
-1. **Herunterladen:** Unter [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest) die Datei
-   `einfuehrungskurs-scratch-vX.Y.Z.zip` herunterladen.
-2. **Entpacken:** Rechtsklick auf die ZIP-Datei → **Alle extrahieren**. Den Ordner
-   `einfuehrungskurs-scratch` an einen festen Ort legen, z. B. nach `Dokumente`.
-3. Neuen Tab öffnen und `brave://extensions` in die Adresszeile eingeben.
-4. Oben rechts den Schalter **Entwicklermodus** einschalten.
-5. Auf **Entpackte Erweiterung laden** klicken und den Ordner `einfuehrungskurs-scratch`
-   auswählen (darin liegt die Datei `manifest.json`).
-6. In der Liste erscheint **Einführungskurs für Scratch – Tutorials auf Deutsch**. Der Schalter
-   daneben muss eingeschaltet sein.
-7. [scratch.mit.edu/projects/editor](https://scratch.mit.edu/projects/editor/) öffnen
-   (oder die Seite neu laden, falls sie schon offen war).
+1. Den [Eintrag im Chrome Web Store](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef) öffnen.
+2. Auf **Hinzufügen** (bzw. **Zu Chrome hinzufügen**) klicken und bestätigen.
+3. Das Symbol der Erweiterung (drei bunte Scratch-Blöcke) an die Browserleiste anheften:
+   Puzzle-Symbol 🧩 oben rechts → Stecknadel 📌 neben der Erweiterung.
+4. Auf das Symbol klicken. Der Scratch-Editor öffnet sich.
 
 Oben in der lila Menüleiste erscheint jetzt der Button **Einführungskurs starten**. ✅
 
-**Tipp:** Das Symbol der Erweiterung (drei bunte Scratch-Blöcke) an die Browserleiste
-anheften: Puzzle-Symbol 🧩 oben rechts → Stecknadel 📌 neben der Erweiterung. Dann öffnet
-ein Klick darauf direkt den Scratch-Editor.
-
-> **Wichtig:** Der Ordner muss dauerhaft an seinem Platz bleiben. Der Browser lädt die
-> Erweiterung bei jedem Start aus diesem Ordner. Wird er gelöscht oder verschoben, ist die
-> Erweiterung weg.
-
-> **Noch kein Release vorhanden?** Oben auf der GitHub-Seite **Code → Download ZIP**
-> wählen, entpacken und den entpackten Ordner wie in Schritt 5 laden.
-
-### Chrome und Edge
-
-Das Vorgehen ist gleich, nur die Adresse ist anders:
-
-| Browser | Adresse | Schalter |
-|---|---|---|
-| Brave | `brave://extensions` | Entwicklermodus |
-| Chrome | `chrome://extensions` | Entwicklermodus |
-| Edge | `edge://extensions` | Entwicklermodus (links in der Seitenleiste) |
+| Browser | Hinweis |
+|---|---|
+| Chrome, Brave | Funktioniert direkt aus dem Chrome Web Store. |
+| Edge | Beim ersten Mal oben auf der Store-Seite **Erweiterungen aus anderen Stores zulassen** anklicken und bestätigen. |
 
 ### Sprache von Scratch auf Deutsch stellen
 
@@ -120,17 +92,33 @@ Der Kurs ist für den deutschen Scratch-Editor geschrieben. Falls Scratch englis
 angezeigt wird: oben links auf das **Zahnrad-Symbol (Settings)** → **Language** →
 **Deutsch**.
 
+### Ohne Store installieren (z. B. für verwaltete Schulrechner)
+
+Wo der Chrome Web Store gesperrt ist, lässt sich die Erweiterung auch von Hand laden.
+Updates kommen dann nicht automatisch.
+
+1. Unter [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest) die
+   Datei `einfuehrungskurs-scratch-vX.Y.Z.zip` herunterladen und entpacken. Den Ordner
+   `einfuehrungskurs-scratch` an einen festen Ort legen, z. B. nach `Dokumente`.
+2. `chrome://extensions`, `brave://extensions` oder `edge://extensions` öffnen und den
+   **Entwicklermodus** einschalten.
+3. Auf **Entpackte Erweiterung laden** klicken und den Ordner `einfuehrungskurs-scratch`
+   auswählen (darin liegt die Datei `manifest.json`).
+
+> **Wichtig:** Der Ordner muss dauerhaft an seinem Platz bleiben. Der Browser lädt die
+> Erweiterung bei jedem Start aus diesem Ordner.
+
 ---
 
 ## Aktualisieren
 
-Wenn es eine neue Version gibt:
-
-1. Die neue ZIP-Datei von [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest) herunterladen und den
-   Inhalt über den bisherigen Ordner kopieren (Ordnername und Ort beibehalten).
-2. `brave://extensions` öffnen und bei der Erweiterung auf den **Pfeil-Kreis (Neu laden)**
-   klicken.
-3. Den Scratch-Editor neu laden.
+- **Aus dem Chrome Web Store:** Updates kommen automatisch. Nach einem Update den
+  Scratch-Editor einmal neu laden.
+- **Von Hand installiert:** Die neue ZIP-Datei von
+  [Releases](https://github.com/simonprell-dev/scratchExtention/releases/latest)
+  herunterladen, den Inhalt über den bisherigen Ordner kopieren, unter
+  `chrome://extensions` auf den **Pfeil-Kreis (Neu laden)** klicken und den
+  Scratch-Editor neu laden.
 
 ---
 
@@ -291,7 +279,7 @@ eigenen machen. Danach gibt es eine 🏆-Seite mit Übergang ins nächste Kapite
 ## Problemlösung
 
 **Der Button „Einführungskurs starten“ fehlt.**
-- Ist die Erweiterung in `brave://extensions` eingeschaltet?
+- Ist die Erweiterung unter `chrome://extensions` (bzw. `brave://`, `edge://`) eingeschaltet?
 - Steht auf dem Symbol der Erweiterung **AUS**? Dann per Rechtsklick → **Erweiterung
   eingeschaltet** wieder einschalten und die Seite neu laden.
 - Die Erweiterung läuft nur auf `https://scratch.mit.edu`, nicht in der Scratch-Desktop-App
@@ -326,11 +314,12 @@ Nur Tutorial-Schritte mit Blöcken werden ersetzt. Prüfen, ob oben rechts im Bi
 **Nach einem Scratch-Update funktioniert etwas nicht mehr.**
 Die Erweiterung nutzt interne Strukturen des Scratch-Editors. Größere Umbauten bei Scratch
 können eine Anpassung nötig machen. Bitte ein [Issue](https://github.com/simonprell-dev/scratchExtention/issues/new/choose) erstellen
-und unter Releases nach einer neuen Version schauen.
+und kurz warten: Updates kommen über den Chrome Web Store automatisch.
 
 **Browser meldet „Erweiterungen im Entwicklermodus deaktivieren“.**
-Chrome und Edge zeigen diesen Hinweis manchmal beim Start. Einfach schließen
-(**Abbrechen** bzw. **Nicht deaktivieren**).
+Das passiert nur bei der Installation von Hand. Einfach schließen (**Abbrechen** bzw.
+**Nicht deaktivieren**) – oder die Erweiterung aus dem
+[Chrome Web Store](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef) installieren.
 
 ---
 
@@ -338,7 +327,7 @@ Chrome und Edge zeigen diesen Hinweis manchmal beim Start. Einfach schließen
 
 - Die Erweiterung läuft **nur** auf `https://scratch.mit.edu`.
 - Sie sendet **keine Daten** irgendwohin und lädt nichts aus dem Internet nach. Alle
-  Dateien, auch die Block-Grafiken, sind im Ordner enthalten.
+  Dateien, auch die Block-Grafiken, sind in der Erweiterung enthalten.
 - Gespeichert werden nur der Kursfortschritt und die Einstellung „Original/Deutsch“ im
   lokalen Speicher des Browsers (`localStorage` von scratch.mit.edu).
 - Die Einstellung „ein/aus“ liegt im Speicher der Erweiterung (`chrome.storage`).
@@ -383,7 +372,8 @@ Gefällt dir das Projekt? Ein ⭐ auf GitHub hilft anderen Lehrkräften, es zu f
 ## English summary
 
 **Einführungskurs für Scratch** is a free, open-source browser extension (Brave, Chrome, Edge –
-Manifest V3) for the [Scratch](https://scratch.mit.edu) online editor:
+Manifest V3) for the [Scratch](https://scratch.mit.edu) online editor.
+Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef).
 
 - **German Scratch tutorials:** Scratch's built-in tutorials show English block images
   even when the editor is set to German. The extension replaces 96 of them with the same

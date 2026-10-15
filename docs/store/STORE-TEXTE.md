@@ -1,5 +1,7 @@
 # Texte für den Chrome Web Store
 
+Veröffentlicht: https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef
+
 Alle Bilder liegen in diesem Ordner (`docs/store/`). Sie werden mit der echten Erweiterung
 im Scratch-Editor aufgenommen.
 
