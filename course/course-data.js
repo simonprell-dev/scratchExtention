@@ -862,7 +862,7 @@
                     kind: 'challenge',
                     title: 'Challenge: Immer schneller',
                     text: '<p>Mach Pong spannender: Lege eine Variable <b>Tempo</b> an und benutze sie im Block <b>gehe (Tempo) er Schritt</b>. Bei jedem Treffer wird der Ball etwas schneller.</p>',
-                    blocks: 'when flag clicked\nset [Tempo v] to (8)\nforever\n  move (Tempo) steps\n  if <touching (Paddle v)?> then\n    change [Tempo v] by (1)\n  end\nend',
+                    blocks: 'when flag clicked\nset [Tempo v] to (8)\nforever\n  move (Tempo :: variables) steps\n  if <touching (Paddle v)?> then\n    change [Tempo v] by (1)\n  end\nend',
                     tasks: [
                         {text: 'Variable im „gehe“-Block', check: c => c.find('motion_movesteps').some(({t, b}) => c.plugged(t, b, 'STEPS') === 'data_variable')},
                         {text: 'Tempo wird erhöht', check: c => c.find('data_changevariableby').length >= 2}

@@ -176,4 +176,10 @@ erase all
 pen down
 ```
 
-Unbekannte Blöcke meldet `npm run check` mit Kapitel- und Schrittnummer.
+**Variablen mit Blocknamen:** Heißt eine Variable wie ein eingebauter Block, zeichnet
+scratchblocks den falschen Block – `(Tempo)` wird zum grünen Musik-Block mit Noten,
+ähnlich bei `(timer)`, `(answer)`, `(volume)`, `(size)`, `(direction)`. Dann
+`(Tempo :: variables)` schreiben.
+
+Unbekannte Blöcke und solche Verwechslungen meldet `npm run check` mit Kapitel- und
+Schrittnummer.

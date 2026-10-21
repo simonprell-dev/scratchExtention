@@ -28,13 +28,32 @@ const check = (where, code) => {
     doc.translate(allLanguages.de);
     return doc.stringify();
 };
+// Variablen, die der Kurs anlegt (alles aus „set/change [Name v]“). Heißt eine davon wie ein
+// eingebauter Block, zeichnet scratchblocks sonst den falschen Block: „(Tempo)“ wird zum
+// grünen Musik-Block. Abhilfe: „(Tempo :: variables)“.
+const courseVars = new Set();
+const scripts = [];
 window.EinfuehrungskursCourse.chapters.forEach((ch, ci) => ch.steps.forEach((s, si) => {
     const where = `${ci + 1}.${si + 1} ${s.title}`;
-    if (s.blocks) {
-        const de = check(where, s.blocks);
-        if (process.argv.includes('-v')) console.log(`--- ${where}\n${de}`);
-    }
-    (s.hints || []).forEach(h => h.ghost && check(`${where} (Hinweis)`, h.ghost));
+    if (s.blocks) scripts.push([where, s.blocks, true]);
+    (s.hints || []).forEach(h => h.ghost && scripts.push([`${where} (Hinweis)`, h.ghost, false]));
 }));
+scripts.forEach(([, code]) => {
+    for (const m of code.matchAll(/(?:set|change) \[([^\]]+?) v\]/g)) courseVars.add(m[1]);
+});
+const checkVars = (where, code) => {
+    walk(parse(code, {languages: ['en']}), []).forEach(b => {
+        const label = b.children.filter(c => c.isLabel).map(c => c.value).join(' ');
+        if (courseVars.has(label) && b.info.category !== 'variables') {
+            problems++;
+            console.log(`${where}: Variable „${label}“ wird als ${b.info.category}-Block gezeichnet – „(${label} :: variables)“ schreiben`);
+        }
+    });
+};
+scripts.forEach(([where, code, isStep]) => {
+    const de = check(where, code);
+    checkVars(where, code);
+    if (isStep && process.argv.includes('-v')) console.log(`--- ${where}\n${de}`);
+});
 console.log(problems ? `${problems} Probleme` : 'Alle Blöcke ok.');
 process.exit(problems ? 1 : 0);

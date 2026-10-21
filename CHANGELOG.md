@@ -21,6 +21,10 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 - Bibliotheks-Hinweise sind nur noch Vorschläge („z. B. …“): Wer selbst etwas sucht oder eine
   andere Kategorie anklickt, wird nicht mehr zum Vorschlag zurückgeschickt.
 
+### Behoben
+- Pong, Challenge „Immer schneller“: Die Variable **Tempo** wurde in der Vorschau als grüner
+  Musik-Block mit Noten gezeichnet. `npm run check` erkennt solche Verwechslungen jetzt.
+
 ## [1.2.0] – 2026-10-12
 
 ### Neu
