@@ -65,21 +65,31 @@
     const currentStep = () => currentChapter().steps[state.step];
     const stepId = (ci, si) => `${chapters[ci].id}.${si}`;
 
+    // Klänge über ihre id vergleichen: Wer „Miau“ löscht und einen eigenen Klang holt,
+    // hat gleich viele Klänge wie vorher, aber einen neuen.
+    const soundKey = s => s.soundId || `${s.assetId}|${s.name}`;
+    const backdropIds = stage => stage ? stage.getCostumes().map(c => c.assetId) : [];
+
     function snapshot () {
         const vm = S.getVM();
-        if (!vm) return {spriteCount: 0, backdropCount: 0, backdrop: 0, pos: {}, sounds: {}};
+        if (!vm) return {spriteCount: 0, spriteIds: [], backdropCount: 0, backdrop: 0, backdropIds: [], backdropId: null, pos: {}, sounds: {}};
         const sprites = vm.runtime.targets.filter(t => t.isOriginal && !t.isStage);
         const stage = vm.runtime.getTargetForStage();
         const pos = {};
         const sounds = {};
         sprites.forEach(t => {
             pos[t.id] = [t.x, t.y];
-            sounds[t.id] = t.getSounds().length;
+        });
+        [...sprites, stage].filter(Boolean).forEach(t => {
+            sounds[t.id] = t.getSounds().map(soundKey);
         });
         return {
             spriteCount: sprites.length,
+            spriteIds: sprites.map(t => t.id),
             backdropCount: stage ? stage.getCostumes().length : 0,
             backdrop: stage ? stage.currentCostume : 0,
+            backdropIds: backdropIds(stage),
+            backdropId: stage ? backdropIds(stage)[stage.currentCostume] : null,
             pos,
             sounds
         };
@@ -177,9 +187,20 @@
                     return p && (p[0] !== t.x || p[1] !== t.y);
                 });
             },
+            // Figuren, die es bei Schrittbeginn noch nicht gab. Zählt auch, wenn die Katze
+            // gelöscht und durch eine eigene Figur ersetzt wurde.
+            newSprites () {
+                return sprites.filter(t => !run.base.spriteIds.includes(t.id)).length;
+            },
+            // Neuer oder anderer Hintergrund – egal ob aus der Bibliothek, gemalt oder hochgeladen.
             backdropChanged () {
-                return !!stage && (stage.getCostumes().length > run.base.backdropCount ||
-                    stage.currentCostume !== run.base.backdrop);
+                if (!stage) return false;
+                const ids = backdropIds(stage);
+                // Ein frisch gemalter, leerer Hintergrund hat dieselbe Bild-id wie der weiße
+                // Standard-Hintergrund – deshalb zählen auch Anzahl und Auswahl.
+                return ids.length > run.base.backdropCount || stage.currentCostume !== run.base.backdrop ||
+                    ids.some(id => !run.base.backdropIds.includes(id)) ||
+                    ids[stage.currentCostume] !== run.base.backdropId;
             },
             // Ist der Tab (code, costumes, sounds) gerade offen?
             tab (name) {
@@ -206,9 +227,21 @@
                 const tag = libraryTag(text);
                 return !!tag && /active/.test(tag.className);
             },
-            // Hat eine Figur in diesem Schritt einen neuen Klang bekommen?
+            // Hat eine Figur oder die Bühne in diesem Schritt einen neuen Klang bekommen
+            // (Bibliothek, Aufnahme oder hochgeladen)? Neue Figuren zählen nicht mit, sie
+            // bringen ihren eigenen Klang schon mit.
             newSound () {
-                return sprites.some(t => t.getSounds().length > (run.base.sounds[t.id] || 0));
+                return [...sprites, stage].filter(Boolean).some(t => {
+                    const before = run.base.sounds[t.id];
+                    const now = t.getSounds();
+                    return before && (now.length > before.length || now.some(s => !before.includes(soundKey(s))));
+                });
+            },
+            // Ist in der Bibliothek irgendeine Kategorie außer „Alles“ ausgewählt?
+            anyTagActive () {
+                const lib = libraryOverlay();
+                return !!lib && [...lib.querySelectorAll('[class*="tag-button_tag-button"]')]
+                    .some(e => /active/.test(e.className) && !/^(Alles?|All)$/.test(e.textContent.trim()));
             },
             extension (id) {
                 return !!vm && vm.extensionManager.isExtensionLoaded(id);
@@ -1181,10 +1214,39 @@
     }
 
     let lastResultsKey = '';
+    // ---------- Kleines Symbol zum Wiederöffnen ----------
+
+    // Nach ✕ sitzt unten links im Programmierbereich ein Knopf, der den Kurs an derselben
+    // Stelle wieder öffnet. Aufgaben, die im Schritt schon erledigt waren, bleiben abgehakt.
+    let launcher;
+    function updateLauncher () {
+        const ws = workspaceRect();
+        const show = state.started && !state.open && ws && !document.querySelector('.ek-modal-backdrop');
+        if (!show) {
+            if (launcher) launcher.style.display = 'none';
+            return;
+        }
+        if (!launcher || !document.body.contains(launcher)) {
+            launcher = button('ek-launcher', '<span class="ek-launcher-icon">🎓</span><span>Kurs öffnen</span>',
+                'Einführungskurs wieder öffnen', () => {
+                    state.open = true;
+                    state.collapsed = false;
+                    saveState();
+                    launcher.style.display = 'none';
+                    renderPanel();
+                });
+            document.body.appendChild(launcher);
+        }
+        launcher.style.display = '';
+        launcher.style.left = `${Math.round(ws.left + 16)}px`;
+        launcher.style.top = `${Math.round(ws.bottom - 76)}px`;
+    }
+
     function tick () {
         ensureMenuButton();
         if (!S.getStore()) return;
         hookVM();
+        updateLauncher();
         if (!state.open) {
             if (overlay) clearOverlay();
             return;

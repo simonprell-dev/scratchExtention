@@ -75,6 +75,9 @@ Profi-Kapitel: `autoHints: false` (Hinweise per 👆-Knopf), größere Schritte.
   `manual: true` nur für Dinge, die die VM nicht sehen kann (gezeigt, ausprobiert, gezählt).
 - Prüfungen großzügig formulieren: Kinder bauen Skripte oft anders. Lieber „Block X liegt
   in Schleife Y“ prüfen als die exakte Reihenfolge.
+- **Eigene Auswahl immer akzeptieren:** Figuren, Klänge und Hintergründe nie über ihren
+  Namen prüfen, sondern mit `newSprites(c)`, `c.newSound()` und `c.backdropChanged()`.
+  Vorschläge in Texten und `itemText` mit „z. B. … – oder …“ formulieren.
 - Jeder Hinweis braucht ein `done(c)`, sonst bleibt er ewig stehen. `done` des letzten
   Hinweises sollte zur letzten Aufgabe passen.
 - Hinweise laufen in Reihenfolge: Es wird immer der **erste** nicht erledigte gezeigt.

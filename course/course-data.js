@@ -40,13 +40,16 @@
         return inScript(c, op, 'event_whenkeypressed', (t, b, h) => c.field(h, 'KEY_OPTION') === key);
     }
 
-    const newSprites = c => c.sprites.length - c.base.spriteCount;
+    // Neue Figuren seit Schrittbeginn – auch wenn die Katze gelöscht und ersetzt wurde.
+    const newSprites = c => c.newSprites();
     const userVar = c => c.vars().find(v => !/^(my variable|meine Variable)$/i.test(v.name));
     const musicInLoop = c => inside(c, 'sound_playuntildone', 'control_forever') || inside(c, 'sound_play', 'control_forever');
     const TAB_NAMES = {sounds: 'Klänge', costumes: 'Kostüme', code: 'Skripte'};
 
     // Zeige-Hinweise durch eine Scratch-Bibliothek: (Tab →) Knopf → Suche oder Kategorie → Eintrag.
     // done(c) beendet die ganze Kette, z. B. sobald die neue Figur oder der Klang da ist.
+    // Suche und Kategorie sind nur Vorschläge: Wer etwas anderes sucht oder eine andere
+    // Kategorie anklickt, bekommt gleich den nächsten Hinweis („Klicke auf deine Auswahl“).
     function libraryHints ({tab, button, buttonText, search, tag, item, itemText, done}) {
         const hints = [];
         if (tab) {
@@ -55,11 +58,11 @@
         }
         hints.push({target: button, text: buttonText, done: c => done(c) || c.libraryOpen()});
         if (search) {
-            hints.push({target: 'libSearch', text: `Tippe „${search}“ in die Suche`,
-                done: c => done(c) || !c.libraryOpen() || c.searchText().toLowerCase().includes(search)});
+            hints.push({target: 'libSearch', text: `Tippe z. B. „${search}“ in die Suche`,
+                done: c => done(c) || !c.libraryOpen() || c.searchText().trim() !== '' || c.anyTagActive()});
         } else if (tag) {
-            hints.push({target: `libTag:${tag}`, text: `Klicke auf „${tag}“`,
-                done: c => done(c) || !c.libraryOpen() || c.tagActive(tag)});
+            hints.push({target: `libTag:${tag}`, text: `Klicke z. B. auf „${tag}“`,
+                done: c => done(c) || !c.libraryOpen() || c.anyTagActive() || c.searchText().trim() !== ''});
         }
         hints.push({target: `libItem:${item || ''}`, text: itemText || 'Klicke auf deine Auswahl',
             done: c => done(c) || !c.libraryOpen()});
@@ -650,7 +653,7 @@
                         {text: 'Spielfigur festgelegt', manual: true}
                     ],
                     hints: [
-                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', search: 'blue sky', item: 'Blue Sky', itemText: 'Klicke auf „Blue Sky“', done: c => c.backdropChanged()})
+                        ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', search: 'blue sky', item: 'Blue Sky', itemText: 'z. B. „Blue Sky“ – oder ein anderer Hintergrund mit Boden', done: c => c.backdropChanged()})
                     ]
                 },
                 {
@@ -685,7 +688,7 @@
                         {text: 'In der Schleife: nach links gleiten', check: c => inside(c, 'motion_glidesecstoxy', 'control_forever')}
                     ],
                     hints: [
-                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocks', item: 'Rocks', itemText: 'Klicke auf „Rocks“', done: c => newSprites(c) > 0}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocks', item: 'Rocks', itemText: 'z. B. „Rocks“ – oder ein anderes Hindernis', done: c => newSprites(c) > 0}),
                         {drag: 'event_whenflagclicked', to: 'ws', ghost: 'when flag clicked', text: 'Start-Block', done: c => c.editingHas('event_whenflagclicked')},
                         {drag: 'control_forever', to: 'under:event_whenflagclicked', ghost: 'forever\nend', text: 'Schleife', done: c => c.editingHas('control_forever')},
                         {drag: 'motion_gotoxy', to: 'inside:control_forever', ghost: 'go to x: (240) y: (-100)', text: 'Rechts starten', done: c => inside(c, 'motion_gotoxy', 'control_forever')},
@@ -774,8 +777,8 @@
                         {text: 'Ball und Schläger hinzufügen', check: c => newSprites(c) >= 2}
                     ],
                     hints: [
-                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'ball', item: 'Ball', itemText: 'Klicke auf „Ball“', done: c => newSprites(c) >= 1}),
-                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'paddle', item: 'Paddle', itemText: 'Klicke auf „Paddle“', done: c => newSprites(c) >= 2})
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'ball', item: 'Ball', itemText: 'z. B. „Ball“ – oder etwas anderes Rundes', done: c => newSprites(c) >= 1}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'paddle', item: 'Paddle', itemText: 'z. B. „Paddle“ als Schläger – oder etwas anderes', done: c => newSprites(c) >= 2})
                     ]
                 },
                 {
@@ -1020,7 +1023,7 @@
                         {text: 'Weltraum-Hintergrund', check: c => c.backdropChanged()}
                     ],
                     hints: [
-                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocket', item: 'Rocketship', itemText: 'Klicke auf „Rocketship“', done: c => newSprites(c) > 0}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocket', item: 'Rocketship', itemText: 'z. B. „Rocketship“ – oder eine andere Rakete', done: c => newSprites(c) > 0}),
                         ...libraryHints({button: 'backdropAdd', buttonText: 'Klicke hier: Hintergrund wählen', tag: 'Weltraum', itemText: 'z. B. „Stars“ oder „Galaxy“', done: c => c.backdropChanged()})
                     ]
                 },
@@ -1050,7 +1053,7 @@
                         {text: 'erzeuge Klon in einer Schleife', check: c => inside(c, 'control_create_clone_of', 'control_forever')}
                     ],
                     hints: [
-                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocks', item: 'Rocks', itemText: 'Klicke auf „Rocks“', done: c => newSprites(c) > 0}),
+                        ...libraryHints({button: 'spriteAdd', buttonText: 'Klicke hier: Figur wählen', search: 'rocks', item: 'Rocks', itemText: 'z. B. „Rocks“ – oder etwas anderes, das vom Himmel fällt', done: c => newSprites(c) > 0}),
                         {drag: 'control_create_clone_of', to: 'inside:control_forever', ghost: 'create clone of (mir selbst v)', text: 'Klonen', done: c => inside(c, 'control_create_clone_of', 'control_forever')}
                     ]
                 },

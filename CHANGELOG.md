@@ -9,6 +9,17 @@ Alle nennenswerten Änderungen an der Erweiterung. Versionsnummern folgen
 - Die Erweiterung ist im [Chrome Web Store](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef) veröffentlicht. README und
   Projektseite verlinken jetzt dorthin; die Installation von Hand bleibt als Alternative
   für Schulrechner ohne Store-Zugang beschrieben.
+- Nach dem Schließen (✕) erscheint unten links im Programmierbereich der Knopf
+  **🎓 Kurs öffnen**. Der Kurs geht an derselben Stelle weiter, bereits erledigte Aufgaben
+  des Schritts bleiben abgehakt.
+
+### Geändert
+- **Eigene Auswahl zählt immer:** Figuren, Klänge und Hintergründe werden auch erkannt, wenn
+  die Katze gelöscht und durch eine eigene Figur ersetzt wurde, wenn „Miau“ durch einen
+  eigenen Klang ersetzt oder der Klang der Bühne gegeben wurde, und wenn ein Hintergrund
+  gemalt statt ausgesucht wurde.
+- Bibliotheks-Hinweise sind nur noch Vorschläge („z. B. …“): Wer selbst etwas sucht oder eine
+  andere Kategorie anklickt, wird nicht mehr zum Vorschlag zurückgeschickt.
 
 ## [1.2.0] – 2026-10-12
 

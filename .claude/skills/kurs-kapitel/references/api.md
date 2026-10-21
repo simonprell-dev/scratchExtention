@@ -102,10 +102,11 @@ automatisch erst auf die Kategorie bzw. „Scrolle nach unten“.
 | `c.flags` | wie oft in diesem Schritt die grüne Flagge geklickt wurde |
 | `c.keys` | `Set` der in diesem Schritt gedrückten Tasten (`'space'`, `'right arrow'` …) |
 | `c.moved()` | hat sich eine Figur seit Schrittbeginn bewegt? |
-| `c.backdropChanged()` | neuer oder anderer Hintergrund? |
-| `c.newSound()` | hat eine Figur einen neuen Klang bekommen? |
+| `c.newSprites()` | Anzahl der Figuren, die es bei Schrittbeginn noch nicht gab (auch wenn die Katze gelöscht und ersetzt wurde) |
+| `c.backdropChanged()` | neuer oder anderer Hintergrund? (Bibliothek, gemalt, hochgeladen) |
+| `c.newSound()` | hat eine Figur oder die Bühne einen neuen Klang bekommen? (auch wenn ein alter ersetzt wurde) |
 | `c.tab(name)` / `c.tabSeen(name)` | Tab offen / in diesem Schritt schon offen gewesen |
-| `c.libraryOpen()` · `c.searchText()` · `c.tagActive(text)` | Zustand einer offenen Bibliothek |
+| `c.libraryOpen()` · `c.searchText()` · `c.tagActive(text)` · `c.anyTagActive()` | Zustand einer offenen Bibliothek |
 | `c.extension(id)` | Erweiterung geladen, z. B. `c.extension('pen')`, `c.extension('music')` |
 | `c.spritesWith(opcode, extra?)` | in wie vielen Figuren der Block vorkommt |
 | `c.editingHas(opcode)` | hat die aktuell bearbeitete Figur den Block? |

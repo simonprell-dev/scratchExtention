@@ -47,6 +47,32 @@
     font-size: 0.8rem;
 }
 
+/* ---------- Symbol zum Wiederöffnen ---------- */
+.ek-launcher {
+    position: fixed;
+    z-index: 500; /* wie das Kursfenster: unter Scratch-Dialogen */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    padding: 0 16px 0 10px;
+    border: 3px solid #fff;
+    border-radius: 999px;
+    background: var(--ek-primary);
+    color: #fff;
+    font: bold 0.85rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+    box-shadow: 0 4px 14px rgba(60, 30, 110, 0.35);
+    cursor: pointer;
+    animation: ek-pop 0.25s ease-out;
+}
+.ek-launcher:hover {
+    background: var(--ek-dark);
+}
+.ek-launcher-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
 /* ---------- Stufenwahl ---------- */
 .ek-modal-backdrop {
     position: fixed;

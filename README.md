@@ -169,7 +169,7 @@ Kapitel erreichbar.
 | Blaue Kopfzeile | Gedrückt halten und ziehen, um das Fenster zu verschieben |
 | ☰ | Kapitelübersicht: zu jedem Schritt springen, Stufe neu wählen |
 | ▾ / ▴ | Fenster **einklappen** auf eine schmale Leiste (bei wenig Platz) bzw. wieder ausklappen |
-| ✕ | Kurs schließen. Der Fortschritt bleibt erhalten, über den Menü-Button geht es weiter |
+| ✕ | Kurs schließen. Der Fortschritt bleibt erhalten. Unten links im Programmierbereich erscheint der Knopf **🎓 Kurs öffnen**, damit geht es an derselben Stelle weiter |
 | Fortschrittsbalken | Ein Strich pro Schritt: grün = geschafft, umrandet = aktueller Schritt |
 | **So soll es aussehen** | Das Ziel-Skript mit deutschen Blöcken |
 | Aufgabenliste | Wird automatisch abgehakt. Aufgaben mit Mauszeiger-Hand hakt man selbst per Klick ab |
