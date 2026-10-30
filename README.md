@@ -15,12 +15,14 @@ Kostenlose Browser-Erweiterung für Brave, Chrome und Edge · Open Source · ohn
 ![Browser](https://img.shields.io/badge/Browser-Brave%20%7C%20Chrome%20%7C%20Edge-FFAB19)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-FFAB19)
 ![Sprache: Deutsch](https://img.shields.io/badge/Sprache-Deutsch-FFAB19)
+[![Spenden](https://img.shields.io/badge/Spenden-PayPal-0070BA?logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=PU594N6FU6V6N)
 
 [**⬇️ Im Chrome Web Store installieren**](https://chromewebstore.google.com/detail/cdbeogkjkkjocdlahkdbfiddpbiccnef) ·
 [Installation](#installation) ·
 [Kursübersicht](#kursübersicht) ·
 [Für Lehrkräfte](#tipps-für-lehrkräfte) ·
-[Mitmachen](CONTRIBUTING.md)
+[Mitmachen](CONTRIBUTING.md) ·
+[❤️ Spenden](https://www.paypal.com/donate/?hosted_button_id=PU594N6FU6V6N)
 
 ![Animierter Hinweis zeigt, wie ein Block in die Schleife gezogen wird](docs/demo.gif)
 
@@ -353,6 +355,11 @@ herzlich willkommen!
 
 Gefällt dir das Projekt? Ein ⭐ auf GitHub hilft anderen Lehrkräften, es zu finden.
 
+Die Erweiterung bleibt kostenlos und ohne Werbung. Wer die Weiterentwicklung unterstützen
+möchte, kann gern etwas spenden:
+
+[![Mit PayPal spenden](https://img.shields.io/badge/Mit%20PayPal%20spenden-0070BA?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=PU594N6FU6V6N)
+
 ---
 
 ## Lizenz und Danksagung
@@ -382,4 +389,4 @@ Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/
   three entry levels, animated drag-and-drop hints, automatic task checking via the Scratch
   VM, and a save-and-start-fresh step between chapters.
 - No account, no server, no tracking. MIT licensed. Contributions welcome – see
-  [CONTRIBUTING.md](CONTRIBUTING.md).
+  [CONTRIBUTING.md](CONTRIBUTING.md). Want to support the project? [Donate via PayPal](https://www.paypal.com/donate/?hosted_button_id=PU594N6FU6V6N).
